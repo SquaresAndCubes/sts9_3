@@ -108,7 +108,7 @@ class ShowSong(models.Model):
     song = models.ForeignKey(Song, null=True, on_delete=models.SET_NULL)
 
     #Unique Values for particular show
-    track = models.IntegerField()
+    track = models.IntegerField(null=False)
     segue = models.CharField(max_length=1, null=True, blank=True)
     notes = models.CharField(max_length=128, null=True, blank=True)
     guest = models.CharField(max_length=64, null=True, blank=True)
