@@ -10,25 +10,18 @@ class Artist(models.Model):
 
 class Venue(models.Model):
 
-    name = models.CharField(max_length=64, null=True)
+    name = models.CharField(max_length=64, null=True, blank=True)
     city = models.CharField(max_length=64, null=False)
-    state = models.CharField(max_length=4, null=True)
+    state = models.CharField(max_length=4, null=True, blank=True)
     country = models.CharField(max_length=4, null=False)
 
     def __str__(self):
         return '{} - {} - {} - {}'.format(self.name, self.city, self.state, self.country)
 
-class Song(models.Model):
-
-    name = models.CharField(max_length=128, null=False)
-    artist = models.ForeignKey(Artist, on_delete=models.PROTECT)
-
-    def __str__(self):
-        return '{} - {}'.format(self.name, self.artist)
-
 class Tour(models.Model):
 
     name = models.CharField(max_length=64)
+
 
 class Show(models.Model):
 
@@ -36,20 +29,29 @@ class Show(models.Model):
     venue = models.ForeignKey(Venue, null=True, on_delete=models.PROTECT)
 
     #Belongs to Tour
-    tour = models.ForeignKey(Tour, null=True, on_delete=models.PROTECT)
+    tour = models.ForeignKey(Tour, null=True, on_delete=models.PROTECT, blank=True)
 
     #Used for Import
-    show_key = models.CharField(max_length=7, null=False)
-
+    show_key = models.CharField(max_length=7, null=False, blank=True)
 
     date = models.DateField()
 
     def __str__(self):
         return '{} - {}'.format(self.date, self.venue)
 
-class Set(models.Model):
 
-    # SET choices to reduce entry errors
+
+class Song(models.Model):
+
+    name = models.CharField(max_length=128, null=False)
+
+    artist = models.ForeignKey(Artist, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return '{} - {}'.format(self.name, self.artist)
+
+
+class ShowSong(models.Model):
 
     SET1 = 'S1'
     SET2 = 'S2'
@@ -70,37 +72,26 @@ class Set(models.Model):
     )
 
     # unique properties
-    name = models.CharField(
+    set = models.CharField(
         max_length=2,
         choices=SET_CHOICES,
         default=SET1,
         null=False,
     )
 
-    #Belongs to Show
-    show = models.ForeignKey(Show, on_delete=models.CASCADE)
-
-    #Set Position in Show
-    set_pos = models.IntegerField()
-
-    def __str__(self):
-        return '{} - {}'.format(self.show, self.name)
-
-class ShowSong(models.Model):
 
     #Belongs to Show through a Set
     show = models.ForeignKey(Show, on_delete=models.CASCADE)
 
-    set = models.ForeignKey(Set, on_delete=models.CASCADE)
 
     #Is a Song
     song = models.ForeignKey(Song, null=True, on_delete=models.SET_NULL)
 
     #Unique Values for particular show
     track = models.IntegerField()
-    segue = models.CharField(max_length=4, null=True)
-    notes = models.CharField(max_length=128, null=True)
-    guest = models.CharField(max_length=64, null=True)
+    segue = models.CharField(max_length=1, null=True, blank=True)
+    notes = models.CharField(max_length=128, null=True, blank=True)
+    guest = models.CharField(max_length=64, null=True, blank=True)
 
     def __str__(self):
         return '{} - {}'.format(self.show, self.song)

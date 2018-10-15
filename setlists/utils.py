@@ -3,9 +3,31 @@ import os
 import datetime
 from django.conf import settings
 from setlists import models
-from setlists.models import Set
 
 
+
+def import_artists():
+    data_filepath = 'songs.csv'
+    results = {"created": 0, "skipped": 0}
+    with open(data_filepath, "r", encoding='utf8') as f:
+        reader = csv.reader(f)
+        # skip header
+        next(reader, None)
+        for row in reader:
+
+            artist = row[7]
+
+            if artist == 'NULL':
+                artist = 'STS9'
+
+            new_artist, created = models.Artist.objects.get_or_create(name=artist)
+
+            if created:
+                results['created'] += 1
+            else:
+                results['skipped'] += 1
+
+        print("Finished - Created {} Artists, Duplicates: {}".format(results["created"], results["skipped"]))
 
 def import_venues():
     data_filepath = "shows.csv"
@@ -33,6 +55,33 @@ def import_venues():
     print("Finished - Created {} Venues, Duplicates: {}".format(results["created"], results["skipped"]))
 
 
+
+
+def import_songs():
+    data_filepath = 'songs.csv'
+    results = {"created": 0, "skipped": 0}
+    with open(data_filepath, "r", encoding='utf8') as f:
+        reader = csv.reader(f)
+        # skip header
+        next(reader, None)
+        for row in reader:
+
+            in_artist = row[7]
+
+            if in_artist == 'NULL':
+                in_artist = 'STS9'
+
+
+            artist = models.Artist.objects.get(name=in_artist)
+
+            new_song, created = models.Song.objects.get_or_create(name=row[2], artist=artist)
+
+            if created:
+                results['created'] += 1
+            else:
+                results['skipped'] += 1
+
+        print("Finished - Created {} Songs, Duplicates: {}".format(results["created"], results["skipped"]))
 
 
 def import_shows():
@@ -112,54 +161,8 @@ def import_sets():
 
         print("Finished - Created {} Sets, Duplicates: {}".format(results["created"], results["skipped"]))
 
-def import_artists():
-    data_filepath = 'songs.csv'
-    results = {"created": 0, "skipped": 0}
-    with open(data_filepath, "r", encoding='utf8') as f:
-        reader = csv.reader(f)
-        # skip header
-        next(reader, None)
-        for row in reader:
-
-            artist = row[7]
-
-            if artist == 'NULL':
-                artist = 'STS9'
-
-            new_artist, created = models.Artist.objects.get_or_create(name=artist)
-
-            if created:
-                results['created'] += 1
-            else:
-                results['skipped'] += 1
-
-        print("Finished - Created {} Artists, Duplicates: {}".format(results["created"], results["skipped"]))
 
 
-def import_songs():
-    data_filepath = 'songs.csv'
-    results = {"created": 0, "skipped": 0}
-    with open(data_filepath, "r", encoding='utf8') as f:
-        reader = csv.reader(f)
-        # skip header
-        next(reader, None)
-        for row in reader:
-
-            in_artist = row[7]
-
-            if in_artist == 'NULL':
-                in_artist = 'STS9'
-
-            artist = models.Artist.objects.get(name=in_artist)
-
-            new_song, created = models.Song.objects.get_or_create(name=row[2], artist=artist)
-
-            if created:
-                results['created'] += 1
-            else:
-                results['skipped'] += 1
-
-        print("Finished - Created {} Songs, Duplicates: {}".format(results["created"], results["skipped"]))
 
 def import_showsong():
     data_filepath = 'songs.csv'
@@ -177,21 +180,20 @@ def import_showsong():
             new_name = None
 
             if in_name == 'Set 1':
-                new_name = Set.SET1
+                new_name = models.ShowSong.SET1
             elif in_name == 'Set 2':
-                new_name = Set.SET2
+                new_name = models.ShowSong.SET2
             elif in_name == 'Set 3':
-                new_name = Set.SET3
+                new_name = models.ShowSong.SET3
             elif in_name == 'Encore':
-                new_name = Set.ENCORE
+                new_name = models.ShowSong.ENCORE
             elif in_name == 'Encore 2':
-                new_name = Set.ENCORE2
+                new_name = models.ShowSong.ENCORE2
             elif in_name == 'Axe the Cables':
-                new_name = Set.AXE
+                new_name = models.ShowSong.AXE
             elif in_name == 'PA Set':
-                new_name = Set.PA
+                new_name = models.ShowSong.PA
 
-            set = models.Set.objects.get(show__show_key=row[1], name=new_name)
 
             for i in range(len(row)):
                 if row[i] == 'NULL':
@@ -199,17 +201,32 @@ def import_showsong():
 
             show = models.Show.objects.get(show_key=row[1])
 
-            new_showsong = models.ShowSong(show=show,song=song, set=set, track=row[4], segue=row[5], notes=row[6], guest=row[8])
+            new_showsong = models.ShowSong(show=show,song=song, set=new_name, track=row[4], segue=row[5], notes=row[6], guest=row[8])
 
             new_showsong.save()
 
             results["created"] += 1
     print("Finished - Created {} Performances".format(results["created"]))
 
+def create_song_show_relation():
+    data_filepath = 'songs.csv'
+    results = {"created": 0, "skipped": 0}
+    with open(data_filepath, "r", encoding='utf8') as f:
+        reader = csv.reader(f)
+        # skip header
+        next(reader, None)
+        for row in reader:
+
+            song = models.Song.objects.get(name=row[2])
+
+            show = models.Show.objects.get(show_key=row[1])
+
+            show.songs.add(song)
+
+
 def import_all():
-    import_venues()
-    import_shows()
-    import_sets()
     import_artists()
+    import_venues()
     import_songs()
+    import_shows()
     import_showsong()
