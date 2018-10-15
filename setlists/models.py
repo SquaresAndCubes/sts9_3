@@ -22,6 +22,20 @@ class Tour(models.Model):
 
     name = models.CharField(max_length=64)
 
+class ShowFilters(models.Manager):
+
+    def by_year(self, year):
+        # return only shows of the specified year
+        return self.filter(date__year=year).order_by('date').reverse()
+
+    def years_list(self):
+        # get list of unique years
+        return self.dates('date', 'year', order='DESC')
+
+    def show(self, show_id):
+        # return one show
+        return self.get(id=show_id)
+
 
 class Show(models.Model):
 
@@ -36,6 +50,12 @@ class Show(models.Model):
 
     date = models.DateField()
 
+    #show filter class sticky custom mm
+    manager = ShowFilters()
+
+    #default model manager
+    objects = models.Manager()
+
     def __str__(self):
         return '{} - {}'.format(self.date, self.venue)
 
@@ -48,7 +68,7 @@ class Song(models.Model):
     artist = models.ForeignKey(Artist, on_delete=models.PROTECT)
 
     def __str__(self):
-        return '{} - {}'.format(self.name, self.artist)
+        return '{} - {}'.format(self.artist, self.name)
 
 
 class ShowSong(models.Model):
