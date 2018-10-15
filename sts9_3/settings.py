@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'sts9_3.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'sts9',
+        'NAME': 'sts9_3',
         'USER': 'admin',
         'PASSWORD': 'sts9db',
         'HOST': '127.0.0.1',
