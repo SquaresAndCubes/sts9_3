@@ -1,4 +1,7 @@
 from django.db import models
+from django.db.models import Count, Min, Max, Window
+from django.db.models.functions.window import Rank
+from django.db.models.functions import TruncDate
 
 
 class Artist(models.Model):
@@ -26,7 +29,7 @@ class ShowFilters(models.Manager):
 
     def by_year(self, year):
         # return only shows of the specified year
-        return self.filter(date__year=year).order_by('date').reverse()
+        return self.filter(date__year=year)
 
     def years_list(self):
         # get list of unique years
@@ -35,6 +38,43 @@ class ShowFilters(models.Manager):
     def show(self, show_id):
         # return one show
         return self.get(id=show_id)
+
+    def song_appearances(self, song_id):
+
+        #create list for filtered queryset
+        show_list = []
+        show_ranks = []
+        prev_rank = 0
+        #sort shows by date, loop through, annotate rank
+        for show in self.annotate(rank=Window(order_by=TruncDate('date'), expression=Rank())):
+
+            #filter queryset from above looking for song_id occurances in all sets of show
+            if show.showsong_set.filter(song_id=song_id).exists():
+
+                #build show dictionary includes calculation for show gap
+                show_with_gap = {
+                    'show_id': show.id,
+                    'date': show.date,
+                    'venue': show.venue.name,
+                    'city': show.venue.city,
+                    'state': show.venue.state,
+                    'country': show.venue.country,
+                    'show_gap': show.rank - prev_rank,
+                }
+
+                show_ranks.append(show.rank)
+
+                #save previous rank for future iteration calculations of show gap
+                prev_rank = show.rank
+
+                #append filtered shows to list
+                show_list.append(show_with_gap)
+
+        #calc avg performance gap round to 2 decimal places
+        avg_gap = float("{0:.2f}".format((max(show_ranks) - min(show_ranks)) / (len(show_ranks) - 0.9999999999)))
+
+        #return the song name and the show_list
+        return Song.objects.get(id=song_id).name, avg_gap, show_list
 
 
 class Show(models.Model):
@@ -59,13 +99,32 @@ class Show(models.Model):
     def __str__(self):
         return '{} - {}'.format(self.date, self.venue)
 
+class SongsLists(models.Manager):
 
+    def all_songs_play_count(self):
+        #returns all songs ordered by play count
+        return self.annotate(play_count=Count('showsong__set__show_id', distinct = True),
+                             #gets the date song was first played
+                             first_played=Min('showsong__set__show__date'),
+                             #gets most recent date played
+                             last_played=Max('showsong__set__show__date'),
+                             ).order_by('play_count').reverse()
+
+    def song(self, song_id):
+        #returns song name and all shows played ordered by date
+        return self.get(id=song_id).name, self.get(id=song_id).showsong_set.distinct('show__date').order_by('show__date').reverse()
 
 class Song(models.Model):
 
     name = models.CharField(max_length=128, null=False)
 
     artist = models.ForeignKey(Artist, on_delete=models.PROTECT)
+
+    #model manager sticky
+    data = SongsLists()
+
+    #default model manager
+    objects = models.Manager()
 
     def __str__(self):
         return '{} - {}'.format(self.artist, self.name)
@@ -118,6 +177,6 @@ class ShowSong(models.Model):
     guest = models.CharField(max_length=64, null=True, blank=True)
 
     def __str__(self):
-        return '{} - {}'.format(self.show, self.song)
+        return '{} - {} - {} - {}'.format(self.show, self.set, self.track, self.song)
 
 
