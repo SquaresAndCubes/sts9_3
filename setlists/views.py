@@ -10,6 +10,14 @@ def home(request):
 
     return render(request, 'home/index.html', context)
 
+def about(request):
+
+    context = {
+
+    }
+
+    return render(request, 'about/index.html', context)
+
 def stats(request):
 
     context = {
