@@ -103,11 +103,11 @@ class SongsLists(models.Manager):
 
     def all_songs_play_count(self):
         #returns all songs ordered by play count
-        return self.annotate(play_count=Count('showsong__set__show_id', distinct = True),
+        return self.annotate(play_count=Count('showsong__show__id', distinct = True),
                              #gets the date song was first played
-                             first_played=Min('showsong__set__show__date'),
+                             first_played=Min('showsong__show__date'),
                              #gets most recent date played
-                             last_played=Max('showsong__set__show__date'),
+                             last_played=Max('showsong__show__date'),
                              ).order_by('play_count').reverse()
 
     def song(self, song_id):
