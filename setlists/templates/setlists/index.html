@@ -1,10 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}{{ year }} Shows{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <div class="header">
+            <h2>{{ year }} Shows | {{ show_count }}</h2>
+        </div>
+        &nbsp;
+        <div class="btn-toolbar" role="toolbar" aria-label="...">
+            {% for yr in years_list %}
+                <div class="btn-group" role="group" aria-label="...">
+                    <a href="/setlists/{{yr.year}}" class="btn btn-default" role="button"><b>{{ yr.year }}</b></a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <hr>
+
+        {% for show in shows %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <b><a href="/setlist/{{ show.id }}" title="{{ show }}">
+                        {{ show.date.year }}.{{ show.date.month }}.{{ show.date.day }} </a>
+                        | {{ show.venue.name }}, {{ show.venue.city }}, {{ show.venue.state }}, {{ show.venue.country }}
+                    </b>
+                </div>
+                <div class="panel-body">
+
+                    {% for song in show.showsong_set.all %}
+                        <a href="/songs/{{ song.song.id }}" title="{{ song.song.name }}">
+                            {{ song.song.name }}</a>
+                        {% if not forloop.last %}
+                            {% if song.segue %}
+                                {{ song.segue }}
+                            {% else %}
+                                |
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="panel-footer" style="font-size:11.5px">
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}

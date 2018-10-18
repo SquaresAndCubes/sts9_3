@@ -176,6 +176,9 @@ class ShowSong(models.Model):
     notes = models.CharField(max_length=128, null=True, blank=True)
     guest = models.CharField(max_length=64, null=True, blank=True)
 
+    class Meta:
+        ordering = ['track']
+
     def __str__(self):
         return '{} - {} - {} - {}'.format(self.show, self.set, self.track, self.song)
 
