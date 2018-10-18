@@ -39,8 +39,16 @@ def shows(request, year=None):
     if year == None:
         year = latest_year
 
+    order = request.GET.get('order', 'asc')
 
-    shows = Show.manager.by_year(year).order_by('date')
+    shows = Show.manager.by_year(year)
+
+    if(order == 'desc'):
+        shows = shows.order_by('-date')
+
+    elif(order == 'asc'):
+        shows = shows.order_by('date')
+
 
     #set footnote variable
 
@@ -52,6 +60,7 @@ def shows(request, year=None):
         'year': year,
         'show_count': show_count,
         'years_list': years_list,
+        'order': order,
     }
     return render(request, 'setlists/index.html', context)
 

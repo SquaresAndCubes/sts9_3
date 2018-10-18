@@ -7,7 +7,17 @@
     <div class="container">
 
         <div class="header">
-            <h2>{{ year }} Shows | {{ show_count }}</h2>
+            <h2>{{ year }} Shows | {{ show_count }} |
+                {% if order == 'desc' %}
+                    <a href="/setlists/{{ year }}/?order=asc">
+                    <button type="button" class="btn btn-secondary btn-sm">Ascending</button>
+                    </a>
+                {% else %}
+                    <a href="/setlists/{{ year }}/?order=desc">
+                    <button type="button" class="btn btn-secondary btn-sm">Descending</button>
+                    </a>
+                {% endif %}
+            </h2>
         </div>
         &nbsp;
         <div class="btn-toolbar" role="toolbar" aria-label="...">
@@ -19,6 +29,7 @@
         </div>
 
         <hr>
+
         {# build panel for each show #}
         {% for show in shows %}
             <div class="panel panel-default">
