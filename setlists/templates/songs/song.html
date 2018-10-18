@@ -22,7 +22,7 @@
                 <th>Country</th>
                 <th>Show Gap</th>
             </tr>
-            {% for show in show_list %}
+            {% for show in show_list|dictsortreversed:"date" %}
                 <tr>
                     <td><a href="/setlist/{{ show.show_id }}">{{ show.date.year }}.{{ show.date.month }}.{{ show.date.day }}</a></td>
                     <td>{{ show.venue }}</td>

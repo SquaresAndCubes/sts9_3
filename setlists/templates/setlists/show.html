@@ -1,10 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}{{ show.date }}{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <div class="header">
+            <h2>{{ show.date.year }}.{{ show.date.month }}.{{ show.date.day }} | {{ show.venue.name }}, {{ show.venue.city }}, {{ show.venue.state }}, {{ show.venue.country }}</h2>
+        </div>
+        <hr />
+        <div>
+
+            {% regroup show.showsong_set.all by get_set_display as song_list %}
+
+            {% for set, songs in song_list %}
+                <p>
+                <b>{{ set }} ::</b>
+                {% for song in songs %}
+                    <a href="/songs/{{ song.song.id }}" title="{{ song.song.name }}">
+                        {{ song.song.name }}</a>
+                    {# gets rid of trailing character on last song #}
+                    {% if not forloop.last %}
+                        {% if song.segue %}
+                            {{ song.segue }}
+                        {% else %}
+                            |
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+
+    </div>
+
+{% endblock %}
