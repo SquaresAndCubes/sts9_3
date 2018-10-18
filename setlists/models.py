@@ -80,6 +80,8 @@ class ShowSong(models.Model):
     ENCORE2 = 'E2'
     AXE = 'AX'
     PA = 'PA'
+    WS1 = 'W1'
+    WS2 = 'W2'
 
     SET_CHOICES = (
         (SET1, 'Set 1'),
@@ -88,7 +90,9 @@ class ShowSong(models.Model):
         (ENCORE, 'Encore'),
         (ENCORE2, 'Encore 2'),
         (AXE, 'Axe The Cables'),
-        (PA, 'PA Set')
+        (PA, 'PA Set'),
+        (WS1, 'Wave Spell 1'),
+        (WS2, 'Wave Spell 2')
     )
 
     # unique properties
