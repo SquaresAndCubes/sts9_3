@@ -6,8 +6,13 @@ from .models import *
 # Create your views here.
 
 
-def home():
-    pass
+def home(request):
+
+    context = {
+
+    }
+
+    return render(request, 'home/index.html', context)
 
 def stats(request):
 
