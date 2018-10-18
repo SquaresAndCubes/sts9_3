@@ -1,10 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}{{ song_name }}{% endblock %}
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="header">
+            <h1>{{ song_name }}</h1>
+            <p>Play Count: {{ show_count }}</p>
+            <p>Average Show Gap: {{ avg_gap }}</p>
+        </div>
+        <hr />
+
+        <table class="table table-hover">
+            <tr>
+                <th>Date</th>
+                <th>Venue</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Country</th>
+                <th>Show Gap</th>
+            </tr>
+            {% for show in show_list %}
+                <tr>
+                    <td><a href="/setlist/{{ show.show_id }}">{{ show.date.year }}.{{ show.date.month }}.{{ show.date.day }}</a></td>
+                    <td>{{ show.venue }}</td>
+                    <td>{{ show.city }}</td>
+                    {% if show.state %}
+                        <td>{{ show.state }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    <td>{{ show.country }}</td>
+                    <td>{{ show.show_gap }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
