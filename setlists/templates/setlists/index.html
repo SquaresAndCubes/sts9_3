@@ -19,29 +19,41 @@
         </div>
 
         <hr>
-
+        {# build panel for each show #}
         {% for show in shows %}
             <div class="panel panel-default">
                 <div class="panel-heading">
+                    {# heading for each show panel #}
                     <b><a href="/setlist/{{ show.id }}" title="{{ show }}">
                         {{ show.date.year }}.{{ show.date.month }}.{{ show.date.day }} </a>
                         | {{ show.venue.name }}, {{ show.venue.city }}, {{ show.venue.state }}, {{ show.venue.country }}
                     </b>
                 </div>
+
+                {# generate song output for each panel #}
                 <div class="panel-body">
 
-                    {% for song in show.showsong_set.all %}
-                        <a href="/songs/{{ song.song.id }}" title="{{ song.song.name }}">
-                            {{ song.song.name }}</a>
-                        {% if not forloop.last %}
-                            {% if song.segue %}
-                                {{ song.segue }}
-                            {% else %}
-                                |
+                    {% regroup show.showsong_set.all by get_set_display as song_list %}
+
+                    {% for set, songs in song_list %}
+                        <p>
+                        <b>{{ set }} ::</b>
+                        {% for song in songs %}
+                            <a href="/songs/{{ song.song.id }}" title="{{ song.song.name }}">
+                                {{ song.song.name }}</a>
+                            {# gets rid of trailing character on last song #}
+                            {% if not forloop.last %}
+                                {% if song.segue %}
+                                    {{ song.segue }}
+                                {% else %}
+                                    |
+                                {% endif %}
                             {% endif %}
-                        {% endif %}
+                        {% endfor %}
                     {% endfor %}
+                    </p>
                 </div>
+                {# panel footer for notes #}
                 <div class="panel-footer" style="font-size:11.5px">
                 </div>
             </div>

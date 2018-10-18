@@ -35,8 +35,8 @@ def shows(request, year=None):
     if year == None:
         year = latest_year
 
-    #
-    shows = Show.manager.by_year(year)
+
+    shows = Show.manager.by_year(year).order_by('date')
 
     #set footnote variable
 
