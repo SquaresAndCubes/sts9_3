@@ -6,12 +6,14 @@
 
     <div class="container">
 
+        {# show title at top of page #}
         <div class="header">
             <h2>{{ show.date.year }}.{{ show.date.month }}.{{ show.date.day }} | {{ show.venue.name }}, {{ show.venue.city }}, {{ show.venue.state }}, {{ show.venue.country }}</h2>
         </div>
         <hr />
         <div>
 
+            {# regroups the individual songs into groups with setlist name headings #}
             {% regroup show.showsong_set.all by get_set_display as song_list %}
 
             {% for set, songs in song_list %}

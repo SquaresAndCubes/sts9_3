@@ -33,6 +33,7 @@
                 {# generate song output for each panel #}
                 <div class="panel-body">
 
+                    {# regroups the individual songs into groups with setlist name headings #}
                     {% regroup show.showsong_set.all by get_set_display as song_list %}
 
                     {% for set, songs in song_list %}

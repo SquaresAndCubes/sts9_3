@@ -1,10 +1,5 @@
-from django.http import HttpResponse
-from django.template import loader
 from django.shortcuts import render
 from .models import *
-from django.template.defaulttags import register
-
-# Create your views here.
 
 
 def home(request):
@@ -79,10 +74,6 @@ def songs(request):
 
 #lists all shows where a song was played
 def song(request, song_id):
-
-    @register.filter
-    def get_item(dictionary, key):
-        return dictionary.get(key)
 
     song_name, avg_gap, show_list = Show.manager.song_appearances(song_id)
 
