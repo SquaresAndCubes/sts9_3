@@ -33,7 +33,7 @@ Strikethroughs are Completed
 ~~Show~~  
 ~~Song~~  
 ~~ShowSong~~  
-Album  
+~~Album~~  
 User Data (This may be broken up)
 
 -~~Data Import~~  
