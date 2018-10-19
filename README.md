@@ -16,24 +16,50 @@ Most of the DATA is from Setlists.fm in which I exported all of the data to XML 
 
 The Stack:
 
-PostgreSQL 10, Django 2.1.2, HTML, Bootstrap/CSS
+PostgreSQL 10.5
+Django 2.1.2
+HTML
+Bootstrap/CSS
 
-***Goals:***
+***Main Functionality***
+Strikethroughs are Completed
 
-***Build Comprehensive Statistical Analysis Reports (Numerical and Visual)***
+-~~Build Web and Data Scraping Tools~~
 
-Examples:
+-Django Data Model
+~~Artist~~
+~~Venue~~
+~~Tour~~
+~~Show~~
+~~Song~~
+~~ShowSong~~
+Album
+User Data (This may be broken up)
+
+-~~Data Import~~
+-~~Show to Show and Average Performance Gaps~~
+-Remaining Model Managers for Models not created yet
+-Base Templates (Still some work to be done but most of it is there)
+-~~Setlist Index~~
+-~~Single Show Display~~
+-~~All Songs List~~
+-~~Per Song Appearance List~~
+-~~Performance Gaps~~
+-User Authentication (Table for saving users seen shows)
+-Social Auth (Google, Facebook, Twitter, etc.)
+
+
+***Long Term Goals:***
+
+Strikethroughs have been completed.
+
 -Song Butsout Potentials
--Average and Current Performance Gaps
 -Album Content Live Appearance Stats / Distribution / Graphs
 -Song History Stats / Graphs
 -Custom Statistical Queries
 -Geographical Statistics
-
-***User Accounts*** :: Ability to keep track of shows attended and the statistics related. 
-
-Examples: 
-Show Count # of times each song has been seen Think All Things Umphrey's but for STS9 Comments/Forum Section Select Trusted users will have access to add/modify databases.
+-News Feed
+-Show Comments by User
 
 ***Setlist Prediction w/ AI/Machine Learning*** (TensorFlow): 
 
