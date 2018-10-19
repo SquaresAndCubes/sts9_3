@@ -177,6 +177,7 @@ class ShowSong(models.Model):
     guest = models.CharField(max_length=64, null=True, blank=True)
 
     class Meta:
+        #keep track order always
         ordering = ['track']
 
     def __str__(self):
