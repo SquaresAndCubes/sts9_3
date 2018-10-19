@@ -99,6 +99,17 @@ class Show(models.Model):
     def __str__(self):
         return '{} - {}'.format(self.date, self.venue)
 
+class Album(models.Model):
+
+    title = models.CharField(max_length=128, null=False)
+
+    artist = models.ForeignKey(Artist, null=True, on_delete=models.SET_NULL)
+
+    rel_date = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        return '{} - {}'.format(self.artist, self.title)
+
 class SongsLists(models.Manager):
 
     def all_songs_play_count(self):
@@ -119,6 +130,8 @@ class Song(models.Model):
     name = models.CharField(max_length=128, null=False)
 
     artist = models.ForeignKey(Artist, on_delete=models.PROTECT)
+
+    album = models.ForeignKey(Album, null=True, blank=True, on_delete=models.SET_NULL)
 
     #model manager sticky
     data = SongsLists()

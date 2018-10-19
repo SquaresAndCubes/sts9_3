@@ -15,6 +15,7 @@
             <tr>
                 <th>Song</th>
                 <th>Artist</th>
+                <th>Album</th>
                 <th>Last Played</th>
                 <th>First Played</th>
                 <th>Times Played</th>
@@ -25,6 +26,7 @@
             <tr>
                 <td><a href="/songs/{{ song.id }}" title="{{ song.name }}">{{ song.name }}</a></td>
                 <td>{{ song.artist }}</td>
+                <td>{{ song.album.title }}</td>
                 <td>{{ song.last_played.year }}.{{ song.last_played.month }}.{{ song.last_played.day }}</td>
                 <td>{{ song.first_played.year }}.{{ song.first_played.month }}.{{ song.first_played.day }}</td>
                 <td>{{ song.play_count }}</td>
