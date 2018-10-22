@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'setlists.apps.SetlistsConfig',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'sts9_3.urls'
@@ -64,12 +66,45 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
+
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'sts9_3.wsgi.application'
+
+
+#************SOCIAL AUTH SETTINGS**************
+
+#turn on special Postgres json field option
+SOCIAL_AUTH_POSTGRES_JSONFIELD = True
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOpenId',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.google.GoogleOAuth',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'home'
+
+#google social auth keys
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '257995102785-enp3j1gbn1ot4qm1lma558iu5ced6i7r.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'z_Bx5lguAThJ7_RpGjHKHj1c'
+
+#facebook social auth keys
+
+SOCIAL_AUTH_FACEBOOK_KEY = '688722228179914'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'd38ec5eda6b23ac4600ed891a1507c21'
+
+#**********************************************************
 
 
 # Database

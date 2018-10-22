@@ -1,6 +1,14 @@
 from django.shortcuts import render
 from .models import *
+from django.contrib.auth.decorators import login_required
 
+def login(request):
+
+    context = {
+
+    }
+
+    return render(request, 'login/index.html', context)
 
 def home(request):
 
