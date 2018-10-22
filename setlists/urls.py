@@ -21,6 +21,4 @@ urlpatterns = [
     #about section landing page
     path('about/', views.about, name='about'),
 
-    path('login/', views.login, name='login')
-
 ]

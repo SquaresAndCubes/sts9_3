@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('setlists.urls')),
     path('oauth/', include('social_django.urls', namespace='social')),
+    path('sitelogin/', include('django.contrib.auth.urls'))
 ]
