@@ -58,7 +58,8 @@
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> {{ user.username }} <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"><span class="glyphicon glyphicon-user"></span> {{ user.username }} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Profile</a></li>
                             <li><a href="#">My Shows</a></li>
@@ -69,9 +70,16 @@
 
 
                 {% else %}
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
 
-                    <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"><span class="glyphicon glyphicon-log-in"></span> Login <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url "social:begin" "google-oauth2" %}">Google</a></li>
+                            <li><a href="{% url "social:begin" "facebook" %}">Facebook</a></li>
+                        </ul>
+                    </li>
+
                 {% endif %}
             </ul>
         </div>
