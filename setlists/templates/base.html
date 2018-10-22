@@ -11,6 +11,13 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+        <!-- Add icon library -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        {% load static %}
+
+        <link rel="stylesheet" type="text/css" href="{% static 'setlists/font_awesome.css' %}">
+
         <!--padding after navbar -->
 
         <style>
@@ -75,8 +82,14 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false"><span class="glyphicon glyphicon-log-in"></span> Login <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{% url "social:begin" "google-oauth2" %}">Google</a></li>
-                            <li><a href="{% url "social:begin" "facebook" %}">Facebook</a></li>
+                            <li><a href="/sitelogin/login">Local Login / Create Account</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li>
+                            <ul class="list-inline">
+                            <li><a href="{% url "social:begin" "google-oauth2" %}"><i class="fa fa-google"></i></a></li>
+                            <li><a href="{% url "social:begin" "facebook" %}"><i class="fa fa-facebook"></i></a></li>
+                            </ul>
+                            </li>
                         </ul>
                     </li>
 
