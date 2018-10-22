@@ -91,6 +91,9 @@ LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'home'
 
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '257995102785-enp3j1gbn1ot4qm1lma558iu5ced6i7r.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'z_Bx5lguAThJ7_RpGjHKHj1c'
+
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
