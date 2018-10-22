@@ -8,5 +8,6 @@ admin.site.register(Artist)
 admin.site.register(Tour)
 admin.site.register(Venue)
 admin.site.register(Album)
+admin.site.register(ShowList)
 
 # Register your models here.

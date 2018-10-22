@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models import Count, Min, Max, Window
 from django.db.models.functions.window import Rank
 from django.db.models.functions import TruncDate
+from django.contrib.auth.models import User
 
 
 class Artist(models.Model):
@@ -196,4 +197,13 @@ class ShowSong(models.Model):
     def __str__(self):
         return '{} - {} - {} - {}'.format(self.show, self.set, self.track, self.song)
 
+#list of shows that each user has been to/saved
+class ShowList(models.Model):
+
+    user = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)
+
+    shows = models.ManyToManyField(Show, blank=True)
+
+    def __str__(self):
+        return '{} - {}'.format(self.user, self.shows)
 
