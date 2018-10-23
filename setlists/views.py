@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from .models import *
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.db.transaction import atomic
 
 
 def home(request):
@@ -76,6 +78,21 @@ def show(request, show_id):
         'show': show,
     }
     return render(request, 'setlists/show.html', context)
+
+@login_required(login_url='login')
+@atomic
+def my_shows(request):
+
+    if request.method == 'POST':
+        user_profile_form = UserProfileForm(request.POST, instance=request.user)
+        if user_profile_form.is_valid():
+            user_profile_form.save()
+            return redirect('home')
+    else:
+        user_profile_form = UserProfileForm(instance=request.user)
+
+    return render(request, 'user/myshows.html', {'user_profile_form': user_profile_form})
+
 
 #view to list all songs and how many times played
 def songs(request):

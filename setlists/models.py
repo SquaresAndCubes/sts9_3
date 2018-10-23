@@ -3,6 +3,9 @@ from django.db.models import Count, Min, Max, Window
 from django.db.models.functions.window import Rank
 from django.db.models.functions import TruncDate
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django import forms
 
 
 class Artist(models.Model):
@@ -197,13 +200,43 @@ class ShowSong(models.Model):
     def __str__(self):
         return '{} - {} - {} - {}'.format(self.show, self.set, self.track, self.song)
 
-#list of shows that each user has been to/saved
-class ShowList(models.Model):
+#User profile with shows attached - receivers for saving to and from directly to the user model
+#*************************************************************************************
+class UserProfile(models.Model):
 
-    user = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
+    #list of shows the user has attended
     shows = models.ManyToManyField(Show, blank=True)
 
     def __str__(self):
         return '{} - {}'.format(self.user, self.shows)
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.userprofile.save()
+
+#forms for above processing input
+
+class UserForm(forms.ModelForm):
+
+    class Meta:
+
+        model = User
+        fields = ('username', 'email', 'first_name', 'last_name')
+
+class UserProfileForm(forms.ModelForm):
+
+    class Meta:
+
+        model = UserProfile
+        fields = ('shows',)
+
+#*******************************************************************************************
 

@@ -21,4 +21,5 @@ urlpatterns = [
     #about section landing page
     path('about/', views.about, name='about'),
 
+    path('myshows/', views.my_shows, name='my shows')
 ]
