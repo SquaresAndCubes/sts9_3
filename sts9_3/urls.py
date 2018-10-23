@@ -16,11 +16,14 @@ Including another URLconf
 from django.urls import path
 from django.conf.urls import include
 from django.contrib import admin
+from setlists import views
+
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('setlists.urls')),
     path('oauth/', include('social_django.urls', namespace='social')),
-    path('sitelogin/', include('django.contrib.auth.urls'))
+    path('sitelogin/', include('django.contrib.auth.urls')),
+    path('signup/', views.signup, name='signup')
 ]
