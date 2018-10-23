@@ -15,11 +15,11 @@
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Login</button>
+            <div class="btn-group" role="group" aria-label="...">
+                <button type="submit" class="btn btn-default" role="button"><b>Login</b></button>
+                <a href="/signup" class="btn btn-default" role="button"><b>Signup</b></a>
+            </div>
         </form>
-
-
-
 
     </div>
 {% endblock %}
