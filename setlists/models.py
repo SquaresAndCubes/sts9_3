@@ -223,7 +223,6 @@ def save_user_profile(sender, instance, **kwargs):
     instance.userprofile.save()
 
 #forms for above processing input
-
 class UserForm(forms.ModelForm):
 
     class Meta:
@@ -231,7 +230,10 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ('username', 'email', 'first_name', 'last_name')
 
+#allows the user profile
 class UserProfileForm(forms.ModelForm):
+
+    #creates a list of show objects with a checkbox select
 
     class Meta:
 
