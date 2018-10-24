@@ -100,6 +100,10 @@ class Show(models.Model):
     #default model manager
     objects = models.Manager()
 
+    class Meta:
+
+        ordering = ['-date']
+
     def __str__(self):
         return '{} - {}'.format(self.date, self.venue)
 
