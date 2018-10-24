@@ -84,12 +84,12 @@ def show(request, show_id):
 def my_shows(request):
 
     if request.method == 'POST':
-        user_profile_form = UserProfileForm(request.POST, instance=request.user)
+        user_profile_form = UserProfileForm(request.POST, instance=request.user.userprofile)
         if user_profile_form.is_valid():
             user_profile_form.save()
             return redirect('home')
     else:
-        user_profile_form = UserProfileForm(instance=request.user)
+        user_profile_form = UserProfileForm(instance=request.user.userprofile)
 
     return render(request, 'user/myshows.html', {'user_profile_form': user_profile_form})
 

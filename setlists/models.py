@@ -237,8 +237,9 @@ class UserForm(forms.ModelForm):
 #allows the user profile
 class UserProfileForm(forms.ModelForm):
 
-    #creates a list of show objects with a checkbox select
+    shows = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple, queryset=Show.objects.all())
 
+    #creates a list of show objects with a checkbox select
     class Meta:
 
         model = UserProfile
