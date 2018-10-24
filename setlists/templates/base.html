@@ -70,6 +70,9 @@
                         <ul class="dropdown-menu">
                             <li><a href="#">Profile</a></li>
                             <li><a href="/myshows">My Shows</a></li>
+                            {% if user.is_staff %}
+                                <li><a href="/admin">Admin</a></li>
+                            {% endif %}
                             <li role="separator" class="divider"></li>
                             <li><a href="{% url 'logout' %}">Logout</a></li>
                         </ul>
@@ -85,10 +88,10 @@
                             <li><a href="/sitelogin/login">Local Login / Create Account</a></li>
                             <li role="separator" class="divider"></li>
                             <li>
-                            <ul class="list-inline">
-                            <li><a href="{% url "social:begin" "google-oauth2" %}"><i class="fa fa-google"></i></a></li>
-                            <li><a href="{% url "social:begin" "facebook" %}"><i class="fa fa-facebook"></i></a></li>
-                            </ul>
+                                <ul class="list-inline">
+                                    <li><a href="{% url "social:begin" "google-oauth2" %}"><i class="fa fa-google"></i></a></li>
+                                    <li><a href="{% url "social:begin" "facebook" %}"><i class="fa fa-facebook"></i></a></li>
+                                </ul>
                             </li>
                         </ul>
                     </li>
