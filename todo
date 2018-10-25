@@ -1,0 +1,20 @@
+Forms -
+-Edit User Profile
+-Change Password
+
+Show Editing-
+-Edit Shows
+-Add Shows
+
+Stats -
+-Stats for all shows
+-Stats for specific querysets
+-User Show Stats
+
+
+News Feed -
+-Model
+-View
+-Templates
+
+
