@@ -7,17 +7,23 @@
 
     <div class="container">
         <div class="header">
-            <h1>{{ user.username }}'s Shows</h1>
+            <h3>{{ user.username }}'s Shows</h3>
         </div>
         <hr />
 
         <form method="post">
             {% csrf_token %}
-            <button type="submit">Save changes</button>
+            <button type="submit" class="btn btn-default" role="button"><b>Save Changes</b></button>
             <p>
-                {{ user_profile_form.as_p }}
+                {% for show in user_profile_form.shows %}
+                    <br>
+                    {{ show }}
+                {% endfor %}
             </p>
-            <button type="submit">Save changes</button>
+            <button type="submit" class="btn btn-default" role="button"><b>Save Changes</b></button>
+        <p>
+
+        </p>
         </form>
     </div>
 {% endblock %}
