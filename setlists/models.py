@@ -100,9 +100,6 @@ class Show(models.Model):
     #default model manager
     objects = models.Manager()
 
-    class Meta:
-
-        ordering = ['-date']
 
     def __str__(self):
         return '{} - {}'.format(self.date, self.venue)
@@ -237,7 +234,7 @@ class UserForm(forms.ModelForm):
 #allows the user profile
 class UserProfileForm(forms.ModelForm):
 
-    shows = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple, queryset=Show.objects.all())
+    shows = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple, queryset=Show.objects.all().order_by('-date'))
 
     #creates a list of show objects with a checkbox select
     class Meta:
