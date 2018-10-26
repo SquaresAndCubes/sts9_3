@@ -21,6 +21,8 @@ News Feed -
 
 ***Notes for how to structure URL Routing***
 
+https://stackoverflow.com/questions/150505/capturing-url-parameters-in-request-get
+
 Update: When deciding whether to use the URL path or the query parameters for passing information, the following may help:
 
 use the URL path for uniquely identifying resources, e.g. /blog/post/15/ (not /blog/posts/?id=15)
