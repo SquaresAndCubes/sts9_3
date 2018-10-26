@@ -1,3 +1,8 @@
+Stats -
+-Stats for all shows
+-Stats for specific querysets
+-User Show Stats
+
 Forms -
 -Edit User Profile
 -Change Password
@@ -6,15 +11,19 @@ Show Editing-
 -Edit Shows
 -Add Shows
 
-Stats -
--Stats for all shows
--Stats for specific querysets
--User Show Stats
-
 
 News Feed -
 -Model
 -View
 -Templates
 
+
+
+***Notes for how to structure URL Routing***
+
+Update: When deciding whether to use the URL path or the query parameters for passing information, the following may help:
+
+use the URL path for uniquely identifying resources, e.g. /blog/post/15/ (not /blog/posts/?id=15)
+use query parameters for changing the way the resource is displayed, e.g. /blog/post/15/?show_comments=1 or /blog/posts/2008/?sort_by=date&direction=desc
+to make human friendly URLs, avoid using ID numbers and use e.g. dates, categories and/or slugs: /blog/post/2008/09/30/django-urls/
 
