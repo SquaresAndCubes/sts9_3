@@ -4,7 +4,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.db.transaction import atomic
-
+from django.http import QueryDict
 
 def home(request):
 
@@ -24,7 +24,43 @@ def about(request):
 
 def stats(request):
 
+    #get parameters from url for query
+
+    year = request.GET.get('year')
+    month = request.GET.get('month')
+    day = request.GET.get('day')
+    weekday = request.GET.get('weekday')
+    venue = request.GET.get('venue')
+    song = request.GET.get('song')
+    city = request.GET.get('city')
+    state = request.GET.get('state')
+    country = request.GET.get('country')
+
+
+
+    #build dict to pass into Show.objects.filter()
+    stat_filters = {
+
+        'date__year': year,
+        'date__month': month,
+        'date__day': day,
+        'date__week_day': weekday,
+        'venue_id': venue,
+        'venue__city': city,
+        'venue__state': state,
+        'venue__country': country,
+
+    }
+
+    #remove none types
+    stat_filters = {k: v for k, v in stat_filters.items() if v}
+
+    #build queryset based on parameters
+    show_list = Show.objects.filter(**stat_filters).order_by('-date')
+
     context = {
+
+        'show_list': show_list,
 
     }
 
