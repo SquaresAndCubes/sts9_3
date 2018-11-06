@@ -67,18 +67,20 @@ def stats(request):
     return render(request, 'stats/index.html', context)
 
 
-
+#display shows by year
 class ShowsByYearView(YearArchiveView):
 
     template_name = 'setlists/index.html'
 
     queryset = Show.objects.all()
+    #date field from Show model
     date_field = 'date'
     make_object_list = True
     allow_future = True
 
     def get_context_data(self, **kwargs):
         context = super(ShowsByYearView, self).get_context_data(**kwargs)
+        #passes distinct years to template via context
         context['years_available'] = self.queryset.dates(self.date_field, 'year')
         return context
 
