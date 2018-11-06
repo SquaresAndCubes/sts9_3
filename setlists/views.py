@@ -1,10 +1,10 @@
+from django.views.generic.dates import YearArchiveView
 from django.shortcuts import render, redirect
 from .models import *
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.db.transaction import atomic
-from django.http import QueryDict
 
 def home(request):
 
@@ -66,43 +66,21 @@ def stats(request):
 
     return render(request, 'stats/index.html', context)
 
-#all shows by year
-def shows(request, year=None):
-
-    #gets a list of all years that shows were played for years nav bar
-    years_list = Show.manager.years_list()
-
-    #grabs most recent year object and pulls year
-    latest_year = years_list[0].year
-
-    #if no year is given in url sets year to most recent
-    if year == None:
-        year = latest_year
-
-    order = request.GET.get('order', 'asc')
-
-    shows = Show.manager.by_year(year)
-
-    if(order == 'desc'):
-        shows = shows.order_by('-date')
-
-    elif(order == 'asc'):
-        shows = shows.order_by('date')
 
 
-    #set footnote variable
+class ShowsByYearView(YearArchiveView):
 
-    #counts num of shows in the year
-    show_count = shows.count()
+    template_name = 'setlists/index.html'
 
-    context = {
-        'shows': shows,
-        'year': year,
-        'show_count': show_count,
-        'years_list': years_list,
-        'order': order,
-    }
-    return render(request, 'setlists/index.html', context)
+    queryset = Show.objects.all()
+    date_field = 'date'
+    make_object_list = True
+    allow_future = True
+
+    def get_context_data(self, **kwargs):
+        context = super(ShowsByYearView, self).get_context_data(**kwargs)
+        context['years_available'] = self.queryset.dates(self.date_field, 'year')
+        return context
 
 #page for one show view
 def show(request, show_id):
