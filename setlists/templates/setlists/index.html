@@ -4,19 +4,47 @@
 
 {% block content %}
 
-<ul>
-    {% for year in years_available %}
-        <li><a href="{{ year.year }}">{{ year.year }}</a></li>
-    {% endfor %}
-</ul>
+    <div class="container">
 
-<div>
-    <h1>All Shows for {{ year|date:"Y" }}</h1>
-    {% for show in object_list %}
-        <p>
-            {{ show.date }}
-        </p>
-    {% endfor %}
-</div>
+        <div class="header">
+            <h2>{{ year.year }} Shows | {{ shows.count }}</h2>
+        </div>
+        &nbsp;
+        <div class="btn-toolbar" role="toolbar" aria-label="...">
+            {% for yr in years_available reversed %}
+                <div class="btn-group" role="group" aria-label="...">
+                    <a href="/setlists/{{yr.year}}" class="btn btn-default" role="button"><b>{{ yr.year }}</b></a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <hr>
+
+        {# build panel for each show #}
+        {% for show in shows %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {# heading for each show panel #}
+                    <b><a href="/setlist/{{ show.id }}" title="{{ show }}">
+                        {{ show.date.year }}.{{ show.date.month }}.{{ show.date.day }} </a>
+                        | {{ show.venue.name }}, {{ show.venue.city }}, {{ show.venue.state }}, {{ show.venue.country }}
+                    </b>
+                </div>
+
+                {# generate song output for each panel #}
+                <div class="panel-body">
+
+                    {# imports show display template #}
+                    {% include 'sub/_show.html' %}
+
+                    </p>
+                </div>
+                {# panel footer for notes #}
+                <div class="panel-footer" style="font-size:11.5px">
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
 
 {% endblock %}

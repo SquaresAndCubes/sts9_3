@@ -82,6 +82,8 @@ class ShowsByYearView(YearArchiveView):
         context['years_available'] = self.queryset.dates(self.date_field, 'year')
         return context
 
+    context_object_name = 'shows'
+
 #page for one show view
 def show(request, show_id):
 
