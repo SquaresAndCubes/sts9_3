@@ -68,7 +68,7 @@ def stats(request):
 
     else:
         #if there is no song input from url just build queryset on everything else
-        show_list = Show.objects.filter(**stat_filters).order_by('date')
+        show_list = Show.objects.filter(**stat_filters).order_by('-date')
 
     context = {
 
