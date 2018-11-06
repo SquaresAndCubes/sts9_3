@@ -44,19 +44,30 @@ def stats(request):
         'date__year': year,
         'date__month': month,
         'date__day': day,
-        'date__week_day': weekday,
+        'date__week_day__iexact': weekday,
         'venue_id': venue,
-        'venue__city': city,
-        'venue__state': state,
-        'venue__country': country,
+        'venue__city__iexact': city,
+        'venue__state__iexact': state,
+        'venue__country__iexact': country,
 
     }
 
     #remove none types
     stat_filters = {k: v for k, v in stat_filters.items() if v}
 
-    #build queryset based on parameters
-    show_list = Show.objects.filter(**stat_filters).order_by('-date')
+
+    #only search for songs if there is a song input from url
+    if song:
+
+        #outeref for subquery to pass to next script to see if song exists in show
+        showsongs = ShowSong.objects.filter(show=OuterRef('pk'),song__name__iexact=song)
+
+        #build queryset based on parameters
+        show_list = Show.objects.annotate(song_exists=Exists(showsongs)).filter(**stat_filters, song_exists=True).order_by('-date')
+
+    else:
+        #if there is no song input from url just build queryset on everything else
+        show_list = Show.objects.filter(**stat_filters).order_by('date')
 
     context = {
 
