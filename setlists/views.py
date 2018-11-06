@@ -4,7 +4,8 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.db.transaction import atomic
-from django.http import QueryDict
+from django.db.models import OuterRef, Exists
+
 
 def home(request):
 
