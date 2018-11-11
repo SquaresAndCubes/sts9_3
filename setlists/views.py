@@ -26,31 +26,19 @@ def about(request):
 
 def stats(request):
 
-    #get parameters from url for query
-
-    year = request.GET.get('year')
-    month = request.GET.get('month')
-    day = request.GET.get('day')
-    weekday = request.GET.get('weekday')
-    venue = request.GET.get('venue')
     song = request.GET.get('song')
-    city = request.GET.get('city')
-    state = request.GET.get('state')
-    country = request.GET.get('country')
-
-
 
     #build dict to pass into Show.objects.filter()
     stat_filters = {
 
-        'date__year': year,
-        'date__month': month,
-        'date__day': day,
-        'date__week_day__iexact': weekday,
-        'venue_id': venue,
-        'venue__city__iexact': city,
-        'venue__state__iexact': state,
-        'venue__country__iexact': country,
+        'date__year': request.GET.get('year'),
+        'date__month': request.GET.get('month'),
+        'date__day': request.GET.get('day'),
+        'date__week_day__iexact': request.GET.get('weekday'),
+        'venue_id': request.GET.get('venue'),
+        'venue__city__iexact': request.GET.get('city'),
+        'venue__state__iexact': request.GET.get('state'),
+        'venue__country__iexact': request.GET.get('country'),
 
     }
 
