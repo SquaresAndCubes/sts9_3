@@ -91,6 +91,19 @@ class ShowsByYearView(YearArchiveView):
     make_object_list = True
     allow_future = True
 
+    def get_year(self):
+
+        year = self.year
+        if year is None:
+            try:
+                year = self.kwargs['year']
+            except KeyError:
+                try:
+                    year = self.request.GET['year']
+                except KeyError:
+                    year = self.queryset.dates(self.date_field, 'year',order='DESC')[0].year
+        return year
+
     def get_context_data(self, **kwargs):
         context = super(ShowsByYearView, self).get_context_data(**kwargs)
         #passes distinct years to template via context

@@ -1,12 +1,14 @@
 from django.urls import path
 from . import views
-
 urlpatterns = [
 
 
     #Home Landing Page
     path('', views.home, name='home'),
+
     #Setlists landing page most recent year
+    path('setlists/', views.ShowsByYearView.as_view(), name='setlists landing'),
+    #setlists by year from URL
     path('setlists/<int:year>/', views.ShowsByYearView.as_view(), name='setlists by year'),
     #single setlist
     path('setlist/<int:show_id>', views.show, name='setlist'),
@@ -21,3 +23,5 @@ urlpatterns = [
 
     path('myshows/', views.my_shows, name='my shows')
 ]
+
+
