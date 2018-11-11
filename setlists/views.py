@@ -79,7 +79,7 @@ def stats(request):
 
     return render(request, 'stats/index.html', context)
 
-#display shows by year
+#display shows by year inheriting from Djangos generic class based view YearArchiveView
 class ShowsByYearView(YearArchiveView):
 
     template_name = 'setlists/index.html'
@@ -91,6 +91,7 @@ class ShowsByYearView(YearArchiveView):
     make_object_list = True
     allow_future = True
 
+    #override the get_year function to default to the latest year in DB if none is given in URL
     def get_year(self):
 
         year = self.year
