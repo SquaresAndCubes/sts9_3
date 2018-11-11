@@ -7,21 +7,11 @@
     <div class="container">
 
         <div class="header">
-            <h2>{{ year }} Shows | {{ show_count }} |
-                {% if order == 'desc' %}
-                    <a href="/setlists/{{ year }}/?order=asc">
-                    <button type="button" class="btn btn-secondary btn-sm">Ascending</button>
-                    </a>
-                {% else %}
-                    <a href="/setlists/{{ year }}/?order=desc">
-                    <button type="button" class="btn btn-secondary btn-sm">Descending</button>
-                    </a>
-                {% endif %}
-            </h2>
+            <h2>{{ year.year }} Shows | {{ shows.count }}</h2>
         </div>
         &nbsp;
         <div class="btn-toolbar" role="toolbar" aria-label="...">
-            {% for yr in years_list %}
+            {% for yr in years_available reversed %}
                 <div class="btn-group" role="group" aria-label="...">
                     <a href="/setlists/{{yr.year}}" class="btn btn-default" role="button"><b>{{ yr.year }}</b></a>
                 </div>

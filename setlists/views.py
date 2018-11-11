@@ -5,6 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.db.transaction import atomic
 from django.db.models import OuterRef, Exists
+from django.views.generic import YearArchiveView
 
 
 def home(request):
@@ -78,43 +79,26 @@ def stats(request):
 
     return render(request, 'stats/index.html', context)
 
-#all shows by year
-def shows(request, year=None):
+#display shows by year
+class ShowsByYearView(YearArchiveView):
 
-    #gets a list of all years that shows were played for years nav bar
-    years_list = Show.manager.years_list()
+    template_name = 'setlists/index.html'
 
-    #grabs most recent year object and pulls year
-    latest_year = years_list[0].year
+    queryset = Show.objects.all()
 
-    #if no year is given in url sets year to most recent
-    if year == None:
-        year = latest_year
+    #date field from Show model
+    date_field = 'date'
+    make_object_list = True
+    allow_future = True
 
-    order = request.GET.get('order', 'asc')
+    def get_context_data(self, **kwargs):
+        context = super(ShowsByYearView, self).get_context_data(**kwargs)
+        #passes distinct years to template via context
+        context['years_available'] = self.queryset.dates(self.date_field, 'year')
+        return context
 
-    shows = Show.manager.by_year(year)
+    context_object_name = 'shows'
 
-    if(order == 'desc'):
-        shows = shows.order_by('-date')
-
-    elif(order == 'asc'):
-        shows = shows.order_by('date')
-
-
-    #set footnote variable
-
-    #counts num of shows in the year
-    show_count = shows.count()
-
-    context = {
-        'shows': shows,
-        'year': year,
-        'show_count': show_count,
-        'years_list': years_list,
-        'order': order,
-    }
-    return render(request, 'setlists/index.html', context)
 
 #page for one show view
 def show(request, show_id):

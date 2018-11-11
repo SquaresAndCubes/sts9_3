@@ -7,9 +7,7 @@ urlpatterns = [
     #Home Landing Page
     path('', views.home, name='home'),
     #Setlists landing page most recent year
-    path('setlists/', views.shows, name='setlist index'),
-    #Setlists by year
-    path('setlists/<int:year>/', views.shows, name='setlists by year'),
+    path('setlists/<int:year>/', views.ShowsByYearView.as_view(), name='setlists by year'),
     #single setlist
     path('setlist/<int:show_id>', views.show, name='setlist'),
     #Songs List Landing Page
