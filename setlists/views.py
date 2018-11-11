@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.db.transaction import atomic
 from django.db.models import OuterRef, Exists
-from django.views.generic import YearArchiveView
+from django.views.generic import YearArchiveView, ListView
 
 
 def home(request):
@@ -24,48 +24,48 @@ def about(request):
 
     return render(request, 'about/index.html', context)
 
-def stats(request):
+class StatsView(ListView):
 
-    song = request.GET.get('song')
+    context_object_name = 'shows'
+    template_name = 'stats/index.html'
 
-    #build dict to pass into Show.objects.filter()
-    stat_filters = {
+    def get_queryset(self):
 
-        'date__year': request.GET.get('year'),
-        'date__month': request.GET.get('month'),
-        'date__day': request.GET.get('day'),
-        'date__week_day__iexact': request.GET.get('weekday'),
-        'venue_id': request.GET.get('venue'),
-        'venue__city__iexact': request.GET.get('city'),
-        'venue__state__iexact': request.GET.get('state'),
-        'venue__country__iexact': request.GET.get('country'),
+        #set song var from URL
+        song = self.request.GET.get('song')
 
-    }
+        #build list of kwargs from url to get queryset
+        stat_filters = {
 
-    #remove none types
-    stat_filters = {k: v for k, v in stat_filters.items() if v}
+            'date__year': self.request.GET.get('year'),
+            'date__month': self.request.GET.get('month'),
+            'date__day': self.request.GET.get('day'),
+            'date__week_day__iexact': self.request.GET.get('weekday'),
+            'venue_id': self.request.GET.get('venue'),
+            'venue__city__iexact': self.request.GET.get('city'),
+            'venue__state__iexact': self.request.GET.get('state'),
+            'venue__country__iexact': self.request.GET.get('country'),
 
 
-    #only search for songs if there is a song input from url
-    if song:
+        }
 
-        #outeref for subquery to pass to next script to see if song exists in show
-        showsongs = ShowSong.objects.filter(show=OuterRef('pk'),song__name__iexact=song)
+        #only pass kwargs with values
+        stat_filters = {k: v for k, v in stat_filters.items() if v}
 
-        #build queryset based on parameters
-        show_list = Show.objects.annotate(song_exists=Exists(showsongs)).filter(**stat_filters, song_exists=True).order_by('-date')
+        # only search for songs if there is a song input from url
+        if song:
 
-    else:
-        #if there is no song input from url just build queryset on everything else
-        show_list = Show.objects.filter(**stat_filters).order_by('-date')
+            # outeref for subquery to pass to next script to see if song exists in show
+            showsongs = ShowSong.objects.filter(show=OuterRef('pk'), song__name__iexact=song)
 
-    context = {
+            # build queryset based on parameters
+            return Show.objects.annotate(song_exists=Exists(showsongs)).filter(**stat_filters,
+                                                                                    song_exists=True).order_by('-date')
 
-        'show_list': show_list,
+        else:
+            # if there is no song input from url just build queryset on everything else
+            return Show.objects.filter(**stat_filters).order_by('-date')
 
-    }
-
-    return render(request, 'stats/index.html', context)
 
 #display shows by year inheriting from Djangos generic class based view YearArchiveView
 class ShowsByYearView(YearArchiveView):
@@ -78,6 +78,7 @@ class ShowsByYearView(YearArchiveView):
     date_field = 'date'
     make_object_list = True
     allow_future = True
+    context_object_name = 'shows'
 
     #override the get_year function to default to the latest year in DB if none is given in URL
     def get_year(self):
@@ -99,7 +100,6 @@ class ShowsByYearView(YearArchiveView):
         context['years_available'] = self.queryset.dates(self.date_field, 'year')
         return context
 
-    context_object_name = 'shows'
 
 
 #page for one show view

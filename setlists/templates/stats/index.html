@@ -20,7 +20,7 @@
                 <th>State</th>
                 <th>Country</th>
             </tr>
-            {% for show in show_list%}
+            {% for show in shows%}
                 <tr>
                     <td><a href="/setlist/{{ show.id }}">{{ show.date.year }}.{{ show.date.month }}.{{ show.date.day }}</a></td>
                     <td>{{ show.venue.name }}</td>
