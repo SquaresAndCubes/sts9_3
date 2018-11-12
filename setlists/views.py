@@ -4,8 +4,9 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.db.transaction import atomic
-from django.db.models import OuterRef, Exists
+from django.db.models import OuterRef, Exists, Sum
 from django.views.generic import YearArchiveView, ListView
+from django.db.models.functions import ExtractWeekDay, ExtractMonth, ExtractYear
 
 
 def home(request):
@@ -65,6 +66,62 @@ class StatsView(ListView):
         else:
             # if there is no song input from url just build queryset on everything else
             return Show.objects.filter(**stat_filters).order_by('-date')
+
+def stats_view(request):
+
+    # set song var from URL
+    song_name = request.GET.get('song')
+
+    # build list of kwargs from url to get queryset
+    stat_filters = {
+
+        'date__year': request.GET.get('year'),
+        'date__month': request.GET.get('month'),
+        'date__day': request.GET.get('day'),
+        'date__week_day__iexact': request.GET.get('weekday'),
+        'venue_id': request.GET.get('venue'),
+        'venue__city__iexact': request.GET.get('city'),
+        'venue__state__iexact': request.GET.get('state'),
+        'venue__country__iexact': request.GET.get('country'),
+
+    }
+
+    # only pass kwargs with values
+    stat_filters = {k: v for k, v in stat_filters.items() if v}
+
+    # only search for songs if there is a song input from url
+    if song_name:
+
+        # outeref for subquery to pass to next script to see if song exists in show
+        showsongs = ShowSong.objects.filter(show=OuterRef('pk'), song__name__iexact=song_name)
+
+        # build queryset based on parameters
+        shows = Show.objects.annotate(song_exists=Exists(showsongs)).filter(**stat_filters, song_exists=True)
+
+    else:
+        # if there is no song input from url just build queryset on everything else
+        shows = Show.objects.filter(**stat_filters)
+
+
+    song_count = shows.aggregate(song_count=Count('showsong__song_id',distinct=True))
+
+    weekdays_distribution = shows.annotate(weekday=ExtractWeekDay('date__week_day')).values('weekday').annotate(count=Count('id')).values('weekday', 'count')
+
+    months_distribution = shows.annotate(month=ExtractMonth('date__month')).values('month').annotate(count=Count('id')).values('month', 'count')
+
+    years_distribution = shows.annotate(year=ExtractYear('date__year')).values('year').annotate(count=Count('id')).values('year', 'count')
+
+
+    context = {
+
+        'shows': shows.order_by('date'),
+        'song_count': song_count,
+        'weekdays_distribution': weekdays_distribution,
+        'months_distribution': months_distribution,
+        'years_distribution': years_distribution,
+    }
+
+    return render(request, 'stats/index.html', context)
 
 
 #display shows by year inheriting from Djangos generic class based view YearArchiveView

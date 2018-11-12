@@ -16,12 +16,13 @@ urlpatterns = [
     path('songs/', views.songs, name='songs play count'),
     #Specific Song Page
     path('songs/<int:song_id>', views.song, name='song details'),
-    #Stats Landing Page
-    path('stats/', views.StatsView.as_view(), name='stats'),
+    #Stats Results page
+    path('stats/', views.stats_view, name='stats'),
     #about section landing page
     path('about/', views.about, name='about'),
     #view of users shows
-    path('myshows/', views.my_shows, name='my shows')
+    path('myshows/', views.my_shows, name='my shows'),
+
 ]
 
 
