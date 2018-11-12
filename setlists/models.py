@@ -23,7 +23,7 @@ class Venue(models.Model):
     country = models.CharField(max_length=4, null=False)
 
     def __str__(self):
-        return '{} - {} - {} - {}'.format(self.name, self.city, self.state, self.country)
+        return '{} :: {}, {} :: {}'.format(self.name, self.city, self.state, self.country)
 
 class Tour(models.Model):
 
@@ -102,7 +102,7 @@ class Show(models.Model):
 
 
     def __str__(self):
-        return '{} - {}'.format(self.date, self.venue)
+        return '{}.{}.{} :: {}'.format(self.date.year, self.date.month, self.date.day, self.venue)
 
 class Album(models.Model):
 
