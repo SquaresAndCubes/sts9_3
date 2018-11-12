@@ -25,47 +25,6 @@ def about(request):
 
     return render(request, 'about/index.html', context)
 
-class StatsView(ListView):
-
-    context_object_name = 'shows'
-    template_name = 'stats/index.html'
-
-    def get_queryset(self):
-
-        #set song var from URL
-        song = self.request.GET.get('song')
-
-        #build list of kwargs from url to get queryset
-        stat_filters = {
-
-            'date__year': self.request.GET.get('year'),
-            'date__month': self.request.GET.get('month'),
-            'date__day': self.request.GET.get('day'),
-            'date__week_day__iexact': self.request.GET.get('weekday'),
-            'venue_id': self.request.GET.get('venue'),
-            'venue__city__iexact': self.request.GET.get('city'),
-            'venue__state__iexact': self.request.GET.get('state'),
-            'venue__country__iexact': self.request.GET.get('country'),
-
-
-        }
-
-        #only pass kwargs with values
-        stat_filters = {k: v for k, v in stat_filters.items() if v}
-
-        # only search for songs if there is a song input from url
-        if song:
-
-            # outeref for subquery to pass to next script to see if song exists in show
-            showsongs = ShowSong.objects.filter(show=OuterRef('pk'), song__name__iexact=song)
-
-            # build queryset based on parameters
-            return Show.objects.annotate(song_exists=Exists(showsongs)).filter(**stat_filters,
-                                                                                    song_exists=True).order_by('-date')
-
-        else:
-            # if there is no song input from url just build queryset on everything else
-            return Show.objects.filter(**stat_filters).order_by('-date')
 
 def stats_view(request):
 
