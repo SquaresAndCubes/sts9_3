@@ -13,15 +13,6 @@
         <hr />
 
         <p>
-        <ul>
-            {% for show in shows %}
-                <li><a href="/setlist/{{ show.id }}">{{ show.date.year }}.{{ show.date.month }}.{{ show.date.day }}</a></li>
-            {% endfor %}
-        </ul>
-
-        </p>
-
-        <p>
         <h1>Song Count : {{ song_count.song_count }}</h1>
         </p>
         <p>
@@ -44,6 +35,15 @@
             {% endfor %}
         </ul>
 
+        <h1>Shows</h1>
+        <p>
+        <ul>
+            {% for show in shows %}
+                <li><a href="/setlist/{{ show.id }}">{{ show.date.year }}.{{ show.date.month }}.{{ show.date.day }}</a></li>
+            {% endfor %}
+        </ul>
+
+        </p>
 
 
     </div>
