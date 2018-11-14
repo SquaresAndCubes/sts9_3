@@ -6,7 +6,6 @@ import django.db.models.manager
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -16,7 +15,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Album',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True,
+                                        serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=128)),
                 ('rel_date', models.DateField(blank=True, null=True)),
             ],
@@ -24,14 +24,16 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Artist',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True,
+                                        serialize=False, verbose_name='ID')),
                 ('name', models.CharField(default='STS9', max_length=64)),
             ],
         ),
         migrations.CreateModel(
             name='Show',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True,
+                                        serialize=False, verbose_name='ID')),
                 ('show_key', models.CharField(blank=True, max_length=7)),
                 ('date', models.DateField()),
             ],
@@ -42,13 +44,25 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ShowSong',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('set', models.CharField(choices=[('S1', 'Set 1'), ('S2', 'Set 2'), ('S3', 'Set 3'), ('E1', 'Encore'), ('E2', 'Encore 2'), ('AX', 'Axe The Cables'), ('PA', 'PA Set'), ('W1', 'Wave Spell 1'), ('W2', 'Wave Spell 2')], default='S1', max_length=2)),
+                ('id', models.AutoField(auto_created=True, primary_key=True,
+                                        serialize=False, verbose_name='ID')),
+                ('set', models.CharField(
+                    choices=[('S1', 'Set 1'), ('S2', 'Set 2'), ('S3', 'Set 3'),
+                             ('E1', 'Encore'), ('E2', 'Encore 2'),
+                             ('AX', 'Axe The Cables'), ('PA', 'PA Set'),
+                             ('W1', 'Wave Spell 1'), ('W2', 'Wave Spell 2')],
+                    default='S1', max_length=2)),
                 ('track', models.IntegerField()),
-                ('segue', models.CharField(blank=True, max_length=1, null=True)),
-                ('notes', models.CharField(blank=True, max_length=128, null=True)),
-                ('guest', models.CharField(blank=True, max_length=64, null=True)),
-                ('show', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='setlists.Show')),
+                (
+                    'segue',
+                    models.CharField(blank=True, max_length=1, null=True)),
+                ('notes',
+                 models.CharField(blank=True, max_length=128, null=True)),
+                ('guest',
+                 models.CharField(blank=True, max_length=64, null=True)),
+                ('show',
+                 models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                   to='setlists.Show')),
             ],
             options={
                 'ordering': ['track'],
@@ -57,10 +71,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Song',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True,
+                                        serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=128)),
-                ('album', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='setlists.Album')),
-                ('artist', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='setlists.Artist')),
+                ('album', models.ForeignKey(blank=True, null=True,
+                                            on_delete=django.db.models.deletion.SET_NULL,
+                                            to='setlists.Album')),
+                ('artist',
+                 models.ForeignKey(on_delete=django.db.models.deletion.PROTECT,
+                                   to='setlists.Artist')),
             ],
             managers=[
                 ('data', django.db.models.manager.Manager()),
@@ -69,38 +88,52 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Tour',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True,
+                                        serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=64)),
             ],
         ),
         migrations.CreateModel(
             name='Venue',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(blank=True, max_length=64, null=True)),
+                ('id', models.AutoField(auto_created=True, primary_key=True,
+                                        serialize=False, verbose_name='ID')),
+                (
+                    'name',
+                    models.CharField(blank=True, max_length=64, null=True)),
                 ('city', models.CharField(max_length=64)),
-                ('state', models.CharField(blank=True, max_length=4, null=True)),
+                (
+                    'state',
+                    models.CharField(blank=True, max_length=4, null=True)),
                 ('country', models.CharField(max_length=4)),
             ],
         ),
         migrations.AddField(
             model_name='showsong',
             name='song',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='setlists.Song'),
+            field=models.ForeignKey(null=True,
+                                    on_delete=django.db.models.deletion.SET_NULL,
+                                    to='setlists.Song'),
         ),
         migrations.AddField(
             model_name='show',
             name='tour',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='setlists.Tour'),
+            field=models.ForeignKey(blank=True, null=True,
+                                    on_delete=django.db.models.deletion.PROTECT,
+                                    to='setlists.Tour'),
         ),
         migrations.AddField(
             model_name='show',
             name='venue',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, to='setlists.Venue'),
+            field=models.ForeignKey(null=True,
+                                    on_delete=django.db.models.deletion.PROTECT,
+                                    to='setlists.Venue'),
         ),
         migrations.AddField(
             model_name='album',
             name='artist',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='setlists.Artist'),
+            field=models.ForeignKey(null=True,
+                                    on_delete=django.db.models.deletion.SET_NULL,
+                                    to='setlists.Artist'),
         ),
     ]

@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = '3ehjhf@s9@mtkp%1j_v$nz2t4e(ce_t%=f61oee35hw+8zik!d'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -76,10 +74,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'sts9_3.wsgi.application'
 
+# ************SOCIAL AUTH SETTINGS**************
 
-#************SOCIAL AUTH SETTINGS**************
-
-#turn on special Postgres json field option
+# turn on special Postgres json field option
 SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 
 AUTHENTICATION_BACKENDS = (
@@ -90,21 +87,21 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-#sets what page you are directed to after login/logout
+# sets what page you are directed to after login/logout
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
-#google social auth keys
+# google social auth keys
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '257995102785-enp3j1gbn1ot4qm1lma558iu5ced6i7r.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'z_Bx5lguAThJ7_RpGjHKHj1c'
 
-#facebook social auth keys
+# facebook social auth keys
 
 SOCIAL_AUTH_FACEBOOK_KEY = '688722228179914'
 SOCIAL_AUTH_FACEBOOK_SECRET = 'd38ec5eda6b23ac4600ed891a1507c21'
 
-#**********************************************************
+# **********************************************************
 
 
 # Database
@@ -120,7 +117,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -140,7 +136,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -153,7 +148,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/

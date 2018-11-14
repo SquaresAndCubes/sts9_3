@@ -10,7 +10,7 @@
             <h1>Stats | {{ shows.count }} Shows</h1>
 
         </div>
-        <hr />
+        <hr/>
 
         <p>
         <h1>Song Count : {{ song_count.song_count }}</h1>
@@ -39,7 +39,8 @@
         <p>
         <ul>
             {% for show in shows %}
-                <li><a href="/setlist/{{ show.id }}">{{ show.date.year }}.{{ show.date.month }}.{{ show.date.day }}</a></li>
+                <li><a href="/setlist/{{ show.id }}">{{ show.date.year }}.{{ show.date.month }}.{{ show.date.day }}</a>
+                </li>
             {% endfor %}
         </ul>
 

@@ -9,7 +9,7 @@
         <div class="header">
             <h1>Songs | {{ song_count }}</h1>
         </div>
-        <hr />
+        <hr/>
 
         <table class="table table-hover">
             <tr>
@@ -23,15 +23,15 @@
 
             {% for song in songs %}
 
-            <tr>
-                <td><a href="/songs/{{ song.id }}" title="{{ song.name }}">{{ song.name }}</a></td>
-                <td>{{ song.artist }}</td>
-                <td>{{ song.album.title }}</td>
-                <td>{{ song.last_played.year }}.{{ song.last_played.month }}.{{ song.last_played.day }}</td>
-                <td>{{ song.first_played.year }}.{{ song.first_played.month }}.{{ song.first_played.day }}</td>
-                <td>{{ song.play_count }}</td>
+                <tr>
+                    <td><a href="/songs/{{ song.id }}" title="{{ song.name }}">{{ song.name }}</a></td>
+                    <td>{{ song.artist }}</td>
+                    <td>{{ song.album.title }}</td>
+                    <td>{{ song.last_played.year }}.{{ song.last_played.month }}.{{ song.last_played.day }}</td>
+                    <td>{{ song.first_played.year }}.{{ song.first_played.month }}.{{ song.first_played.day }}</td>
+                    <td>{{ song.play_count }}</td>
 
-            </tr>
+                </tr>
             {% endfor %}
         </table>
     </div>

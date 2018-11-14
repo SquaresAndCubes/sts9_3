@@ -2,6 +2,7 @@ import csv
 import datetime
 from setlists import models
 
+
 def import_artists():
     data_filepath = 'songs.csv'
     results = {"created": 0, "skipped": 0}
@@ -16,14 +17,17 @@ def import_artists():
             if artist == 'NULL':
                 artist = 'STS9'
 
-            new_artist, created = models.Artist.objects.get_or_create(name=artist)
+            new_artist, created = models.Artist.objects.get_or_create(
+                name=artist)
 
             if created:
                 results['created'] += 1
             else:
                 results['skipped'] += 1
 
-        print("Finished - Created {} Artists, Duplicates: {}".format(results["created"], results["skipped"]))
+        print("Finished - Created {} Artists, Duplicates: {}".format(
+            results["created"], results["skipped"]))
+
 
 def import_venues():
     data_filepath = "shows.csv"
@@ -39,8 +43,11 @@ def import_venues():
                     row[i] = None
             # get_or_create returns 2 things, the first thing is the object we wanted, and the second thing
             # is a true / false value that lets us know if the object was newly created or if was already there
-            new_obj, created = models.Venue.objects.get_or_create(name=row[2], city=row[3], state=row[4],
-                                                                  country=row[5])
+            new_obj, created = models.Venue.objects.get_or_create(name=row[2],
+                                                                  city=row[3],
+                                                                  state=row[4],
+                                                                  country=row[
+                                                                      5])
 
             # this is just being done for our print statement at the end, to let us know how many things were imported
             if created:
@@ -48,9 +55,8 @@ def import_venues():
             else:
                 results["skipped"] += 1
 
-    print("Finished - Created {} Venues, Duplicates: {}".format(results["created"], results["skipped"]))
-
-
+    print("Finished - Created {} Venues, Duplicates: {}".format(
+        results["created"], results["skipped"]))
 
 
 def import_songs():
@@ -67,17 +73,18 @@ def import_songs():
             if in_artist == 'NULL':
                 in_artist = 'STS9'
 
-
             artist = models.Artist.objects.get(name=in_artist)
 
-            new_song, created = models.Song.objects.get_or_create(name=row[2], artist=artist)
+            new_song, created = models.Song.objects.get_or_create(name=row[2],
+                                                                  artist=artist)
 
             if created:
                 results['created'] += 1
             else:
                 results['skipped'] += 1
 
-        print("Finished - Created {} Songs, Duplicates: {}".format(results["created"], results["skipped"]))
+        print("Finished - Created {} Songs, Duplicates: {}".format(
+            results["created"], results["skipped"]))
 
 
 def import_shows():
@@ -94,7 +101,8 @@ def import_shows():
                 if row[i] == 'NULL':
                     row[i] = None
             # by asking for a venue by the name, city, state and country, we ensure that we are getting the correct venue
-            venue = models.Venue.objects.get(name=row[2], city=row[3], state=row[4], country=row[5])
+            venue = models.Venue.objects.get(name=row[2], city=row[3],
+                                             state=row[4], country=row[5])
 
             show_date = datetime.datetime.strptime(row[1], '%Y-%m-%d')
 
@@ -107,7 +115,6 @@ def import_shows():
             # done for our print statement at the end
             results["created"] += 1
     print("Finished - Created {} Shows".format(results["created"]))
-
 
 
 def import_showsong():
@@ -140,21 +147,20 @@ def import_showsong():
             elif in_name == 'PA Set':
                 new_name = models.ShowSong.PA
 
-
             for i in range(len(row)):
                 if row[i] == 'NULL':
                     row[i] = None
 
             show = models.Show.objects.get(show_key=row[1])
 
-            new_showsong = models.ShowSong(show=show,song=song, set=new_name, track=row[4], segue=row[5], notes=row[6], guest=row[8])
+            new_showsong = models.ShowSong(show=show, song=song, set=new_name,
+                                           track=row[4], segue=row[5],
+                                           notes=row[6], guest=row[8])
 
             new_showsong.save()
 
             results["created"] += 1
     print("Finished - Created {} Performances".format(results["created"]))
-
-
 
 
 def import_all():

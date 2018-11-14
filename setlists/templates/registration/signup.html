@@ -10,13 +10,13 @@
             <h1>Create Account</h1>
             <h4>Keep Track of Shows Attended and More!</h4>
         </div>
-        <hr />
+        <hr/>
 
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button class="btn btn-default" type="submit">Create Account</button>
-  </form>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-default" type="submit">Create Account</button>
+        </form>
 
 
     </div>

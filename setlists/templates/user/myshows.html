@@ -9,7 +9,7 @@
         <div class="header">
             <h3>{{ user.username }}'s Shows</h3>
         </div>
-        <hr />
+        <hr/>
 
         <form method="post">
             {% csrf_token %}
@@ -21,9 +21,9 @@
                 {% endfor %}
             </p>
             <button type="submit" class="btn btn-default" role="button"><b>Save Changes</b></button>
-        <p>
+            <p>
 
-        </p>
+            </p>
         </form>
     </div>
 {% endblock %}

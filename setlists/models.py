@@ -9,25 +9,26 @@ from django import forms
 
 
 class Artist(models.Model):
-
     name = models.CharField(max_length=64, default='STS9', null=False)
 
     def __str__(self):
         return '{}'.format(self.name)
 
-class Venue(models.Model):
 
+class Venue(models.Model):
     name = models.CharField(max_length=64, null=True, blank=True)
     city = models.CharField(max_length=64, null=False)
     state = models.CharField(max_length=4, null=True, blank=True)
     country = models.CharField(max_length=4, null=False)
 
     def __str__(self):
-        return '{} :: {}, {} :: {}'.format(self.name, self.city, self.state, self.country)
+        return '{} :: {}, {} :: {}'.format(self.name, self.city, self.state,
+                                           self.country)
+
 
 class Tour(models.Model):
-
     name = models.CharField(max_length=64)
+
 
 class ShowFilters(models.Manager):
 
@@ -45,17 +46,18 @@ class ShowFilters(models.Manager):
 
     def song_appearances(self, song_id):
 
-        #create list for filtered queryset
+        # create list for filtered queryset
         show_list = []
         show_ranks = []
         prev_rank = 0
-        #sort shows by date, loop through, annotate rank
-        for show in self.annotate(rank=Window(order_by=TruncDate('date'), expression=Rank())):
+        # sort shows by date, loop through, annotate rank
+        for show in self.annotate(
+                rank=Window(order_by=TruncDate('date'), expression=Rank())):
 
-            #filter queryset from above looking for song_id occurances in all sets of show
+            # filter queryset from above looking for song_id occurances in all
+            # sets of show
             if show.showsong_set.filter(song_id=song_id).exists():
-
-                #build show dictionary includes calculation for show gap
+                # build show dictionary includes calculation for show gap
                 show_with_gap = {
                     'show_id': show.id,
                     'date': show.date,
@@ -68,44 +70,45 @@ class ShowFilters(models.Manager):
 
                 show_ranks.append(show.rank)
 
-                #save previous rank for future iteration calculations of show gap
+                # save previous rank for future iteration calculations of show gap
                 prev_rank = show.rank
 
-                #append filtered shows to list
+                # append filtered shows to list
                 show_list.append(show_with_gap)
 
-        #calc avg performance gap round to 2 decimal places
-        avg_gap = float("{0:.2f}".format((max(show_ranks) - min(show_ranks)) / (len(show_ranks) - 0.9999999999)))
+        # calc avg performance gap round to 2 decimal places
+        avg_gap = float("{0:.2f}".format((max(show_ranks) - min(show_ranks)) / (
+                len(show_ranks) - 0.9999999999)))
 
-        #return the song name and the show_list
+        # return the song name and the show_list
         return Song.objects.get(id=song_id).name, avg_gap, show_list
 
 
 class Show(models.Model):
-
-    #Belongs to Venue
+    # Belongs to Venue
     venue = models.ForeignKey(Venue, null=True, on_delete=models.PROTECT)
 
-    #Belongs to Tour
-    tour = models.ForeignKey(Tour, null=True, on_delete=models.PROTECT, blank=True)
+    # Belongs to Tour
+    tour = models.ForeignKey(Tour, null=True, on_delete=models.PROTECT,
+                             blank=True)
 
-    #Used for Import
+    # Used for Import
     show_key = models.CharField(max_length=7, null=False, blank=True)
 
     date = models.DateField()
 
-    #show filter class sticky custom mm
+    # show filter class sticky custom mm
     manager = ShowFilters()
 
-    #default model manager
+    # default model manager
     objects = models.Manager()
 
-
     def __str__(self):
-        return '{}.{}.{} :: {}'.format(self.date.year, self.date.month, self.date.day, self.venue)
+        return '{}.{}.{} :: {}'.format(self.date.year, self.date.month,
+                                       self.date.day, self.venue)
+
 
 class Album(models.Model):
-
     title = models.CharField(max_length=128, null=False)
 
     artist = models.ForeignKey(Artist, null=True, on_delete=models.SET_NULL)
@@ -115,33 +118,38 @@ class Album(models.Model):
     def __str__(self):
         return '{} - {}'.format(self.artist, self.title)
 
+
 class SongsLists(models.Manager):
 
     def all_songs_play_count(self):
-        #returns all songs ordered by play count
-        return self.annotate(play_count=Count('showsong__show__id', distinct = True),
-                             #gets the date song was first played
-                             first_played=Min('showsong__show__date'),
-                             #gets most recent date played
-                             last_played=Max('showsong__show__date'),
-                             ).order_by('play_count').reverse()
+        # returns all songs ordered by play count
+        return self.annotate(
+            play_count=Count('showsong__show__id', distinct=True),
+            # gets the date song was first played
+            first_played=Min('showsong__show__date'),
+            # gets most recent date played
+            last_played=Max('showsong__show__date'),
+        ).order_by('play_count').reverse()
 
     def song(self, song_id):
-        #returns song name and all shows played ordered by date
-        return self.get(id=song_id).name, self.get(id=song_id).showsong_set.distinct('show__date').order_by('show__date').reverse()
+        # returns song name and all shows played ordered by date
+        return self.get(id=song_id).name, self.get(
+            id=song_id).showsong_set.distinct('show__date').order_by(
+            'show__date').reverse()
+
 
 class Song(models.Model):
-
     name = models.CharField(max_length=128, null=False)
 
     artist = models.ForeignKey(Artist, on_delete=models.PROTECT)
 
-    album = models.ForeignKey(Album, null=True, blank=True, on_delete=models.SET_NULL)
+    album = models.ForeignKey(Album, null=True, blank=True,
+                              on_delete=models.SET_NULL)
 
-    #model manager sticky
+    # model manager sticky
     data = SongsLists()
 
-    #default model manager
+    # default model manager
     objects = models.Manager()
 
     def __str__(self):
@@ -149,7 +157,6 @@ class Song(models.Model):
 
 
 class ShowSong(models.Model):
-
     SET1 = 'S1'
     SET2 = 'S2'
     SET3 = 'S3'
@@ -180,34 +187,34 @@ class ShowSong(models.Model):
         null=False,
     )
 
-
-    #Belongs to Show through a Set
+    # Belongs to Show through a Set
     show = models.ForeignKey(Show, on_delete=models.CASCADE)
 
-
-    #Is a Song
+    # Is a Song
     song = models.ForeignKey(Song, null=True, on_delete=models.SET_NULL)
 
-    #Unique Values for particular show
+    # Unique Values for particular show
     track = models.IntegerField(null=False)
     segue = models.CharField(max_length=1, null=True, blank=True)
     notes = models.CharField(max_length=128, null=True, blank=True)
     guest = models.CharField(max_length=64, null=True, blank=True)
 
     class Meta:
-        #keep track order always
+        # keep track order always
         ordering = ['track']
 
     def __str__(self):
-        return '{} - {} - {} - {}'.format(self.show, self.set, self.track, self.song)
+        return '{} - {} - {} - {}'.format(self.show, self.set, self.track,
+                                          self.song)
 
-#User profile with shows attached - receivers for saving to and from directly to the user model
-#*************************************************************************************
+
+# User profile with shows attached -
+# receivers for saving to and from directly to the user model
+# ******************************************************************************
 class UserProfile(models.Model):
-
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    #list of shows the user has attended
+    # list of shows the user has attended
     shows = models.ManyToManyField(Show, blank=True)
 
     def __str__(self):
@@ -219,27 +226,28 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
 
+
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.userprofile.save()
 
-#forms for above processing input
+
+# forms for above processing input
 class UserForm(forms.ModelForm):
-
     class Meta:
-
         model = User
         fields = ('username', 'email', 'first_name', 'last_name')
 
-#allows the user profile
+
+# allows the user profile
 class UserProfileForm(forms.ModelForm):
+    shows = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple,
+                                           queryset=Show.objects.all().order_by(
+                                               '-date'))
 
-    shows = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple, queryset=Show.objects.all().order_by('-date'))
-
-    #creates a list of show objects with a checkbox select
+    # creates a list of show objects with a checkbox select
     class Meta:
-
         model = UserProfile
         fields = ('shows',)
 
-#*******************************************************************************************
+# ******************************************************************************

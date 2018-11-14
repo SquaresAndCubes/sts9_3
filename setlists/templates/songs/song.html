@@ -11,7 +11,7 @@
             <p>Play Count: {{ show_count }}</p>
             <p>Average Show Gap: {{ avg_gap }}</p>
         </div>
-        <hr />
+        <hr/>
 
         <table class="table table-hover">
             <tr>
@@ -24,7 +24,9 @@
             </tr>
             {% for show in show_list|dictsortreversed:"date" %}
                 <tr>
-                    <td><a href="/setlist/{{ show.show_id }}">{{ show.date.year }}.{{ show.date.month }}.{{ show.date.day }}</a></td>
+                    <td>
+                        <a href="/setlist/{{ show.show_id }}">{{ show.date.year }}.{{ show.date.month }}.{{ show.date.day }}</a>
+                    </td>
                     <td>{{ show.venue }}</td>
                     <td>{{ show.city }}</td>
                     {% if show.state %}
