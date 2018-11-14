@@ -71,17 +71,20 @@ def stats_view(request, mystats=False):
         song_count=Count('showsong__song_id', distinct=True))
 
     # number of shows per weekday within queryset
-    weekdays_distribution = shows.annotate(
+    weekdays_distribution = \
+        shows.annotate(
         weekday=ExtractWeekDay('date__week_day')) \
         .values('weekday').annotate(count=Count('id')).values('weekday',
                                                               'count')
 
     # number of shows per month within queryset
-    months_distribution = shows.annotate(month=ExtractMonth('date__month')) \
+    months_distribution = \
+        shows.annotate(month=ExtractMonth('date__month')) \
         .values('month').annotate(count=Count('id')).values('month', 'count')
 
     # number of shows per year within queryset
-    years_distribution = shows.annotate(year=ExtractYear('date__year')).values(
+    years_distribution = \
+        shows.annotate(year=ExtractYear('date__year')).values(
         'year').annotate(count=Count('id')).values('year', 'count')
 
     context = {
@@ -122,8 +125,7 @@ class ShowsByYearView(YearArchiveView):
                 except KeyError:
                     year = \
                         self.queryset.dates(self.date_field, 'year',
-                                            order='DESC')[
-                            0].year
+                                            order='DESC')[0].year
         return year
 
     def get_context_data(self, **kwargs):

@@ -1,5 +1,80 @@
 {% extends 'base.html' %}
 
+{% block head %}
+    {{ block.super }}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawWeedayDistribution);
+        google.charts.setOnLoadCallback(drawMonthDistribution);
+        google.charts.setOnLoadCallback(drawYearsDistribution);
+
+        function drawWeedayDistribution() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Weekday', 'Count'],
+                {% for weekday in weekdays_distribution|dictsort:"weekday" %}
+
+                    ['{{ weekday.weekday }}', {{ weekday.count }}],
+
+                {% endfor %}
+            ]);
+
+            var options = {
+                is3D: true,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('weekdayChart'));
+
+            chart.draw(data, options);
+        }
+
+        function drawMonthDistribution() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Month', 'Count'],
+                {% for month in months_distribution|dictsort:"month" %}
+
+                    ['{{ month.month }}', {{ month.count }}],
+
+                {% endfor %}
+            ]);
+
+            var options = {
+                is3D: true,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('monthChart'));
+
+            chart.draw(data, options);
+        }
+
+        function drawYearsDistribution() {
+            var data = google.visualization.arrayToDataTable([
+                ['Year', 'Count'],
+                {% for year in years_distribution|dictsort:"year" %}
+
+                    ['{{ year.year }}', {{ year.count }}],
+
+                {% endfor %}
+
+
+            ]);
+
+            var options = {
+                hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
+                vAxis: {minValue: 0},
+
+            };
+
+            var chart = new google.visualization.AreaChart(document.getElementById('yearChart'));
+            chart.draw(data, options);
+        }
+
+    </script>
+
+{% endblock %}
+
 {% block title %}Stats{% endblock %}
 
 
@@ -7,45 +82,37 @@
 
     <div class="container">
         <div class="header">
-            <h1>Stats | {{ shows.count }} Shows</h1>
+            <h2>Statistics | {{ shows.count }} Shows</h2>
 
         </div>
+
         <hr/>
+        <h2>Unique Song Count :: {{ song_count.song_count }}</h2>
+        <h4>STS9 Originals ::</h4>
+        <h4>Covers ::</h4>
 
-        <p>
-        <h1>Song Count : {{ song_count.song_count }}</h1>
-        </p>
-        <p>
-        <h1>Weekday distribution</h1>
-        <ul>
-            {% for weekday in weekdays_distribution %}
-                <li>{{ weekday.weekday }} | {{ weekday.count }}</li>
-            {% endfor %}
-        </ul>
-        <h1>Month distribution</h1>
-        <ul>
-            {% for month in months_distribution %}
-                <li>{{ month.month }} | {{ month.count }}</li>
-            {% endfor %}
-        </ul>
-        <h1>Year distribution</h1>
-        <ul>
-            {% for year in years_distribution %}
-                <li>{{ year.year }} | {{ year.count }}</li>
-            {% endfor %}
-        </ul>
+        <hr/>
+        <h2>Weekday distribution</h2>
 
-        <h1>Shows</h1>
-        <p>
+        <div id="weekdayChart" style="width: 600px; height: 300px;"></div>
+
+        <hr/>
+        <h2>Month Distribution</h2>
+        <div id="monthChart" style="width: 600px; height:400px;"></div>
+
+        <hr/>
+        <h2>Year Distribution</h2>
+        <div id="yearChart" style="width: 100%; height: 500px;"></div>
+
+        <hr/>
+        <h2>Shows</h2>
+
         <ul>
             {% for show in shows %}
                 <li><a href="/setlist/{{ show.id }}">{{ show.date.year }}.{{ show.date.month }}.{{ show.date.day }}</a>
                 </li>
             {% endfor %}
         </ul>
-
-        </p>
-
 
     </div>
 {% endblock %}
