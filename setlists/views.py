@@ -87,8 +87,10 @@ def stats_view(request, mystats=False):
         shows.annotate(year=ExtractYear('date__year')).values(
         'year').annotate(count=Count('id')).values('year', 'count')
 
+
     context = {
 
+        'get_request_stats': request.GET.items(),
         'shows': shows.order_by('-date'),
         'song_count': song_count,
         'weekdays_distribution': weekdays_distribution,
