@@ -22,7 +22,12 @@
                 ]);
 
                 var options = {
+                    titleTextStyle: {
+                        fontSize: 18,
+                        fontName: 'Ubuntu'
+                    },
                     is3D: true,
+                    title: 'Weekday Distribution'
                 };
 
                 var chart = new google.visualization.PieChart(document.getElementById('weekdayChart'));
@@ -42,7 +47,12 @@
                 ]);
 
                 var options = {
+                    titleTextStyle: {
+                        fontSize: 18,
+                        fontName: 'Ubuntu'
+                    },
                     is3D: true,
+                    title: 'Month Distribution'
                 };
 
                 var chart = new google.visualization.PieChart(document.getElementById('monthChart'));
@@ -63,8 +73,14 @@
                 ]);
 
                 var options = {
-                    hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
+                    titleTextStyle: {
+                        fontSize: 18,
+                        fontName: 'Ubuntu'
+                    },
+                    title: 'Year Distribution',
+                    hAxis: {titleTextStyle: {color: '#333'}},
                     vAxis: {minValue: 0},
+                    legend: { position: 'none' }
 
                 };
 
@@ -132,16 +148,13 @@
 
         {% if weekdays_distribution or months_distribution or years_distribution %}
             <hr/>
-            <h2>Weekday Distribution</h2>
 
             <div id="weekdayChart" style="width: 600px; height: 300px;"></div>
 
             <hr/>
-            <h2>Month Distribution</h2>
             <div id="monthChart" style="width: 600px; height:400px;"></div>
 
             <hr/>
-            <h2>Year Distribution</h2>
             <div id="yearChart" style="width: 100%; height: 500px;"></div>
 
         {% endif %}
