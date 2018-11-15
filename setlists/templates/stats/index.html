@@ -8,6 +8,7 @@
         google.charts.setOnLoadCallback(drawWeedayDistribution);
         google.charts.setOnLoadCallback(drawMonthDistribution);
         google.charts.setOnLoadCallback(drawYearsDistribution);
+        google.charts.setOnLoadCallback(drawGeoDistribution);
 
         {% if weekdays_distribution or months_distribution or years_distribution %}
             function drawWeedayDistribution() {
@@ -91,6 +92,31 @@
                 chart.draw(data, options);
             }
 
+            function drawGeoDistribution() {
+                var data = google.visualization.arrayToDataTable([
+                    ['State', 'Count'],
+                    {% for state in geo_distribution %}
+
+                        ['{{ state.venue__state }}', {{ state.count }}],
+
+                    {% endfor %}
+                ]);
+
+                var options = {
+                    titleTextStyle: {
+                        fontSize: 18,
+                        fontName: 'Ubuntu'
+                    },
+
+                    region: "US",
+                    resolution: "provinces",
+                };
+
+                var geochart = new google.visualization.GeoChart(
+                    document.getElementById('geoChart'));
+                geochart.draw(data, options);
+            }
+
         {% endif %}
 
     </script>
@@ -152,13 +178,18 @@
         {% if weekdays_distribution or months_distribution or years_distribution %}
 
             <hr/>
-            <div id="weekdayChart" style="width: 600px; height: 300px;"></div>
+            <div id="weekdayChart" style="width: 100%; height: 300px;"></div>
 
             <hr/>
-            <div id="monthChart" style="width: 600px; height:360px;"></div>
+            <div id="monthChart" style="width: 100%; height:360px;"></div>
 
             <hr/>
             <div id="yearChart" style="width: 100%; height: 400px;"></div>
+
+            <hr/>
+
+            <h3>Geographic Distribution</h3>
+            <div id="geoChart" style="width: 100%; height: 500px;"></div>
 
         {% endif %}
 
