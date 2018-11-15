@@ -26,8 +26,9 @@
                         fontSize: 18,
                         fontName: 'Ubuntu'
                     },
-                    is3D: true,
-                    title: 'Weekday Distribution'
+                    title: 'Weekday Distribution',
+                    legend: {textStyle: {fontSize: 16}},
+                    chartArea:{left:10,top:50,width:"100%",height:"100%"}
                 };
 
                 var chart = new google.visualization.PieChart(document.getElementById('weekdayChart'));
@@ -51,8 +52,9 @@
                         fontSize: 18,
                         fontName: 'Ubuntu'
                     },
-                    is3D: true,
-                    title: 'Month Distribution'
+                    title: 'Month Distribution',
+                    legend: {textStyle: {fontSize: 16}},
+                    chartArea:{left:10,top:50,width:"100%",height:"100%"}
                 };
 
                 var chart = new google.visualization.PieChart(document.getElementById('monthChart'));
@@ -80,7 +82,8 @@
                     title: 'Year Distribution',
                     hAxis: {titleTextStyle: {color: '#333'}},
                     vAxis: {minValue: 0},
-                    legend: { position: 'none' }
+                    legend: { position: 'none' },
+                    chartArea:{left:30}
 
                 };
 
@@ -130,7 +133,7 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a data-toggle="collapse" href="#test" style="text-decoration : none">
-                            <span class="glyphicon glyphicon-collapse-down"></span><b>&nbsp;&nbsp;Shows Meeting Criteria</b></a>
+                            <span class="glyphicon glyphicon-triangle-bottom"></span><b>&nbsp;&nbsp;Show List</b></a>
                     </h4>
                 </div>
                 <div id="test" class="panel-collapse collapse">
@@ -152,10 +155,10 @@
             <div id="weekdayChart" style="width: 600px; height: 300px;"></div>
 
             <hr/>
-            <div id="monthChart" style="width: 600px; height:400px;"></div>
+            <div id="monthChart" style="width: 600px; height:360px;"></div>
 
             <hr/>
-            <div id="yearChart" style="width: 100%; height: 500px;"></div>
+            <div id="yearChart" style="width: 100%; height: 400px;"></div>
 
         {% endif %}
 
