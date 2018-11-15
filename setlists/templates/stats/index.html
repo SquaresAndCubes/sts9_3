@@ -119,7 +119,10 @@
                 <div id="test" class="panel-collapse collapse">
                     <ul class="list-group">
                         {% for show in shows %}
-                            <li class="list-group-item"><a href="/setlist/{{ show.id }}">{{ show.date.year }}.{{ show.date.month }}.{{ show.date.day }}</a></li>
+                            <li class="list-group-item"><a href="/setlist/{{ show.id }}" title="{{ show }}">
+                        {{ show.date.year }}.{{ show.date.month }}.{{ show.date.day }} </a>
+                        :: {{ show.venue.name }} :: {{ show.venue.city }}, {{ show.venue.state }}
+                        :: {{ show.venue.country }}</li>
                         {% endfor %}
                     </ul>
                 </div>
