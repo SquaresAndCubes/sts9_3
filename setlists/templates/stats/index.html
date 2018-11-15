@@ -131,11 +131,11 @@
     <div class="container">
         <div class="header">
 
-            <h1>Statistics | {{ shows.count }} Shows |
+            <h1>Statistics | {{ shows.count }} Shows
 
                 {% for item in get_request_stats %}
 
-                    <span class="label label-default">{{ item.0|title }} :: {{ item.1|title }}</span>
+                    <span class="label label-default">{{ item.0|title }}: {{ item.1|title }}</span>
 
                 {% endfor %}
 
