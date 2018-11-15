@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load date_extras %}
 {% block head %}
     {{ block.super }}
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -16,7 +16,7 @@
                     ['Weekday', 'Count'],
                     {% for weekday in weekdays_distribution|dictsort:"weekday" %}
 
-                        ['{{ weekday.weekday }}', {{ weekday.count }}],
+                        ['{{ weekday.weekday|weekday_name }}', {{ weekday.count }}],
 
                     {% endfor %}
                 ]);
@@ -41,7 +41,7 @@
                     ['Month', 'Count'],
                     {% for month in months_distribution|dictsort:"month" %}
 
-                        ['{{ month.month }}', {{ month.count }}],
+                        ['{{ month.month|month_name }}', {{ month.count }}],
 
                     {% endfor %}
                 ]);
@@ -147,8 +147,8 @@
         </div>
 
         {% if weekdays_distribution or months_distribution or years_distribution %}
-            <hr/>
 
+            <hr/>
             <div id="weekdayChart" style="width: 600px; height: 300px;"></div>
 
             <hr/>
