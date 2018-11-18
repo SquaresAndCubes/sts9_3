@@ -208,6 +208,7 @@ def songs(request):
 
 # lists all shows where a song was played
 def song(request, song_id):
+
     song_name, avg_gap, show_list = Show.manager.song_appearances(song_id)
 
     context = {
