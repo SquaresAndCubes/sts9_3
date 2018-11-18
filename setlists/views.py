@@ -193,9 +193,15 @@ def songs(request):
 
     song_count = songs.count()
 
+    originals_count = Song.objects.filter(artist__name='STS9').count()
+
+    covers_count = Song.objects.filter().exclude(artist__name='STS9').count()
+
     context = {
         'songs': songs,
         'song_count': song_count,
+        'originals_count': originals_count,
+        'covers_count': covers_count,
     }
     return render(request, 'songs/index.html', context)
 
