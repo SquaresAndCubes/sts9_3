@@ -74,7 +74,7 @@ def stats_view(request, mystats=False):
     originals_played_count = ShowSong.objects.filter(song__artist__name='STS9',
                                         show__in=shows).count()
 
-    others_played_count = ShowSong.objects.filter(show__in=shows).exclude(
+    covers_played_count = ShowSong.objects.filter(show__in=shows).exclude(
         song__artist__name='STS9').count()
 
     # number of shows per weekday within queryset
@@ -105,7 +105,7 @@ def stats_view(request, mystats=False):
         'shows': shows.order_by('-date'),
         'song_count': song_count,
         'originals_played_count': originals_played_count,
-        'others_played_count': others_played_count,
+        'others_played_count': covers_played_count,
         'weekdays_distribution': weekdays_distribution,
         'months_distribution': months_distribution,
         'years_distribution': years_distribution,

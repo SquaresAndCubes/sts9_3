@@ -19,7 +19,7 @@
                     ['Type', 'Count'],
 
                     ['Originals', {{ originals_played_count }}],
-                    ['Non-Originals', {{ others_played_count }}],
+                    ['Covers', {{ others_played_count }}],
 
                 ]);
 
@@ -28,7 +28,7 @@
                         fontSize: 18,
                         fontName: 'Ubuntu'
                     },
-                    title: 'Originals / Non-Originals Distribution',
+                    title: 'Originals / Covers Distribution',
                     legend: {textStyle: {fontSize: 16}},
                     chartArea:{left:10,top:50,width:"100%",height:"100%"}
                 };
@@ -172,15 +172,18 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a data-toggle="collapse" href="#test" style="text-decoration : none">
-                            <span class="glyphicon glyphicon-triangle-bottom"></span><b>&nbsp;&nbsp;Shows Meeting Criteria |
-                            {% for item in get_request_stats %}
+                            <span class="glyphicon glyphicon-triangle-bottom"></span><b>&nbsp;&nbsp;Shows Meeting Criteria
 
-                                {{ item.0|title }}: {{ item.1|title }}
-
-                                {% if not forloop.last %}
+                            {% if get_request_stats %}
+                                {% for item in get_request_stats %}
                                     |
-                                {% endif %}
-                            {% endfor %}
+                                    {{ item.0|title }}: {{ item.1|title }}
+
+                                    {% if not forloop.last %}
+                                        |
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
                         </b></a>
                     </h4>
                 </div>
