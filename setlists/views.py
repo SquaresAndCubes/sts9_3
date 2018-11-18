@@ -59,7 +59,6 @@ def stats_view(request, mystats=False):
         shows = Show.objects.annotate(song_exists=Exists(showsongs)).filter(
             **stat_filters, song_exists=True)
 
-
     else:
         # if no song input from url just build queryset on everything else
         shows = Show.objects.filter(**stat_filters)
