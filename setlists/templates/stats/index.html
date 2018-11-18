@@ -173,8 +173,9 @@
                             <span class="glyphicon glyphicon-triangle-bottom"></span><b>&nbsp;&nbsp;Shows Meeting Criteria
 
                             {% if get_request_stats %}
+                                |
                                 {% for item in get_request_stats %}
-                                    |
+
                                     {{ item.0|title }}: {{ item.1|title }}
 
                                     {% if not forloop.last %}
