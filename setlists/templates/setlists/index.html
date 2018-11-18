@@ -37,7 +37,7 @@
                 <div class="panel-heading">
                     {# heading for each show panel #}
                     <b><a href="/setlist/{{ show.id }}" title="{{ show }}">
-                        {{ show.date.year }}.{{ show.date.month }}.{{ show.date.day }} </a>
+                        {{ show.date|date:"Y.m.d"}} </a>
                         :: {{ show.venue.name }} :: {{ show.venue.city }}, {{ show.venue.state }}
                         :: {{ show.venue.country }}
                     </b>
