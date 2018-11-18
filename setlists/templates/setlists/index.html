@@ -6,8 +6,19 @@
 
     <div class="container">
 
+
         <div class="header">
-            <h2>{{ year.year }} Shows | {{ shows.count }}</h2>
+            <h2>{{ year.year }} Shows | {{ shows.count }} |
+                {% if ordering == 'date' %}
+                    <a href="/setlists/{{ year.year }}/?ordering=-date">
+                        <button type="button" class="btn btn-secondary btn-sm">Descending</button>
+                    </a>
+                {% else %}
+                    <a href="/setlists/{{ year.year }}/?ordering=date">
+                        <button type="button" class="btn btn-secondary btn-sm">Ascending</button>
+                    </a>
+                {% endif %}
+            </h2>
         </div>
         &nbsp;
         <div class="btn-toolbar" role="toolbar" aria-label="...">
@@ -49,3 +60,4 @@
     </div>
 
 {% endblock %}
+

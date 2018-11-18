@@ -127,6 +127,14 @@ class ShowsByYearView(YearArchiveView):
     allow_future = True
     context_object_name = 'shows'
 
+
+    def get_ordering(self):
+
+        ordering = self.request.GET.get('ordering', '-date')
+
+        return ordering
+
+
     # override the get_year function to default to the latest year
     # if none provided
     def get_year(self):
@@ -149,6 +157,9 @@ class ShowsByYearView(YearArchiveView):
         # passes distinct years to template via context
         context['years_available'] = self.queryset.dates(self.date_field,
                                                          'year')
+        #Pass the ordering to the template so that the button state can be set
+        context['ordering'] = self.get_ordering()
+
         return context
 
 
