@@ -92,13 +92,13 @@
                            aria-expanded="false"><span class="glyphicon glyphicon-log-in"></span> Login <span
                                 class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/sitelogin/login">Local Login / Create Account</a></li>
-                            <li role="separator" class="divider"></li>
                             <li>
                                 <ul class="list-inline">
                                     <li><a href="{% url "social:begin" "google-oauth2" %}"><i class="fa fa-google"></i></a>
                                     </li>
                                     <li><a href="{% url "social:begin" "facebook" %}"><i class="fa fa-facebook"></i></a>
+                                    </li>
+                                    <li><a href="{% url "social:begin" "twitter" %}"><i class="fa fa-twitter"></i></a>
                                     </li>
                                 </ul>
                             </li>

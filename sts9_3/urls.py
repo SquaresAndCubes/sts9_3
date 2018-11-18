@@ -23,5 +23,4 @@ urlpatterns = [
     path('', include('setlists.urls')),
     path('oauth/', include('social_django.urls', namespace='social')),
     path('sitelogin/', include('django.contrib.auth.urls')),
-    path('signup/', views.signup, name='signup')
 ]

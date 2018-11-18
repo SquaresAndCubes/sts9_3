@@ -85,6 +85,7 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth',
     'social_core.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.twitter.TwitterOAuth',
 )
 
 # sets what page you are directed to after login/logout
@@ -100,6 +101,10 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'z_Bx5lguAThJ7_RpGjHKHj1c'
 
 SOCIAL_AUTH_FACEBOOK_KEY = '688722228179914'
 SOCIAL_AUTH_FACEBOOK_SECRET = 'd38ec5eda6b23ac4600ed891a1507c21'
+
+#twitter social auth keys
+SOCIAL_AUTH_TWITTER_KEY = '0GdFEsFWQtjPSzDUD3b6igb0j'
+SOCIAL_AUTH_TWITTER_SECRET = 'J7Pa7VtdidZkckx5KuAt6yXqWFuEgSpZczgITsR7tCTIyqakZv'
 
 # **********************************************************
 
