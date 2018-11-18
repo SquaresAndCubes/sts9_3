@@ -158,33 +158,30 @@
     <div class="container">
         <div class="header">
 
-            <h1>Statistics | {{ shows.count }} Shows
+            <h1>Statistics | {{ shows.count }} Shows | {{ song_count.song_count }} Unique Songs
 
-                {% for item in get_request_stats %}
 
-                    <span class="label label-default">{{ item.0|title }}: {{ item.1|title }}</span>
-
-                {% endfor %}
 
             </h1>
-            <h3>
-
-            </h3>
 
         </div>
 
         <hr/>
-        <h2>Unique Song Count :: {{ song_count.song_count }}</h2>
-
-        <hr/>
-
-
         <div class="panel-group">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a data-toggle="collapse" href="#test" style="text-decoration : none">
-                            <span class="glyphicon glyphicon-triangle-bottom"></span><b>&nbsp;&nbsp;Shows Meeting Criteria</b></a>
+                            <span class="glyphicon glyphicon-triangle-bottom"></span><b>&nbsp;&nbsp;Shows Meeting Criteria |
+                            {% for item in get_request_stats %}
+
+                                {{ item.0|title }}: {{ item.1|title }}
+
+                                {% if not forloop.last %}
+                                    |
+                                {% endif %}
+                            {% endfor %}
+                        </b></a>
                     </h4>
                 </div>
                 <div id="test" class="panel-collapse collapse">
@@ -199,6 +196,7 @@
                 </div>
             </div>
         </div>
+
 
         {% if shows.count >= 1 %}
 
