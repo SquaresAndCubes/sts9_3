@@ -16,10 +16,11 @@ Most of the DATA is from Setlists.fm in which I exported all of the data to XML 
 
 The Stack:
 
-PostgreSQL 10.5  
-Django 2.1.2  
-HTML  
-Bootstrap/CSS  
+Linux(Ubuntu 18.04)
+Apache(Most Likely)
+PostgreSQL 10.5 (Relational DB)
+Django 2.1.3 (Backend Framework in Python) 
+HTML/Bootstrap/CSS/JavaScript (Frontend)  
 
 ***Main Functionality***  
 Strikethroughs are Completed
@@ -45,8 +46,8 @@ User Data (This may be broken up)
 -~~All Songs List~~  
 -~~Per Song Appearance List~~  
 -~~Performance Gaps~~  
--User Authentication (Table for saving users seen shows)  
--Social Auth (Google, Facebook, Twitter, etc.)  
+-User Authentication (Table for saving users seen shows)  **Ability to save seens shows is present, still need to integrate with Stats View**
+-Social Auth (Google, Facebook, Twitter, etc.)  **Mostly Done**
 
 
 ***Long Term Goals:***
@@ -55,9 +56,9 @@ Strikethroughs have been completed.
 
 -Song Butsout Potentials  
 -Album Content Live Appearance Stats / Distribution / Graphs  
--Song History Stats / Graphs  
--Custom Statistical Queries  
--Geographical Statistics  
+-~~Song History Stats / Graphs~~  
+-~~Custom Statistical Queries~~  
+-~~Geographical Statistics~~  
 -News Feed  
 -Show Comments by User  
 
