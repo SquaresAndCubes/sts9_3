@@ -7,8 +7,10 @@
 
     <div class="container">
         <div class="header">
-            <h1>{{ song_name }} | {{ show_count }}</h1>
-            <h3><span class="label label-default">Avg Show Gap :: {{ avg_gap }}</span></h3>
+            <h1>{{ song_name }} | {{ show_count }} | <a href="/stats/?song={{ song_name }}">
+                        <button type="button" class="btn btn-secondary btn-sm">STATS</button>
+                    </a></h1>
+            <h3><span class="label label-default">Avg Show Gap | {{ avg_gap }}</span></h3>
         </div>
         <hr/>
 

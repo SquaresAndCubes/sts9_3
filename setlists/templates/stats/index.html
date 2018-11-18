@@ -28,7 +28,7 @@
                         fontSize: 18,
                         fontName: 'Ubuntu'
                     },
-                    title: 'Originals / Covers Distribution',
+                    title: 'Originals / Covers Distribution (Non-Unique)',
                     legend: {textStyle: {fontSize: 16}},
                     chartArea:{left:10,top:50,width:"100%",height:"100%"}
                 };
@@ -160,8 +160,6 @@
 
             <h1>Statistics | {{ shows.count }} Shows | {{ song_count.song_count }} Unique Songs
 
-
-
             </h1>
 
         </div>
@@ -175,8 +173,9 @@
                             <span class="glyphicon glyphicon-triangle-bottom"></span><b>&nbsp;&nbsp;Shows Meeting Criteria
 
                             {% if get_request_stats %}
+                                |
                                 {% for item in get_request_stats %}
-                                    |
+
                                     {{ item.0|title }}: {{ item.1|title }}
 
                                     {% if not forloop.last %}
@@ -191,7 +190,7 @@
                     <ul class="list-group">
                         {% for show in shows %}
                             <li class="list-group-item"><b><a href="/setlist/{{ show.id }}" title="{{ show }}">
-                                {{ show.date.year }}.{{ show.date.month }}.{{ show.date.day }} </a>
+                                {{ show.date|date:"Y.m.d"}} </a>
                                 :: {{ show.venue.name }} :: {{ show.venue.city }}, {{ show.venue.state }}
                                 :: {{ show.venue.country }}</b></li>
                         {% endfor %}

@@ -59,10 +59,6 @@ def stats_view(request, mystats=False):
         shows = Show.objects.annotate(song_exists=Exists(showsongs)).filter(
             **stat_filters, song_exists=True)
 
-    elif mystats == True:
-
-        shows = UserProfile.shows
-
     else:
         # if no song input from url just build queryset on everything else
         shows = Show.objects.filter(**stat_filters)
@@ -197,15 +193,22 @@ def songs(request):
 
     song_count = songs.count()
 
+    originals_count = Song.objects.filter(artist__name='STS9').count()
+
+    covers_count = Song.objects.filter().exclude(artist__name='STS9').count()
+
     context = {
         'songs': songs,
         'song_count': song_count,
+        'originals_count': originals_count,
+        'covers_count': covers_count,
     }
     return render(request, 'songs/index.html', context)
 
 
 # lists all shows where a song was played
 def song(request, song_id):
+
     song_name, avg_gap, show_list = Show.manager.song_appearances(song_id)
 
     context = {
