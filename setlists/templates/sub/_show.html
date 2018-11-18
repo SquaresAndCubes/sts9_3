@@ -2,17 +2,27 @@
 
 {% for set, songs in song_list %}
     <p>
-        <b>{{ set }} ::</b>
-        {% for song in songs %}
-            <a href="/songs/{{ song.song.id }}" title="{{ song.song.name }}">
-                {{ song.song.name }}</a>
-            {# gets rid of trailing character on last song #}
-            {% if not forloop.last %}
-                {% if song.segue %}
-                    {{ song.segue }}
-                {% else %}
-                    |
-                {% endif %}
+    <b>{{ set }} ::</b>
+    {% for song in songs %}
+        <a href="/songs/{{ song.song.id }}" title="{{ song.song.name }}">
+            {{ song.song.name }}</a>
+        {% if song.notes and song.guest %}
+            <sup> {{ song.notes }} | </sup>
+            <sup> {{ song.guest }}</sup>
+        {% elif song.notes %}
+            <sup> {{ song.notes }}</sup>
+        {% elif song.guest %}
+            <sup> {{ song.guest }}</sup>
+
+        {% endif %}
+        {# gets rid of trailing character on last song #}
+        {% if not forloop.last %}
+            {% if song.segue %}
+                {{ song.segue }}
+            {% else %}
+                |
             {% endif %}
-        {% endfor %}
+        {% endif %}
+    {% endfor %}
 {% endfor %}
+</p>
