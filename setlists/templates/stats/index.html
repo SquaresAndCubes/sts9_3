@@ -9,8 +9,35 @@
         google.charts.setOnLoadCallback(drawMonthDistribution);
         google.charts.setOnLoadCallback(drawYearsDistribution);
         google.charts.setOnLoadCallback(drawGeoDistribution);
+        google.charts.setOnLoadCallback(drawOriginalsDistribution);
 
-        {% if weekdays_distribution or months_distribution or years_distribution %}
+        {% if shows.count >= 1 %}
+
+            function drawOriginalsDistribution() {
+
+                var data = google.visualization.arrayToDataTable([
+                    ['Type', 'Count'],
+
+                    ['Originals', {{ originals_played_count }}],
+                    ['Non-Originals', {{ others_played_count }}],
+
+                ]);
+
+                var options = {
+                    titleTextStyle: {
+                        fontSize: 18,
+                        fontName: 'Ubuntu'
+                    },
+                    title: 'Originals / Non-Originals Distribution',
+                    legend: {textStyle: {fontSize: 16}},
+                    chartArea:{left:10,top:50,width:"100%",height:"100%"}
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('originalsChart'));
+
+                chart.draw(data, options);
+            }
+
             function drawWeedayDistribution() {
 
                 var data = google.visualization.arrayToDataTable([
@@ -148,8 +175,6 @@
 
         <hr/>
         <h2>Unique Song Count :: {{ song_count.song_count }}</h2>
-        <h4>STS9 Originals ::</h4>
-        <h4>Covers ::</h4>
 
         <hr/>
 
@@ -159,7 +184,7 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a data-toggle="collapse" href="#test" style="text-decoration : none">
-                            <span class="glyphicon glyphicon-triangle-bottom"></span><b>&nbsp;&nbsp;Show List</b></a>
+                            <span class="glyphicon glyphicon-triangle-bottom"></span><b>&nbsp;&nbsp;Shows Meeting Criteria</b></a>
                     </h4>
                 </div>
                 <div id="test" class="panel-collapse collapse">
@@ -175,7 +200,14 @@
             </div>
         </div>
 
-        {% if weekdays_distribution or months_distribution or years_distribution %}
+        {% if shows.count >= 1 %}
+
+            <hr/>
+            <div id="yearChart" style="width: 100%; height: 400px;"></div>
+
+            <hr/>
+            <h3>Geographic Distribution</h3>
+            <div id="geoChart" style="width: 100%; height: 500px;"></div>
 
             <hr/>
             <div id="weekdayChart" style="width: 100%; height: 300px;"></div>
@@ -184,12 +216,7 @@
             <div id="monthChart" style="width: 100%; height:360px;"></div>
 
             <hr/>
-            <div id="yearChart" style="width: 100%; height: 400px;"></div>
-
-            <hr/>
-
-            <h3>Geographic Distribution</h3>
-            <div id="geoChart" style="width: 100%; height: 500px;"></div>
+            <div id="originalsChart" style="width: 100%; height: 300px;"></div>
 
         {% endif %}
 

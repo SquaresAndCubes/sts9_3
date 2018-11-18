@@ -4,10 +4,10 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.db.transaction import atomic
-from django.db.models import OuterRef, Exists
+from django.db.models import OuterRef, Exists, Subquery
 from django.views.generic import YearArchiveView
 from django.db.models.functions import ExtractWeekDay, ExtractMonth, ExtractYear
-import calendar
+
 
 
 def home(request):
@@ -71,6 +71,12 @@ def stats_view(request, mystats=False):
     song_count = shows.aggregate(
         song_count=Count('showsong__song_id', distinct=True))
 
+    originals_played_count = ShowSong.objects.filter(song__artist__name='STS9',
+                                        show__in=shows).count()
+
+    others_played_count = ShowSong.objects.filter(show__in=shows).exclude(
+        song__artist__name='STS9').count()
+
     # number of shows per weekday within queryset
     weekdays_distribution = \
         shows.annotate(
@@ -98,6 +104,8 @@ def stats_view(request, mystats=False):
         'get_request_stats': request.GET.items(),
         'shows': shows.order_by('-date'),
         'song_count': song_count,
+        'originals_played_count': originals_played_count,
+        'others_played_count': others_played_count,
         'weekdays_distribution': weekdays_distribution,
         'months_distribution': months_distribution,
         'years_distribution': years_distribution,
