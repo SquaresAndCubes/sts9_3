@@ -33,14 +33,14 @@ def stats_view(request, mystats=False):
     # build list of kwargs from url to get queryset
     stat_filters = {
 
-        'date__year': request.GET.get('year'),
-        'date__month': request.GET.get('month'),
-        'date__day': request.GET.get('day'),
-        'date__week_day__iexact': request.GET.get('weekday'),
-        'venue_id': request.GET.get('venue'),
-        'venue__city__iexact': request.GET.get('city'),
-        'venue__state__iexact': request.GET.get('state'),
-        'venue__country__iexact': request.GET.get('country'),
+        'date__year__in': request.GET.getlist('year'),
+        'date__month__in': request.GET.getlist('month'),
+        'date__day__in': request.GET.getlist('day'),
+        'date__week_day__iexact__in': request.GET.getlist('weekday'),
+        'venue_id__in': request.GET.getlist('venue'),
+        'venue__city__iexact__in': request.GET.getlist('city'),
+        'venue__state__iexact__in': request.GET.getlist('state'),
+        'venue__country__iexact__in': request.GET.getlist('country'),
 
     }
 
@@ -67,6 +67,7 @@ def stats_view(request, mystats=False):
     song_count = shows.aggregate(
         song_count=Count('showsong__song_id', distinct=True))
 
+    #originals covers played count non unique
     originals_played_count = ShowSong.objects.filter(song__artist__name='STS9',
                                         show__in=shows).count()
 
