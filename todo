@@ -2,13 +2,12 @@ Absolute Url for individual song
 
 
 Stats -
--Stats for all shows
--Stats for specific querysets
+-Fix shows meeting criteria so display everything that is in the get request url
+-Add axed stats
 -User Show Stats
 
 Forms -
 -Edit User Profile
--Change Password
 
 Show Editing-
 -Edit Shows
@@ -20,6 +19,7 @@ News Feed -
 -View
 -Templates
 
+Slugfields for as many things as possible {songs, shows, venues)
 
 
 ***Notes for how to structure URL Routing***
