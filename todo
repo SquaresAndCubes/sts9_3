@@ -2,9 +2,15 @@ Absolute Url for individual song
 
 
 Stats -
+-More details on song pages
+-Fix year graph to include years where no songs were played
 -Fix shows meeting criteria so display everything that is in the get request url
+-Create AND OR operators for the custom search queries
 -Add axed stats
 -User Show Stats
+-Weighted stats for days and months, years
+-Song heat index for year weighted against total songs played that year
+
 
 Forms -
 -Edit User Profile
