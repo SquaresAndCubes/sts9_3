@@ -44,6 +44,10 @@ class ShowFilters(models.Manager):
         # return one show
         return self.get(id=show_id)
 
+    def shows_per_year(self):
+
+        return self.values('date__year').annotate(Count('date__year'))
+
     def song_appearances(self, song_id):
 
         # create list for filtered queryset
