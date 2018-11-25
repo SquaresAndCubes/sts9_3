@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'setlists.apps.SetlistsConfig',
     'social_django',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
