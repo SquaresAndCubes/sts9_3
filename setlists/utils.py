@@ -43,11 +43,8 @@ def import_venues():
                     row[i] = None
             # get_or_create returns 2 things, the first thing is the object we wanted, and the second thing
             # is a true / false value that lets us know if the object was newly created or if was already there
-            new_obj, created = models.Venue.objects.get_or_create(name=row[2],
-                                                                  city=row[3],
-                                                                  state=row[4],
-                                                                  country=row[
-                                                                      5])
+            new_obj, created = models.Venue.objects.get_or_create(name=row[2], city=row[3], state=row[4],
+                                                                  country=row[5])
 
             # this is just being done for our print statement at the end, to let us know how many things were imported
             if created:
@@ -55,8 +52,7 @@ def import_venues():
             else:
                 results["skipped"] += 1
 
-    print("Finished - Created {} Venues, Duplicates: {}".format(
-        results["created"], results["skipped"]))
+    print("Finished - Created {} Venues, Duplicates: {}".format(results["created"], results["skipped"]))
 
 
 def import_songs():

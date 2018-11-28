@@ -213,12 +213,23 @@ def song(request, song_id):
     song_name, avg_gap, show_list = Show.manager.song_appearances(song_id)
 
 
-    shows_per_year = Show.objects.values('date__year').annotate(Count('date__year'))
+    shows_yr = Show.objects.values('date__year').annotate(Count('date__year'))
 
-    plays_per_year = Show.objects.filter(
+    plays_yr = Show.objects.filter(
         showsong__song_id=song_id).annotate(
         year=ExtractYear('date__year')).values('year')\
         .annotate(count=Count('id')).values('year', 'count')
+
+    shows_yr = [tuple(d.values()) for d in shows_yr]
+    plays_yr = [tuple(d.values()) for d in plays_yr]
+
+    song_play_heat_yr = []
+
+    for shows_count in shows_yr:
+        for play_count in plays_yr:
+            if play_count[0] == shows_count[0]:
+                p = play_count[1] / shows_count[1]
+                song_play_heat_yr.append((shows_count[0], p))
 
 
     context = {
@@ -226,8 +237,7 @@ def song(request, song_id):
         'show_list': show_list,
         'show_count': len(show_list),
         'avg_gap': avg_gap,
-        'plays_per_year': plays_per_year,
-        'shows_per_year': shows_per_year,
+        'song_play_heat_yr': song_play_heat_yr,
     }
 
     return render(request, 'songs/song.html', context)
