@@ -212,19 +212,23 @@ def song(request, song_id):
 
     song_name, avg_gap, show_list = Show.manager.song_appearances(song_id)
 
+    #grab total shows per year for heat calc
+    shows_yr = Show.manager.shows_per_year()
 
-    shows_yr = Show.objects.values('date__year').annotate(Count('date__year'))
-
+    #get times song way played per year for heat
     plays_yr = Show.objects.filter(
         showsong__song_id=song_id).annotate(
         year=ExtractYear('date__year')).values('year')\
         .annotate(count=Count('id')).values('year', 'count')
 
+    #convert to tuples for calc script
     shows_yr = [tuple(d.values()) for d in shows_yr]
     plays_yr = [tuple(d.values()) for d in plays_yr]
 
+    #create empty list for saving the heat percentages
     song_play_heat_yr = []
 
+    #loop for calculating the percentage of shows song was played each year
     for shows_count in shows_yr:
         for play_count in plays_yr:
             if play_count[0] == shows_count[0]:
