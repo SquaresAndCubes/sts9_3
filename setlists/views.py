@@ -212,6 +212,9 @@ def song(request, song_id):
 
     song_name, avg_gap, show_list = Show.manager.song_appearances(song_id)
 
+
+    #years heat calc
+
     #grab total shows per year for heat calc
     shows_yr = Show.manager.shows_per_year()
 
@@ -219,7 +222,7 @@ def song(request, song_id):
     plays_yr = Show.objects.filter(
         showsong__song_id=song_id).annotate(
         year=ExtractYear('date__year')).values('year')\
-        .annotate(count=Count('id')).values('year', 'count')
+        .annotate(count=Count('id',distinct=Show)).values('year', 'count')
 
     #convert to tuples for calc script
     shows_yr = dict([tuple(d.values()) for d in shows_yr])
@@ -227,10 +230,51 @@ def song(request, song_id):
 
     song_year_heat = []
 
+    #builds list of tuples for year heat map
     for year in shows_yr.keys():
         song_year_heat.append(
             (year, round((plays_yr.get(year, 0) / shows_yr[year])*100))
         )
+
+    #months heat calc
+    shows_month = Show.manager.shows_per_month()
+
+    plays_month = Show.objects.filter(
+        showsong__song_id=song_id).annotate(
+        month=ExtractMonth('date__month')).values('month')\
+    .annotate(count=Count('id',distinct=Show)).values('month', 'count')
+
+    shows_month = dict([tuple(d.values()) for d in shows_month])
+    plays_month = dict([tuple(d.values()) for d in plays_month])
+
+    song_month_heat = []
+
+    # builds list of tuples for year heat map
+    for month in shows_month.keys():
+        song_month_heat.append(
+            (month, round((plays_month.get(month, 0) / shows_month[month]) * 100))
+        )
+
+    #days heat calc
+    shows_weekday = Show.manager.shows_per_weekday()
+
+    plays_weekday = Show.objects.filter(
+        showsong__song_id=song_id).annotate(
+        weekday=ExtractWeekDay('date__week_day')).values('weekday')\
+    .annotate(count=Count('id',distinct=Show)).values('weekday', 'count')
+
+    shows_weekday = dict([tuple(d.values()) for d in shows_weekday])
+    plays_weekday = dict([tuple(d.values()) for d in plays_weekday])
+
+    song_weekday_heat = []
+
+    # builds list of tuples for year heat map
+    for weekday in shows_weekday.keys():
+        song_weekday_heat.append(
+            (weekday, round((plays_weekday.get(weekday, 0) / shows_weekday[weekday]) * 100))
+        )
+
+
 
     context = {
         'song_name': song_name,
@@ -238,6 +282,8 @@ def song(request, song_id):
         'show_count': len(show_list),
         'avg_gap': avg_gap,
         'song_year_heat': sorted(song_year_heat),
+        'song_month_heat': sorted(song_month_heat),
+        'song_weekday_heat': sorted(song_weekday_heat),
     }
 
     return render(request, 'songs/song.html', context)

@@ -48,6 +48,18 @@ class ShowFilters(models.Manager):
 
         return self.values('date__year').annotate(Count('date__year'))
 
+    def shows_per_month(self):
+
+        return self.values('date__month').annotate(Count('date__month'))
+
+    def shows_per_weekday(self):
+
+        return self.values('date__week_day').annotate(Count('date__week_day'))
+
+    def shows_per_state(self):
+
+        return self.values('venue__state').annotate(Count('venue__state'))
+
     def song_appearances(self, song_id):
 
         # create list for filtered queryset
