@@ -1,3 +1,5 @@
+Stars are to be completed before launch.
+
 Absolute Url for individual song
 
 
@@ -6,22 +8,28 @@ Stats -
 -Fix shows meeting criteria so display everything that is in the get request url
 -Create AND OR operators for the custom search queries
 -Add axed stats
--User Show Stats
--Song Geographical Heat Map
+-**User Show Stats**
+-**Song Geographical Heat Map**
 
 
 Forms -
--Edit User Profile
+-**Edit User Profile**
 
-Show Editing-
+**Show Editing-**
 -Edit Shows
 -Add Shows
 
+
+**About Section**
+
+
+**Home Page**
 
 News Feed -
 -Model
 -View
 -Templates
+
 
 Slugfields for as many things as possible {songs, shows, venues)
 
