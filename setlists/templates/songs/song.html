@@ -25,7 +25,7 @@
                         fontSize: 18,
                         fontName: 'Ubuntu'
                     },
-                title: 'Song Plays Per Year Heat Chart (By Percentage)',
+                title: 'Years Heat Chart (By Percentage)',
                 vAxis: {minValue: 0,
                     format: '#\'%\''},
                 legend: { position: 'none' },
@@ -70,7 +70,7 @@
             {% for show in show_list|dictsortreversed:"date" %}
                 <tr>
                     <td>
-                        <a href="/setlist/{{ show.show_id }}">{{ show.date.year }}.{{ show.date.month }}.{{ show.date.day }}</a>
+                        <a href="/setlist/{{ show.show_id }}">{{ show.date|date:"Y.m.d" }}</a>
                     </td>
                     <td>{{ show.venue }}</td>
                     <td>{{ show.city }}</td>

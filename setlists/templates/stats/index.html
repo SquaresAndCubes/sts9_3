@@ -111,11 +111,10 @@
                     hAxis: {titleTextStyle: {color: '#333'}},
                     vAxis: {minValue: 0},
                     legend: { position: 'none' },
-                    chartArea:{left:50}
 
                 };
 
-                var chart = new google.visualization.AreaChart(document.getElementById('yearChart'));
+                var chart = new google.visualization.SteppedAreaChart(document.getElementById('yearChart'));
                 chart.draw(data, options);
             }
 
