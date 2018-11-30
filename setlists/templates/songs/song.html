@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load date_extras %}
 {% block title %}{{ song_name }}{% endblock %}
 
 {% block head %}
@@ -8,6 +8,8 @@
     <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawYearHeatChart);
+        google.charts.setOnLoadCallback(drawWeekdayHeatChart);
+        google.charts.setOnLoadCallback(drawMonthHeatChart);
 
         function drawYearHeatChart() {
             var data = google.visualization.arrayToDataTable([
@@ -22,9 +24,9 @@
 
             var options = {
                 titleTextStyle: {
-                        fontSize: 18,
-                        fontName: 'Ubuntu'
-                    },
+                    fontSize: 18,
+                    fontName: 'Ubuntu'
+                },
                 title: 'Years Heat Chart (By Percentage)',
                 vAxis: {minValue: 0,
                     format: '#\'%\''},
@@ -33,6 +35,60 @@
             };
 
             var chart = new google.visualization.SteppedAreaChart(document.getElementById('yearChart'));
+
+            chart.draw(data, options);
+        }
+        function drawWeekdayHeatChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Weekday', '%'],
+                {% for weekday in song_weekday_heat %}
+
+                    ['{{ weekday.0|weekday_name }}', {{ weekday.1 }}],
+
+                {% endfor %}
+
+            ]);
+
+            var options = {
+                titleTextStyle: {
+                    fontSize: 18,
+                    fontName: 'Ubuntu'
+                },
+                title: 'Weekdays Heat Chart (By Percentage)',
+                vAxis: {minValue: 0,
+                    format: '#\'%\''},
+                legend: { position: 'none' },
+                isStacked: true
+            };
+
+            var chart = new google.visualization.SteppedAreaChart(document.getElementById('weekdayChart'));
+
+            chart.draw(data, options);
+        }
+                function drawMonthHeatChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Month', '%'],
+                {% for month in song_month_heat %}
+
+                    ['{{ month.0|month_name }}', {{ month.1 }}],
+
+                {% endfor %}
+
+            ]);
+
+            var options = {
+                titleTextStyle: {
+                    fontSize: 18,
+                    fontName: 'Ubuntu'
+                },
+                title: 'Month Heat Chart (By Percentage)',
+                vAxis: {minValue: 0,
+                    format: '#\'%\''},
+                legend: { position: 'none' },
+                isStacked: true
+            };
+
+            var chart = new google.visualization.SteppedAreaChart(document.getElementById('monthChart'));
 
             chart.draw(data, options);
         }
@@ -54,10 +110,12 @@
         <div>
 
             <div id="yearChart" style="width: 100%; height: 300px;"></div>
+            <div id="weekdayChart" style="width: 100%; height: 300px;"></div>
+            <div id="monthChart" style="width: 100%; height: 300px;"></div>
 
         </div>
 
-<hr/>
+        <hr/>
 
         <table class="table table-hover">
             <tr>
