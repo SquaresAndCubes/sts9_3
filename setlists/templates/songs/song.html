@@ -11,7 +11,7 @@
 
         function drawYearHeatChart() {
             var data = google.visualization.arrayToDataTable([
-                ['Year', 'Percentage'],
+                ['Year', '%'],
                 {% for year in song_year_heat %}
 
                     ['{{ year.0 }}', {{ year.1 }}],
@@ -21,7 +21,11 @@
             ]);
 
             var options = {
-                title: '% of Shows Played Per Year',
+                titleTextStyle: {
+                        fontSize: 18,
+                        fontName: 'Ubuntu'
+                    },
+                title: 'Song Plays Per Year Heat Chart (By Percentage)',
                 vAxis: {minValue: 0,
                     format: '#\'%\''},
                 legend: { position: 'none' },
