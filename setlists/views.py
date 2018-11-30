@@ -222,26 +222,22 @@ def song(request, song_id):
         .annotate(count=Count('id')).values('year', 'count')
 
     #convert to tuples for calc script
-    shows_yr = [tuple(d.values()) for d in shows_yr]
-    plays_yr = [tuple(d.values()) for d in plays_yr]
+    shows_yr = dict([tuple(d.values()) for d in shows_yr])
+    plays_yr = dict([tuple(d.values()) for d in plays_yr])
 
-    #create empty list for saving the heat percentages
-    song_play_heat_yr = []
+    song_year_heat = []
 
-    #loop for calculating the percentage of shows song was played each year
-    for shows_count in shows_yr:
-        for play_count in plays_yr:
-            if play_count[0] == shows_count[0]:
-                p = play_count[1] / shows_count[1]
-                song_play_heat_yr.append((shows_count[0], p))
-
+    for year in shows_yr.keys():
+        song_year_heat.append(
+            (year, plays_yr.get(year, 0) / shows_yr[year])
+        )
 
     context = {
         'song_name': song_name,
         'show_list': show_list,
         'show_count': len(show_list),
         'avg_gap': avg_gap,
-        'song_play_heat_yr': song_play_heat_yr,
+        'plays_per_year_percentages': song_year_heat,
     }
 
     return render(request, 'songs/song.html', context)
