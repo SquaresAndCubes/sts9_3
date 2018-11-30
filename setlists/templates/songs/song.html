@@ -2,17 +2,57 @@
 
 {% block title %}{{ song_name }}{% endblock %}
 
+{% block head %}
+    {{ block.super }}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawYearHeatChart);
+
+        function drawYearHeatChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Year', 'Percentage'],
+                {% for year in song_year_heat %}
+
+                    ['{{ year.0 }}', {{ year.1 }}],
+
+                {% endfor %}
+
+            ]);
+
+            var options = {
+                title: '% of Shows Played Per Year',
+                vAxis: {minValue: 0,
+                    format: '#\'%\''},
+                legend: { position: 'none' },
+                isStacked: true
+            };
+
+            var chart = new google.visualization.SteppedAreaChart(document.getElementById('yearChart'));
+
+            chart.draw(data, options);
+        }
+    </script>
+{% endblock %}
+
 
 {% block content %}
 
     <div class="container">
         <div class="header">
             <h1>{{ song_name }} | {{ show_count }} | <a href="/stats/?song={{ song_name }}">
-                        <button type="button" class="btn btn-secondary btn-sm">STATS</button>
-                    </a></h1>
+                <button type="button" class="btn btn-secondary btn-sm">STATS</button>
+            </a></h1>
             <h3><span class="label label-default">Avg Show Gap | {{ avg_gap }}</span></h3>
         </div>
         <hr/>
+
+        <div>
+
+            <div id="yearChart" style="width: 100%; height: 300px;"></div>
+
+        </div>
+
 
         <table class="table table-hover">
             <tr>
@@ -41,7 +81,7 @@
             {% endfor %}
         </table>
 
-    {{ plays_per_year }}
-    {{ shows_per_year }}
+        {{ plays_per_year }}
+        {{ shows_per_year }}
     </div>
 {% endblock %}

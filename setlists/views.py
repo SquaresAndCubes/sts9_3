@@ -229,7 +229,7 @@ def song(request, song_id):
 
     for year in shows_yr.keys():
         song_year_heat.append(
-            (year, plays_yr.get(year, 0) / shows_yr[year])
+            (year, round((plays_yr.get(year, 0) / shows_yr[year])*100))
         )
 
     context = {
@@ -237,7 +237,7 @@ def song(request, song_id):
         'show_list': show_list,
         'show_count': len(show_list),
         'avg_gap': avg_gap,
-        'plays_per_year_percentages': song_year_heat,
+        'song_year_heat': sorted(song_year_heat),
     }
 
     return render(request, 'songs/song.html', context)
