@@ -155,6 +155,7 @@ class SongsLists(models.Manager):
 
 
 class Song(models.Model):
+
     name = models.CharField(max_length=128, null=False)
 
     artist = models.ForeignKey(Artist, on_delete=models.PROTECT)
@@ -168,8 +169,12 @@ class Song(models.Model):
     # default model manager
     objects = models.Manager()
 
+    class Meta:
+
+        ordering = ['name']
+
     def __str__(self):
-        return '{} - {}'.format(self.artist, self.name)
+        return '{} - {}'.format(self.name, self.artist)
 
 
 class ShowSong(models.Model):
@@ -217,7 +222,7 @@ class ShowSong(models.Model):
 
     class Meta:
         # keep track order always
-        ordering = ['track']
+        ordering = ['-show__date', 'track']
 
     def __str__(self):
         return '{} - {} - {} - {}'.format(self.show, self.set, self.track,

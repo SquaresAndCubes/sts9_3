@@ -4,7 +4,6 @@ Absolute Url for individual song
 
 
 Stats -
--**Fix year graph to include years where no songs were played**
 -Fix shows meeting criteria so display everything that is in the get request url
 -Create AND OR operators for the custom search queries
 -Add axed stats
@@ -15,7 +14,8 @@ Stats -
 Forms -
 -**Edit User Profile**
 
-**Show Editing-**
+
+Show Editing (Using Admin Interface for Launch)
 -Edit Shows
 -Add Shows
 
