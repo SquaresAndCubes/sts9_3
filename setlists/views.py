@@ -86,10 +86,25 @@ def stats_view(request, mystats=False):
         shows.annotate(month=ExtractMonth('date__month')) \
             .values('month').annotate(count=Count('id')).values('month', 'count')
 
+
     # number of shows per year within queryset
-    years_distribution = \
+    shows_per_year = \
         shows.annotate(year=ExtractYear('date__year')).values(
             'year').annotate(count=Count('id')).values('year', 'count')
+
+    shows_yr = Show.manager.shows_per_year()
+
+    shows_yr = dict([tuple(d.values()) for d in shows_yr])
+
+    shows_per_year = dict([tuple(d.values()) for d in shows_per_year])
+
+    years_distribution = []
+
+    # builds list of tuples for year heat map
+    for year in shows_yr.keys():
+        years_distribution.append(
+            (year, shows_per_year.get(year, 0))
+        )
 
     geo_distribution = \
         shows.values('venue__state').annotate(count=Count('id')).values(
@@ -105,7 +120,7 @@ def stats_view(request, mystats=False):
         'others_played_count': covers_played_count,
         'weekdays_distribution': weekdays_distribution,
         'months_distribution': months_distribution,
-        'years_distribution': years_distribution,
+        'years_distribution': sorted(years_distribution),
         'geo_distribution': geo_distribution,
     }
 

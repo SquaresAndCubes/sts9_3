@@ -93,9 +93,9 @@
             function drawYearsDistribution() {
                 var data = google.visualization.arrayToDataTable([
                     ['Year', 'Count'],
-                    {% for year in years_distribution|dictsort:"year" %}
+                    {% for year in years_distribution %}
 
-                        ['{{ year.year }}', {{ year.count }}],
+                        ['{{ year.0 }}', {{ year.1 }}],
 
                     {% endfor %}
 
