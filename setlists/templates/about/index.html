@@ -18,16 +18,17 @@
         </h3>
         <br>
         <p>
-            This site was created to serve the STS9 community providing a means for archiving and providing statistical
-            data
-            on setlists.
+            This site was created to provide the STS9 community with a comprehensive setlist archive including
+            statistical analysis as well as personal attendance based statistics.
         <p>
-            You will also find the option to track your personal shows/statistics by logging in via Social Auth
-            (Facebook, Google, or Twitter) and navigating to the myShows and myStats links.
+            The ability to track your personal attended shows/statistics can be achieved by logging in via Social Auth
+            (Facebook, Google, or Twitter) using the 'Login' Dropdown Menu at the Top Right of the page on the Nav Bar.
+            Upon login you should see your username appear as the dropdown name and it will contain links to
+            'MyStats' and 'MyShows'.
         <p>
             Local accounts are not supported
-            for security reasons. It makes the site easier to manage and much safer for the end users as passwords are
-            not stored on the site.
+            for security reasons. It makes the site easier to manage, more convenient for the end user to quickly login,
+            and much safer as passwords are not stored on the site.
         </p>
         <hr/>
 
@@ -42,30 +43,36 @@
             The most notable type of stats that differ from other typical setlist tracking sites is the 'Heat Charts'
             you will find for specific songs.
         <p>
-            Through my research and development of the site and data model and comparison to other sites I was finding
+            Through my research and development of the site, data model, and comparison to other sites I was finding
             chronologically skewed data in
             regards to song occurrences. Using the song Kamuy as an example, in the year 2005 it was played 33 times and
-            in 2012 it was played 15 times.
-            Looking at a typical 'Count Based' Occurrences by year chart this would lead you to believe that they really
+            in 2012, 15 times.
+            Looking at a typical 'Count Based', Occurrences by year chart this would lead you to believe that they
+            really
             liked to play that song in 2005 but in
             reality the data is skewed because the total shows they played in 2012 (38 Shows) was significantly less
-            than in 2005 (94 Shows). That's where song heat
-            charts come in. They base the frequency of the song by a percentage factor of total shows that year.
+            than in 2005 (94 Shows). To solve this, 'Heat
+            Charts' provide a much more accurate representation of the data because they showcase the frequency of a
+            song
+            by a percentage factor of total shows that year.
             According to the Heat Chart, Kamuy was
             played @ 35% of the shows in 2005, and @ 39% of shows in 2012. So you can see from this information that
             they were playing that song just as much
-            both years relative to how many shows they played that year.
+            both years relative to how many shows they played each year.
         <p>
             This same concept is also applied to the 'Weekdays Heat Chart', and the 'Month Heat Chart' because just like
             years, weekdays and certain months have disproportionate
-            amount of total shows played as well. For example Saturday and Sunday make up 50% of all of the shows STS9
-            has played. Also, March, April, Sept, and October make up
+            amounts of total shows played. For example Saturday and Sunday make up 50% of all of the shows STS9
+            has ever played. Also, March, April, September, and October make up
             almost 50% of all shows played. Therefore it is very important when running statistics involving the
             distribution of a particular song you take these things into account.
-            These are very interesting charts as you can see trends of when the band likes to play certain songs. For
-            example, for whatever reason they like to play 'Rent' @ 1 out of every 3 (33%) shows in August
-            which is quite significantly more than any other month. Another interesting one is that they like to play
-            '...And Some Are Angels' @ 22% of shows on Wednesdays.
+            These are very interesting charts as you can visually examine trends of when the band plays certain songs.
+            For
+            example, for whatever reason they play 'Rent' @ 1 out of every 3 (33%) shows in August
+            which is quite significantly more than any other month. Another interesting one is that they play
+            '...And Some Are Angels' @ 22% of shows on Wednesdays. You could potentially use these charts to increase
+            the
+            probability of seeing that song played live you are chasing.
         </P>
         <hr/>
         <h3>
@@ -75,13 +82,20 @@
         <br>
 
         <p>
-            I <a href="mailto:movemypeeps9@email.com">Brent Vaalburg</a> came up with the Idea in Summer 2016. I did
-            alot of research about
-            different web frameworks and backend programming languagues and decided on using Python/Django because of
-            its popularity and Python's ability
-            to deal with Data and Mathematical operations well in conjunction with great libraries such as numPy. I then began building custom
+            I <a href="mailto:movemypeeps9@email.com">Brent Vaalburg</a> came up with the Idea in Summer 2016 and began
+            researching web frameworks and back-end programming languagues. I then decided on using Python/Django
+            because
+            of
+            its popularity, community support, and extensive documentation. Also, because of Python's ability
+            to deal with Data and Mathematical operations well in conjunction with great libraries such as numPy. I then
+            began building custom
             data scraping tools and began scraping
-            data from various sources for the project and migrating it to a PostgreSQL Database.
+            data from various sources for the project. The most important part of the project was creating a custom
+            data model in Django specific to patterns that arise with STS9's setlist data. Originally I had used a MySQL
+            DB but after
+            dealing with several issues regarding Database functionality and featuresets I decided to migrate to
+            PostgreSQL which was probably one of the better decisions I made as it allowed for quite a bit more
+            functionality in accessing and updating this particular dataset.
 
         <p>
             The Stack:
@@ -89,9 +103,10 @@
         <p>
             Linux(Ubuntu 18.04)
             <br>
-            Gunicorn (Python WSGI HTTP Server)
+            PostgreSQL 10.6 (Relational DB)
             <br>
-            PostgreSQL 10.5 (Relational DB)
+            Gunicorn (Python WSGI HTTP Server)
+
             <br>
             Django 2.1.3 (Backend Framework in Python)
             <br>
@@ -100,29 +115,28 @@
 
         <hr/>
 
-        <img src="{% static 'images/tech_stack/Ubuntu.png' %}" width="10%" height="10%" hspace="10">
-        <img src="{% static 'images/tech_stack/gunicorn.jpg' %}" width="10%" height="10%" hspace="10">
-        <img src="{% static 'images/tech_stack/postgres.png' %}" width="10%" height="10%" hspace="10">
-        <img src="{% static 'images/tech_stack/Django.png' %}" width="10%" height="10%" hspace="10">
-        <img src="{% static 'images/tech_stack/html.png' %}" width="10%" height="10%" hspace="10">
-        <img src="{% static 'images/tech_stack/CSS.png' %}" width="10%" height="10%" hspace="10">
-        <img src="{% static 'images/tech_stack/javascript.png' %}" width="10%" height="10%" hspace="10">
-        <img src="{% static 'images/tech_stack/Bootstrap.png' %}" width="10%" height="10%" hspace="10">
+        <img src="{% static 'images/tech_stack/Ubuntu.png' %}" alt="Ubuntu" width="10%" height="10%" hspace="5">
+        <img src="{% static 'images/tech_stack/postgres.png' %}" alt="PostgreSQL" width="13%" height="13%" hspace="3">
+        <img src="{% static 'images/tech_stack/Django.png' %}" alt="Django" width="10%" height="10%" hspace="3">
+        <img src="{% static 'images/tech_stack/gunicorn.jpg' %}" alt="Gunicorn" width="13%" height="13%" hspace="5">
+        <img src="{% static 'images/tech_stack/html.png' %}" alt="HTML" width="10%" height="10%" hspace="5">
+        <img src="{% static 'images/tech_stack/CSS.png' %}" alt="CSS" width="10%" height="10%" hspace="5">
+        <img src="{% static 'images/tech_stack/javascript.png' %}" alt="JavaScript" width="10%" height="10%" hspace="5">
+        <img src="{% static 'images/tech_stack/Bootstrap.png' %}" alt="Bootstrap" width="8%" height="8%" hspace="5">
 
         <hr/>
-
 
 
         <h3>
             Long Term Goals
         </h3>
-    <p>
-        Many More Additional Statistics<br>
-        Song Bustout Potentials<br>
-        News Feed<br>
-        User Comments<br>
-        Setlist Prediction w/ AI/Machine Learning (Google's TensorFlow for Python)<br>
-    </p>
+        <p>
+            Many More Additional Statistics<br>
+            Song Bustout Potentials<br>
+            News Feed<br>
+            User Comments<br>
+            Setlist Prediction w/ AI/Machine Learning (Google's TensorFlow for Python)<br>
+        </p>
 
 
     </div>
