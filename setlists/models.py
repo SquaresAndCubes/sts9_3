@@ -219,7 +219,7 @@ class ShowSong(models.Model):
     segue = models.CharField(max_length=1, null=True, blank=True)
     notes = models.CharField(max_length=128, null=True, blank=True)
     guest = models.CharField(max_length=64, null=True, blank=True)
-    axed = models.BooleanField(default=False)
+    axed = models.BooleanField(default=False, blank=True)
 
     class Meta:
         # keep track order always
