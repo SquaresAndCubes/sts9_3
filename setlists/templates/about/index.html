@@ -27,7 +27,7 @@
             'MyStats' and 'MyShows'.
         <p>
             Local accounts are not supported
-            for security reasons. It makes the site easier to manage, more convenient for the end user to quickly login,
+            for security reasons.  It makes the site easier to manage, more convenient for the end user to quickly login,
             and much safer as passwords are not stored on the site.
         <p>
             Last, it is worth mentioning that as of right now Mobile compatibility is not officially supported.  There is
@@ -43,37 +43,35 @@
         </h3>
         <br>
         <P>
-            For the most part the statistics are self explanatory and similar to other sites except for what I mention
-            below.
-        <p>
-            The most notable type of stats that differ from other typical setlist tracking sites is the <b>Heat Charts</b>
-            you will find for specific songs.
+            For the most part the statistics are self explanatory and similar to other sites except for <b>Heat Charts</b>
+            you will find in the <b>Songs Section</b>.
         <p>
             Through my research and development of the site, data model, and comparison to other sites I was finding
-            <b>chronologically skewed</b> data in
-            regards to <b>song occurrences.</b> Using the song Kamuy as an example, in the year 2005 it was played 33
+            <b>Chronologically and Geographically Skewed</b> data in
+            regards to <b>Song Occurrences.</b> Using the song Kamuy as an example, in the Year 2005 it was played 33
             times and in 2012, 15 times.
-            Looking at a typical 'Count Based', Occurrences by year chart this would lead you to believe that they
+            Looking at a typical 'Count Based', Occurrences by Year chart this would lead you to believe that they
             really liked to play that song in 2005 but in
-            reality the data is skewed because the total shows they played in 2012 (38 Shows) was significantly less
-            than in 2005 (94 Shows). To solve this bias, 'Heat
+            reality the data is skewed because the total shows they played in 2005 (94 Shows) was significantly more
+            than in 2012 (38 Shows). To solve this bias, 'Heat
             Charts' provide a much more accurate representation of the data because they showcase the frequency of a
-            song by a percentage factor of total shows that year.
+            song by a percentage factor of total shows that Year.
             According to the Heat Chart, Kamuy was
             played @ 35% of the shows in 2005, and @ 39% of shows in 2012. So you can see from this information that
             they were playing that song just as much
-            both years relative to how many shows they played each year.
+            both Years relative to how many shows they played each Year.
         <p>
-            This same concept is also applied to the 'Weekdays Heat Chart', and the 'Month Heat Chart' because just like
-            years, weekdays and certain months have disproportionate
+            This same concept is also applied to the 'Weekdays Heat Chart', 'Month Heat Chart', and 'Geo Heat Chart'
+            because just like Years;  <i>Weekdays, Months, and Locations</i> all have disproportionate
             amounts of total shows played. For example Friday and Saturday make up 50% of all of the shows STS9
-            has ever played. Also, March, April, September, and October make up
-            almost 50% of all shows played. Therefore it is very important when running statistics involving the
+            has ever played.  March, April, September, and October make up
+            almost 50% of all shows played, and finally California, Colorado, and Georgia make up 30% of total shows
+            played. Therefore it is very important when running statistics involving the
             distribution of a particular song you take these things into account.
-            These are very interesting charts as you can visually examine trends of when the band plays certain songs.
-            For
-            example, for whatever reason they play 'Rent' @ 1 out of every 3 (33%) shows in August
-            which is quite significantly more than any other month. Another interesting one is that they play
+            These are very interesting charts as you can visually examine trends of when and where the band most likely
+            plays certain songs.
+            For example, for whatever reason they play 'Rent' @ 1 out of every 3 (33%) shows in August
+            which is quite significantly more than any other Month. Another interesting one is that they play
             '...And Some Are Angels' @ 22% of shows on Wednesdays.
         </P>
         <hr/>
@@ -85,19 +83,15 @@
 
         <p>
             I <a href="mailto:movemypeeps9@email.com">Brent Vaalburg</a> came up with the Idea in Summer 2016; began
-            researching web frameworks and back-end programming languagues. I then decided on using Python/Django
-            because
-            of
-            its popularity, community support, and extensive documentation. Also, because of Python's ability
+            researching web frameworks and back-end programming languagues.  I then decided on using Python/Django
+            because of its popularity, community support, and extensive documentation. Also, because of Python's ability
             to deal with Data and Mathematical operations well in conjunction with great libraries such as numPy. I then
-            began building custom
-            data scraping tools and began scraping
-            data from various sources for the project. The most important part of the project was creating a custom
-            data model in Django specific to patterns that arise with STS9's setlist data. Originally I had used a MySQL
-            DB but after
-            dealing with several issues regarding Database functionality and featuresets I decided to migrate to
-            PostgreSQL which was probably one of the better decisions I made as it allowed for quite a bit more
-            functionality in accessing and updating this particular dataset.
+            began building custom data scraping tools and began scraping data from various sources for the project.
+            The most important part of the project was creating a custom data model in Django specific to patterns that
+            arise with STS9's setlist data. Originally I had used a MySQL DB but after dealing with several issues
+            regarding Database functionality and featuresets I decided to migrate to PostgreSQL which was probably one
+            of the better decisions I made as it allowed for quite a bit more functionality in accessing and updating
+            this particular dataset.
 
         </p>
         <br>
