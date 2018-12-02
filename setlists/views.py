@@ -289,7 +289,30 @@ def song(request, song_id):
             (weekday, round((plays_weekday.get(weekday, 0) / shows_weekday[weekday]) * 100))
         )
 
+    #geo heat calc
 
+    shows_state = Show.manager.shows_per_state()
+
+    print(shows_state)
+
+    plays_state = Show.objects.filter(
+        showsong__song_id=song_id).select_related('venue').values('venue__state') \
+        .annotate(count=Count('id', distinct=Show)).values('venue__state', 'count')
+
+    shows_state = dict([tuple(d.values()) for d in shows_state])
+    plays_state = dict([tuple(d.values()) for d in plays_state])
+
+
+    song_state_heat = []
+
+    # builds list of tuples for year heat map
+    for state in shows_state.keys():
+        try:
+            song_state_heat.append(
+                (state, round((plays_state.get(state, 0) / shows_state[state]) * 100))
+            )
+        except ZeroDivisionError:
+            pass
 
     context = {
         'song_name': song_name,
@@ -299,6 +322,7 @@ def song(request, song_id):
         'song_year_heat': sorted(song_year_heat),
         'song_month_heat': sorted(song_month_heat),
         'song_weekday_heat': sorted(song_weekday_heat),
+        'song_state_heat': sorted(song_state_heat),
     }
 
     return render(request, 'songs/song.html', context)
