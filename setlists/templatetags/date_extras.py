@@ -10,4 +10,4 @@ def month_name(month_number):
 
 @register.filter
 def weekday_name(weekday_number):
-    return calendar.day_abbr[weekday_number-1]
+    return calendar.day_abbr[weekday_number-2]

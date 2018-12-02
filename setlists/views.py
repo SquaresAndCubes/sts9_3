@@ -36,7 +36,7 @@ def stats_view(request, mystats=False):
         'date__year__in': request.GET.getlist('year'),
         'date__month__in': request.GET.getlist('month'),
         'date__day__in': request.GET.getlist('day'),
-        'date__week_day__iexact__in': request.GET.getlist('weekday'),
+        'date__week_day__in': request.GET.getlist('weekday'),
         'venue_id__in': request.GET.getlist('venue'),
         'venue__city__iexact__in': request.GET.getlist('city'),
         'venue__state__iexact__in': request.GET.getlist('state'),
