@@ -4,14 +4,98 @@
 
     <div class="container">
 
-        <h1>
-            Home Under Construction
-        </h1>
+        {% if user.is_authenticated %}
 
-        <p>Hello {{ user.username }}</p>
+            <h2>
+                squaresandcubes | {{ user.username }}'s Home
+            </h2>
+            <hr/>
+
+        {% else %}
+
+            <h2>
+                squaresandcubes | STS9 Setlists & Statistics
+            </h2>
+            <hr/>
+
+
+            <div class="jumbotron">
+
+
+                <h3>Welcome to the new site. Thank's for visiting!</h3>
+                <h4>
+                    Please head over to the 'About' section to learn about the site and how to use it or click 'Login' on
+                    the navbar to start tracking your shows.
+                </h4>
+
+            </div>
+
+
+        {% endif %}
+
+
+        <h3>Latest Show</h3>
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                {# heading for each show panel #}
+                <b><a href="/setlist/{{ show.id }}" title="{{ show }}">
+                    {{ show.date|date:"Y.m.d"}} </a>
+                    :: {{ show.venue.name }} :: {{ show.venue.city }}, {{ show.venue.state }}
+                    :: {{ show.venue.country }}
+                </b>
+            </div>
+
+            {# generate song output for each panel #}
+            <div class="panel-body">
+
+                {# imports show display template #}
+                {% include 'sub/_show.html' %}
+
+            </div>
+            {# panel footer for notes #}
+            <div class="panel-footer" style="font-size:11.5px">
+
+
+            </div>
+        </div>
+
+        <h3>On This Date In History</h3>
+
+        {% for show in today_in_history %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {# heading for each show panel #}
+                    <b><a href="/setlist/{{ show.id }}" title="{{ show }}">
+                        {{ show.date|date:"Y.m.d"}} </a>
+                        :: {{ show.venue.name }} :: {{ show.venue.city }}, {{ show.venue.state }}
+                        :: {{ show.venue.country }}
+                    </b>
+                </div>
+
+                {# generate song output for each panel #}
+                <div class="panel-body">
+
+                    {# imports show display template #}
+                    {% include 'sub/_show.html' %}
+
+                </div>
+                {# panel footer for notes #}
+                <div class="panel-footer" style="font-size:11.5px">
+
+
+                </div>
+            </div>
+
+
+            <hr/>
+        {% endfor %}
+
+
+
 
     </div>
-
 
 
 {% endblock %}

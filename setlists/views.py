@@ -1,16 +1,14 @@
 from django.shortcuts import render, redirect
 from .models import *
-from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.db.transaction import atomic
-from django.db.models import OuterRef, Exists, Subquery
+from django.db.models import OuterRef, Exists
 from django.views.generic import YearArchiveView
 from django.db.models.functions import ExtractWeekDay, ExtractMonth, ExtractYear
+from django.utils.timezone import datetime
 
 
 def social_login_page(request):
-
     context = {
         'next': request.GET.get('next')
 
@@ -21,7 +19,9 @@ def social_login_page(request):
 
 def home(request):
     context = {
-
+        'show': Show.objects.order_by('-date')[0],
+        'today_in_history': Show.objects.order_by('-date').filter(date__day=datetime.today().day,
+                                                                  date__month=datetime.today().month)
     }
 
     return render(request, 'home/index.html', context)
@@ -76,7 +76,7 @@ def stats_view(request):
     song_count = shows.aggregate(
         song_count=Count('showsong__song_id', distinct=True))
 
-    #originals covers played count non unique
+    # originals covers played count non unique
     originals_played_count = ShowSong.objects.filter(song__artist__name='STS9',
                                                      show__in=shows).count()
 
@@ -94,7 +94,6 @@ def stats_view(request):
     months_distribution = \
         shows.annotate(month=ExtractMonth('date__month')) \
             .values('month').annotate(count=Count('id')).values('month', 'count')
-
 
     # number of shows per year within queryset
     shows_per_year = \
@@ -119,7 +118,6 @@ def stats_view(request):
         shows.values('venue__state').annotate(count=Count('id')).values(
             'venue__state', 'count')
 
-
     context = {
 
         'get_request_stats': request.GET.items(),
@@ -135,9 +133,9 @@ def stats_view(request):
 
     return render(request, 'stats/index.html', context)
 
+
 @login_required(login_url='social login')
 def my_stats(request):
-
     shows = UserProfile.objects.get(user=request.user).shows.all()
 
     # returns how many distinct songs were played within the queryset
@@ -200,6 +198,7 @@ def my_stats(request):
 
     return render(request, 'stats/index.html', context)
 
+
 # display shows by year inheriting YearArchiveView
 class ShowsByYearView(YearArchiveView):
     template_name = 'setlists/index.html'
@@ -212,13 +211,11 @@ class ShowsByYearView(YearArchiveView):
     allow_future = True
     context_object_name = 'shows'
 
-
     def get_ordering(self):
 
         ordering = self.request.GET.get('ordering', '-date')
 
         return ordering
-
 
     # override the get_year function to default to the latest year
     # if none provided
@@ -242,7 +239,7 @@ class ShowsByYearView(YearArchiveView):
         # passes distinct years to template via context
         context['years_available'] = self.queryset.dates(self.date_field,
                                                          'year')
-        #Pass the ordering to the template so that the button state can be set
+        # Pass the ordering to the template so that the button state can be set
         context['ordering'] = self.get_ordering()
 
         return context
@@ -297,40 +294,38 @@ def songs(request):
 
 # lists all shows where a song was played
 def song(request, song_id):
-
     song_name, avg_gap, show_list = Show.manager.song_appearances(song_id)
 
+    # years heat calc
 
-    #years heat calc
-
-    #grab total shows per year for heat calc
+    # grab total shows per year for heat calc
     shows_yr = Show.manager.shows_per_year()
 
-    #get times song way played per year for heat
+    # get times song way played per year for heat
     plays_yr = Show.objects.filter(
         showsong__song_id=song_id).annotate(
         year=ExtractYear('date__year')).values('year') \
-        .annotate(count=Count('id',distinct=Show)).values('year', 'count')
+        .annotate(count=Count('id', distinct=Show)).values('year', 'count')
 
-    #convert to tuples for calc script
+    # convert to tuples for calc script
     shows_yr = dict([tuple(d.values()) for d in shows_yr])
     plays_yr = dict([tuple(d.values()) for d in plays_yr])
 
     song_year_heat = []
 
-    #builds list of tuples for year heat map
+    # builds list of tuples for year heat map
     for year in shows_yr.keys():
         song_year_heat.append(
-            (year, round((plays_yr.get(year, 0) / shows_yr[year])*100))
+            (year, round((plays_yr.get(year, 0) / shows_yr[year]) * 100))
         )
 
-    #months heat calc
+    # months heat calc
     shows_month = Show.manager.shows_per_month()
 
     plays_month = Show.objects.filter(
         showsong__song_id=song_id).annotate(
         month=ExtractMonth('date__month')).values('month') \
-        .annotate(count=Count('id',distinct=Show)).values('month', 'count')
+        .annotate(count=Count('id', distinct=Show)).values('month', 'count')
 
     shows_month = dict([tuple(d.values()) for d in shows_month])
     plays_month = dict([tuple(d.values()) for d in plays_month])
@@ -343,13 +338,13 @@ def song(request, song_id):
             (month, round((plays_month.get(month, 0) / shows_month[month]) * 100))
         )
 
-    #days heat calc
+    # days heat calc
     shows_weekday = Show.manager.shows_per_weekday()
 
     plays_weekday = Show.objects.filter(
         showsong__song_id=song_id).annotate(
         weekday=ExtractWeekDay('date__week_day')).values('weekday') \
-        .annotate(count=Count('id',distinct=Show)).values('weekday', 'count')
+        .annotate(count=Count('id', distinct=Show)).values('weekday', 'count')
 
     shows_weekday = dict([tuple(d.values()) for d in shows_weekday])
     plays_weekday = dict([tuple(d.values()) for d in plays_weekday])
@@ -362,7 +357,7 @@ def song(request, song_id):
             (weekday, round((plays_weekday.get(weekday, 0) / shows_weekday[weekday]) * 100))
         )
 
-    #geo heat calc
+    # geo heat calc
 
     shows_state = Show.manager.shows_per_state()
 
@@ -374,7 +369,6 @@ def song(request, song_id):
 
     shows_state = dict([tuple(d.values()) for d in shows_state])
     plays_state = dict([tuple(d.values()) for d in plays_state])
-
 
     song_state_heat = []
 
@@ -399,19 +393,3 @@ def song(request, song_id):
     }
 
     return render(request, 'songs/song.html', context)
-
-
-# view for users to signup to the site
-def signup(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
-            return redirect('home')
-    else:
-        form = UserCreationForm()
-    return render(request, 'registration/signup.html', {'form': form})

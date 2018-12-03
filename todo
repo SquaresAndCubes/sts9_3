@@ -13,6 +13,8 @@ Absolute Url for individual song
 **My Stats**
 -Most popular songs seen
 
+Try to make mobile compat
+
 Stats -
 -Fix shows meeting criteria so display everything that is in the get request url
 -Create AND OR operators for the custom search queries
