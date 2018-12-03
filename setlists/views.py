@@ -9,6 +9,15 @@ from django.views.generic import YearArchiveView
 from django.db.models.functions import ExtractWeekDay, ExtractMonth, ExtractYear
 
 
+def social_login_page(request):
+
+    context = {
+
+
+    }
+
+    return render(request, 'social/login.html', context)
+
 
 def home(request):
     context = {
