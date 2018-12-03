@@ -195,7 +195,7 @@ def show(request, show_id):
     return render(request, 'setlists/show.html', context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='social login')
 @atomic
 def my_shows(request):
     if request.method == 'POST':
