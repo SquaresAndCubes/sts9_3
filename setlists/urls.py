@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
 
     # Home Landing Page
@@ -19,11 +20,12 @@ urlpatterns = [
     path('songs/<int:song_id>', views.song, name='song details'),
     # Stats Results page
     path('stats/', views.stats_view, name='stats'),
+    path('mystats/', views.my_stats, name='my stats'),
     # about section landing page
     path('about/', views.about, name='about'),
     # view of users shows
     path('myshows/', views.my_shows, name='my shows'),
 
-    path('mystats/', views.stats_view, {'mystats': True}, name='my stats')
+
 
 ]

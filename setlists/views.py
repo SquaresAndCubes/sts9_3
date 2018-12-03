@@ -35,7 +35,7 @@ def about(request):
     return render(request, 'about/index.html', context)
 
 
-def stats_view(request, mystats=False):
+def stats_view(request):
     # set song var from URL
     song_name = request.GET.get('song')
 
@@ -135,6 +135,69 @@ def stats_view(request, mystats=False):
 
     return render(request, 'stats/index.html', context)
 
+def my_stats(request):
+
+    shows = UserProfile.objects.get(user=request.user).shows.all()
+
+    # returns how many distinct songs were played within the queryset
+    song_count = shows.aggregate(
+        song_count=Count('showsong__song_id', distinct=True))
+
+    # originals covers played count non unique
+    originals_played_count = ShowSong.objects.filter(song__artist__name='STS9',
+                                                     show__in=shows).count()
+
+    covers_played_count = ShowSong.objects.filter(show__in=shows).exclude(
+        song__artist__name='STS9').count()
+
+    # number of shows per weekday within queryset
+    weekdays_distribution = \
+        shows.annotate(
+            weekday=ExtractWeekDay('date__week_day')) \
+            .values('weekday').annotate(count=Count('id')).values('weekday',
+                                                                  'count')
+
+    # number of shows per month within queryset
+    months_distribution = \
+        shows.annotate(month=ExtractMonth('date__month')) \
+            .values('month').annotate(count=Count('id')).values('month', 'count')
+
+    # number of shows per year within queryset
+    shows_per_year = \
+        shows.annotate(year=ExtractYear('date__year')).values(
+            'year').annotate(count=Count('id')).values('year', 'count')
+
+    shows_yr = Show.manager.shows_per_year()
+
+    shows_yr = dict([tuple(d.values()) for d in shows_yr])
+
+    shows_per_year = dict([tuple(d.values()) for d in shows_per_year])
+
+    years_distribution = []
+
+    # builds list of tuples for year heat map
+    for year in shows_yr.keys():
+        years_distribution.append(
+            (year, shows_per_year.get(year, 0))
+        )
+
+    geo_distribution = \
+        shows.values('venue__state').annotate(count=Count('id')).values(
+            'venue__state', 'count')
+
+    context = {
+
+        'shows': shows.order_by('-date'),
+        'song_count': song_count,
+        'originals_played_count': originals_played_count,
+        'others_played_count': covers_played_count,
+        'weekdays_distribution': weekdays_distribution,
+        'months_distribution': months_distribution,
+        'years_distribution': sorted(years_distribution),
+        'geo_distribution': geo_distribution,
+    }
+
+    return render(request, 'stats/index.html', context)
 
 # display shows by year inheriting YearArchiveView
 class ShowsByYearView(YearArchiveView):
