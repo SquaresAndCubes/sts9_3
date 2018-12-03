@@ -7,7 +7,7 @@
         <h1>
             Social Auth
         </h1>
-    <h4>Please Login to use this site feature.</h4>
+        <h4>Please Login to use this site feature.</h4>
         <hr/>
 
         {% if user.is_authenticated %}
@@ -23,17 +23,18 @@
 
         {% else %}
 
-            <a href="{% url "social:begin" "facebook" %}"><i class="btn btn-block btn-social btn-facebook"></i>
+            <a href="{% url "social:begin" "facebook" %}?next={{ next }}"><i class="btn btn-block btn-social btn-facebook"></i>
                 <span class="fa fa-facebook"></span> Facebook
             </a>
 
-            <a href="{% url "social:begin" "google-oauth2" %}"><i class="btn btn-block btn-social btn-google"></i>
+            <a href="{% url "social:begin" "google-oauth2" %}?next={{ next }}"><i class="btn btn-block btn-social btn-google"></i>
                 <span class="fa fa-google"></span> Google
             </a>
 
-            <a href="{% url "social:begin" "twitter" %}"><i class="btn btn-block btn-social btn-twitter"></i>
+            <a href="{% url "social:begin" "twitter" %}?next={{ next }}"><i class="btn btn-block btn-social btn-twitter"></i>
                 <span class="fa fa-twitter"></span> Twitter
             </a>
+
 
         {% endif %}
 

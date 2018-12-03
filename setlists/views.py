@@ -12,7 +12,7 @@ from django.db.models.functions import ExtractWeekDay, ExtractMonth, ExtractYear
 def social_login_page(request):
 
     context = {
-
+        'next': request.GET.get('next')
 
     }
 
@@ -78,7 +78,7 @@ def stats_view(request):
 
     #originals covers played count non unique
     originals_played_count = ShowSong.objects.filter(song__artist__name='STS9',
-                                        show__in=shows).count()
+                                                     show__in=shows).count()
 
     covers_played_count = ShowSong.objects.filter(show__in=shows).exclude(
         song__artist__name='STS9').count()
@@ -135,6 +135,7 @@ def stats_view(request):
 
     return render(request, 'stats/index.html', context)
 
+@login_required(login_url='social login')
 def my_stats(request):
 
     shows = UserProfile.objects.get(user=request.user).shows.all()
@@ -308,7 +309,7 @@ def song(request, song_id):
     #get times song way played per year for heat
     plays_yr = Show.objects.filter(
         showsong__song_id=song_id).annotate(
-        year=ExtractYear('date__year')).values('year')\
+        year=ExtractYear('date__year')).values('year') \
         .annotate(count=Count('id',distinct=Show)).values('year', 'count')
 
     #convert to tuples for calc script
@@ -328,8 +329,8 @@ def song(request, song_id):
 
     plays_month = Show.objects.filter(
         showsong__song_id=song_id).annotate(
-        month=ExtractMonth('date__month')).values('month')\
-    .annotate(count=Count('id',distinct=Show)).values('month', 'count')
+        month=ExtractMonth('date__month')).values('month') \
+        .annotate(count=Count('id',distinct=Show)).values('month', 'count')
 
     shows_month = dict([tuple(d.values()) for d in shows_month])
     plays_month = dict([tuple(d.values()) for d in plays_month])
@@ -347,8 +348,8 @@ def song(request, song_id):
 
     plays_weekday = Show.objects.filter(
         showsong__song_id=song_id).annotate(
-        weekday=ExtractWeekDay('date__week_day')).values('weekday')\
-    .annotate(count=Count('id',distinct=Show)).values('weekday', 'count')
+        weekday=ExtractWeekDay('date__week_day')).values('weekday') \
+        .annotate(count=Count('id',distinct=Show)).values('weekday', 'count')
 
     shows_weekday = dict([tuple(d.values()) for d in shows_weekday])
     plays_weekday = dict([tuple(d.values()) for d in plays_weekday])
