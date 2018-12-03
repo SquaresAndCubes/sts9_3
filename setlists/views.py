@@ -20,7 +20,7 @@ def social_login_page(request):
 def home(request):
     context = {
         'show': Show.objects.order_by('-date')[0],
-        'today_in_history': Show.objects.order_by('-date').filter(date__day=datetime.today().day,
+        'today_in_history': Show.objects.order_by('-date').filter(date__day=datetime.today().day-1,
                                                                   date__month=datetime.today().month)
     }
 
