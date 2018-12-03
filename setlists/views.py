@@ -129,6 +129,7 @@ def stats_view(request):
         'months_distribution': months_distribution,
         'years_distribution': sorted(years_distribution),
         'geo_distribution': geo_distribution,
+        'stats_name': 'Statistics'
     }
 
     return render(request, 'stats/index.html', context)
@@ -194,6 +195,7 @@ def my_stats(request):
         'months_distribution': months_distribution,
         'years_distribution': sorted(years_distribution),
         'geo_distribution': geo_distribution,
+        'stats_name': request.user.username + "'s Statistics"
     }
 
     return render(request, 'stats/index.html', context)
