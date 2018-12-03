@@ -2,12 +2,22 @@ Stars are to be completed before launch.
 
 Absolute Url for individual song
 
+**Home Page**
+
+**Venues Page**
+
+**JavaScript Table Sorting on Everything**
+
+**Make Pretty Single Show View**
+
+**My Stats**
+-Most popular songs seen
 
 Stats -
 -Fix shows meeting criteria so display everything that is in the get request url
 -Create AND OR operators for the custom search queries
 -Add axed stats
-Song heat maps for position in show 1st set 2nd set, encore, etc, axed
+-Song heat maps for position in show 1st set 2nd set, encore, etc, axed
 
 
 Forms -
@@ -19,7 +29,7 @@ Show Editing (Using Admin Interface for Launch)
 -Add Shows
 
 
-**Home Page**
+
 
 News Feed -
 -Model
