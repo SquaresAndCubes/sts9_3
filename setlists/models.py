@@ -9,6 +9,7 @@ from django import forms
 
 
 class Artist(models.Model):
+
     name = models.CharField(max_length=64, default='STS9', null=False)
 
     def __str__(self):
@@ -16,6 +17,7 @@ class Artist(models.Model):
 
 
 class Venue(models.Model):
+
     name = models.CharField(max_length=64, null=True, blank=True)
     city = models.CharField(max_length=64, null=False)
     state = models.CharField(max_length=4, null=True, blank=True)
@@ -27,6 +29,7 @@ class Venue(models.Model):
 
 
 class Tour(models.Model):
+
     name = models.CharField(max_length=64)
 
 
@@ -125,6 +128,7 @@ class Show(models.Model):
 
 
 class Album(models.Model):
+
     title = models.CharField(max_length=128, null=False)
 
     artist = models.ForeignKey(Artist, null=True, on_delete=models.SET_NULL)
@@ -178,6 +182,7 @@ class Song(models.Model):
 
 
 class ShowSong(models.Model):
+
     SET1 = 'S1'
     SET2 = 'S2'
     SET3 = 'S3'
@@ -234,6 +239,7 @@ class ShowSong(models.Model):
 # receivers for saving to and from directly to the user model
 # ******************************************************************************
 class UserProfile(models.Model):
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     # list of shows the user has attended
@@ -256,6 +262,7 @@ def save_user_profile(sender, instance, **kwargs):
 
 # forms for above processing input
 class UserForm(forms.ModelForm):
+
     class Meta:
         model = User
         fields = ('username', 'email', 'first_name', 'last_name')
@@ -263,6 +270,7 @@ class UserForm(forms.ModelForm):
 
 # allows the user profile
 class UserProfileForm(forms.ModelForm):
+
     shows = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple,
                                            queryset=Show.objects.all().order_by(
                                                '-date'))
