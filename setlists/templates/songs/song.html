@@ -32,7 +32,13 @@
                 vAxis: {minValue: 0,
                     format: '#\'%\''},
                 legend: { position: 'none' },
-                isStacked: true
+                isStacked: true,
+                chartArea: {
+                    top: 30,
+                    bottom: 30,
+                    left: 50,
+                    right: 50,
+                }
             };
 
             var chart = new google.visualization.SteppedAreaChart(document.getElementById('yearChart'));
@@ -59,7 +65,13 @@
                 vAxis: {minValue: 0,
                     format: '#\'%\''},
                 legend: { position: 'none' },
-                isStacked: true
+                isStacked: true,
+                chartArea: {
+                    top: 50,
+                    bottom: 30,
+                    left: 50,
+                    right: 50,
+                }
             };
 
             var chart = new google.visualization.SteppedAreaChart(document.getElementById('weekdayChart'));
@@ -86,7 +98,13 @@
                 vAxis: {minValue: 0,
                     format: '#\'%\''},
                 legend: { position: 'none' },
-                isStacked: true
+                isStacked: true,
+                chartArea: {
+                    top: 50,
+                    bottom: 30,
+                    left: 50,
+                    right: 50,
+                }
             };
 
             var chart = new google.visualization.SteppedAreaChart(document.getElementById('monthChart'));

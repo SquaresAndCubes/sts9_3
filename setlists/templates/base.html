@@ -5,8 +5,6 @@
 
         <meta charset="UTF-8">
 
-
-
         <!-- Add icon library -->
         <link rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -15,7 +13,7 @@
 
         <!-- Imort Local Stylesheets built by datatables.net -->
 
-        <link rel="stylesheet" type="text/css" href="{% static 'datatables/datatables.min.css'%}"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'datatables/datatables.min.css' %}"/>
 
         <script type="text/javascript" src="{% static 'datatables/datatables.min.js' %}"></script>
 
@@ -90,19 +88,22 @@
                         <ul class="dropdown-menu">
                             <li>
 
-                                <a href="{% url "social:begin" "facebook" %}"><i class="btn btn-block btn-social btn-facebook"></i>
+                                <a href="{% url "social:begin" "facebook" %}"><i
+                                        class="btn btn-block btn-social btn-facebook"></i>
                                     <span class="fa fa-facebook"></span> Facebook
                                 </a>
                             </li>
                             <li>
 
-                                <a href="{% url "social:begin" "google-oauth2" %}"><i class="btn btn-block btn-social btn-google"></i>
+                                <a href="{% url "social:begin" "google-oauth2" %}"><i
+                                        class="btn btn-block btn-social btn-google"></i>
                                     <span class="fa fa-google"></span> Google
                                 </a>
                             </li>
                             <li>
 
-                                <a href="{% url "social:begin" "twitter" %}"><i class="btn btn-block btn-social btn-twitter"></i>
+                                <a href="{% url "social:begin" "twitter" %}"><i
+                                        class="btn btn-block btn-social btn-twitter"></i>
                                     <span class="fa fa-twitter"></span> Twitter
                                 </a>
                             </li>
@@ -115,14 +116,27 @@
         </div>
 
     </div>
+
 </nav>
+
+
 
 {% block content %}
 {% endblock %}
 
+<div class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container">
+    <span class="navbar-text">
+      squaresandcubes.net | site design by <a href="mailto:movemypeeps9@gmail.com">Brent Vaalburg</a> | <a
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=movemypeeps9@gmail.com" target="_blank">Gmail Link</a>
+    </span>
+    </div>
+</div>
 
 </body>
 
+<br>
+<br>
 <br>
 <br>
 </html>
