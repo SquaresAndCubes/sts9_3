@@ -5,7 +5,15 @@
 {% block content %}
 
     <div class="container">
-
+        <br>
+        <div class="btn-toolbar" role="toolbar" aria-label="...">
+            {% for yr in years_available reversed %}
+                <div class="btn-group" role="group" aria-label="...">
+                    <a href="/setlists/{{ yr.year }}" class="btn btn-default" role="button"><b>{{ yr.year }}</b></a>
+                </div>
+            {% endfor %}
+        </div>
+        <br>
         {# show title at top of page #}
         <div class="header">
             <h2><a title="{{ show.date|date:"l" }}">{{ show.date|date:"Y.m.d" }}</a> :: {{ show.venue.name }}

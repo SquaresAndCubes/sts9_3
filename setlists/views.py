@@ -249,11 +249,15 @@ class ShowsByYearView(YearArchiveView):
 
 # page for one show view
 def show(request, show_id):
+
     # get show by slug url
     show = Show.manager.show(show_id)
 
+    years_available = Show.manager.years_list()
+
     context = {
         'show': show,
+        'years_available': years_available
     }
     return render(request, 'setlists/show.html', context)
 
