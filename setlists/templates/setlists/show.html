@@ -7,7 +7,7 @@
     <div class="container">
         <br>
         <div class="btn-toolbar" role="toolbar" aria-label="...">
-            {% for yr in years_available reversed %}
+            {% for yr in years_available %}
                 <div class="btn-group" role="group" aria-label="...">
                     <a href="/setlists/{{ yr.year }}" class="btn btn-default" role="button"><b>{{ yr.year }}</b></a>
                 </div>
