@@ -5,15 +5,26 @@
 
 {% block content %}
 
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable(
+                {
+                    paging: false,
+                    "info": false,
+                    "order": [ 5, 'desc']
+                }
+            );
+        } );
+    </script>
+
     <div class="container">
         <div class="header">
             <h2>Songs | {{ song_count }} | <span class="label label-default">Originals | {{ originals_count }}</span>
                 <span class="label label-default">Covers | {{ covers_count }}</span></h2>
             <h3></h3>
         </div>
-        <hr/>
-
-        <table class="table table-hover">
+        <table id="example" class="table table-striped table-bordered dt-responsive" style="width:100%; cursor:pointer">
+            <thead>
             <tr>
                 <th>Song</th>
                 <th>Artist</th>
@@ -22,9 +33,10 @@
                 <th>First Played</th>
                 <th>Times Played</th>
             </tr>
+            </thead>
 
+            <tbody>
             {% for song in songs %}
-
                 <tr>
                     <td><a href="/songs/{{ song.id }}" title="{{ song.name }}">{{ song.name }}</a></td>
                     <td>{{ song.artist }}</td>
@@ -35,6 +47,10 @@
 
                 </tr>
             {% endfor %}
+            </tbody>
+
         </table>
+
+        <hr/>
     </div>
 {% endblock %}
