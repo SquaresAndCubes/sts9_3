@@ -111,6 +111,9 @@ class Show(models.Model):
     tour = models.ForeignKey(Tour, null=True, on_delete=models.PROTECT,
                              blank=True)
 
+    #spot for any pertanent show notes
+    notes = models.CharField(max_length=128, null=True, blank=True)
+
     # Used for Import
     show_key = models.CharField(max_length=7, null=False, blank=True)
 
