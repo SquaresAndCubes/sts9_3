@@ -4,8 +4,14 @@ Absolute Url for individual song
 
 **Make Pretty Single Show View**
 
+**slugfields**
+
 **My Stats**
 -Most popular songs seen
+
+**Add missing data**
+
+**Popup Setlist widget from clickable dates in tables**
 
 **Home Page**
 
@@ -27,8 +33,6 @@ Stats -
 -Song heat maps for position in show 1st set 2nd set, encore, etc, axed
 
 
-
-
 Show Editing (Using Admin Interface for Launch)
 -Edit Shows
 -Add Shows
@@ -38,9 +42,6 @@ News Feed -
 -Model
 -View
 -Templates
-
-
-Slugfields for as many things as possible {songs, shows, venues)
 
 
 ***Notes for how to structure URL Routing***
