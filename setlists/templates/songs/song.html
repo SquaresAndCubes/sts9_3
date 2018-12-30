@@ -124,6 +124,17 @@
 
 
 {% block content %}
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable(
+                {
+                    paging: false,
+                    "info": false,
+                    "order": [ 0, 'desc']
+                }
+            );
+        } );
+    </script>
 
     <div class="container">
         <div class="header">
@@ -147,7 +158,9 @@
 
         <hr/>
 
-        <table class="table table-hover">
+        <table id="example" class="table table-striped table-bordered dt-responsive" style="width:100%; cursor:pointer">
+
+            <thead>
             <tr>
                 <th>Date</th>
                 <th>Venue</th>
@@ -156,6 +169,8 @@
                 <th>Country</th>
                 <th>Show Gap</th>
             </tr>
+            </thead>
+            <tbody>
             {% for show in show_list|dictsortreversed:"date" %}
                 <tr>
                     <td>
@@ -172,6 +187,7 @@
                     <td>{{ show.show_gap }}</td>
                 </tr>
             {% endfor %}
+            </tbody>
         </table>
 
         {{ plays_per_year }}
