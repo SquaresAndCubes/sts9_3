@@ -57,7 +57,7 @@
                     titleTextStyle: {
                         fontSize: 18,
                     },
-                    title: 'Weekday Distribution',
+                    title: 'Weekdays',
                     legend: {textStyle: {fontSize: 16}},
                     chartArea:{left:10,top:50,width:"100%",height:"100%"}
                 };
@@ -82,7 +82,7 @@
                     titleTextStyle: {
                         fontSize: 18,
                     },
-                    title: 'Month Distribution',
+                    title: 'Months',
                     legend: {textStyle: {fontSize: 16}},
                     chartArea: {
                         left:10,
@@ -113,7 +113,7 @@
                     titleTextStyle: {
                         fontSize: 18,
                     },
-                    title: 'Year Distribution (By Count)',
+                    title: 'Years',
                     hAxis: {titleTextStyle: {color: '#333'}},
                     vAxis: {minValue: 0},
                     legend: { position: 'none' },
@@ -185,9 +185,9 @@
                             <span class="glyphicon glyphicon-triangle-bottom"></span><b>&nbsp;&nbsp;Shows Meeting Criteria
 
                             {% if get_request_stats %}
-                                |
-                                {% for item in get_request_stats %}
 
+                                {% for item in get_request_stats %}
+                                    |
                                     {{ item.0|title }}: {{ item.1|title }}
 
                                     {% if not forloop.last %}
@@ -215,10 +215,13 @@
         {% if shows.count >= 1 %}
 
             <hr/>
+
+            <h4><b>Distributions by Count</b></h4>
+
             <div id="yearChart" style="width: 100%; height: 400px;"></div>
 
             <hr/>
-            <h4><b>Geographic Distribution (By Count)</b></h4>
+            <h4><b>Geographic</b></h4>
             <h5>Dark Red :: No Shows</h5>
             <div id="geoChart" style="width: 100%; height: 100%;"></div>
 
