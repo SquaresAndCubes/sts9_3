@@ -4,26 +4,58 @@
 
 
 {% block content %}
+    <script>
+        $(document).ready(function() {
+            $('#myshows').DataTable(
+                {
+                    paging: false,
+                    "info": false,
+                    "order": [ 0, 'desc']
+                }
+            );
+        } );
 
+
+    </script>
     <div class="container">
         <div class="header">
             <h3>{{ user.username }}'s Shows</h3>
         </div>
         <hr/>
 
-        <form method="post">
+        <form id="myshowsform" method="post">
             {% csrf_token %}
             <button type="submit" class="btn btn-default" role="button"><b>Save Changes</b></button>
-            <p>
-                {% for show in user_profile_form.shows %}
-                    <br>
-                    {{ show }}
-                {% endfor %}
-            </p>
-            <button type="submit" class="btn btn-default" role="button"><b>Save Changes</b></button>
-            <p>
 
-            </p>
+            <table id="myshows" class="table table-striped table-bordered dt-responsive" style="width:100%; cursor:pointer">
+
+                <thead>
+                <tr>
+                    <th>Show</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+
+                {% for show in user_profile_form.shows %}
+                    <tr>
+                        <td>
+                            {{ show }}
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-default" role="button"><b>Save Changes</b></button>
         </form>
     </div>
+    <script>
+        $('#myshowsform').on('submit', function(){
+            $('#myshows').DataTable().search('').draw(false);
+        });
+    </script>
 {% endblock %}
