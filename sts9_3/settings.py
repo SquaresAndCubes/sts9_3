@@ -28,6 +28,7 @@ ALLOWED_HOSTS = [
     'testserver',
     'localhost',
     '127.0.0.1',
+    '10.0.0.4'
 ]
 
 # Application definition
