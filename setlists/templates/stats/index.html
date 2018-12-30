@@ -25,12 +25,16 @@
 
                 var options = {
                     titleTextStyle: {
-                        fontSize: 20,
-                        fontName: 'Calibri'
+                        fontSize: 18,
                     },
                     title: 'Originals / Covers Distribution (Non-Unique)',
                     legend: {textStyle: {fontSize: 16}},
-                    chartArea:{left:10,top:50,width:"100%",height:"100%"}
+                    chartArea: {
+                        left:10,
+                        top:50,
+                        width:"100%",
+                        height:"100%"
+                    }
                 };
 
                 var chart = new google.visualization.PieChart(document.getElementById('originalsChart'));
@@ -51,8 +55,7 @@
 
                 var options = {
                     titleTextStyle: {
-                        fontSize: 20,
-                        fontName: 'Calibri'
+                        fontSize: 18,
                     },
                     title: 'Weekday Distribution',
                     legend: {textStyle: {fontSize: 16}},
@@ -77,12 +80,16 @@
 
                 var options = {
                     titleTextStyle: {
-                        fontSize: 20,
-                        fontName: 'Calibri'
+                        fontSize: 18,
                     },
                     title: 'Month Distribution',
                     legend: {textStyle: {fontSize: 16}},
-                    chartArea:{left:10,top:50,width:"100%",height:"100%"}
+                    chartArea: {
+                        left:10,
+                        top:50,
+                        width:"100%",
+                        height:"100%"
+                    }
                 };
 
                 var chart = new google.visualization.PieChart(document.getElementById('monthChart'));
@@ -104,15 +111,14 @@
 
                 var options = {
                     titleTextStyle: {
-                        fontSize: 20,
-                        fontName: 'Calibri'
+                        fontSize: 18,
                     },
                     title: 'Year Distribution (By Count)',
                     hAxis: {titleTextStyle: {color: '#333'}},
                     vAxis: {minValue: 0},
                     legend: { position: 'none' },
                     chartArea: {
-                        top: 30,
+                        top: 50,
                         bottom: 30,
                         left: 30,
                         right: 30,
@@ -136,8 +142,7 @@
 
                 var options = {
                     titleTextStyle: {
-                        fontSize: 20,
-                        fontName: 'Calibri'
+                        fontSize: 18,
                     },
                     region: "US",
                     resolution: "provinces",
@@ -213,7 +218,7 @@
             <div id="yearChart" style="width: 100%; height: 400px;"></div>
 
             <hr/>
-            <h3>Geographic Distribution (By Count)</h3>
+            <h4><b>Geographic Distribution (By Count)</b></h4>
             <h5>Dark Red :: No Shows</h5>
             <div id="geoChart" style="width: 100%; height: 100%;"></div>
 
