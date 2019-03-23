@@ -1,30 +1,31 @@
 Stars are to be completed before launch.
 
-Absolute Url for individual song
-
-**Make Pretty Single Show View**
-
-**slugfields**
+**Add missing data**
 
 **My Stats**
 -Most popular songs seen
 
-**Add missing data**
-
-**Popup Setlist widget from clickable dates in tables**
-
-**Home Page**
+**Total ShowSongs, venues, cities played**
 
 **Venues Page**
-
--**Edit User Profile form**
 
 **Top Ten lists**
 songs cities venues
 
-**Total ShowSongs, venues, cities played**
+**slugfields**
+
+**Make Pretty Single Show View**
+
+**Home Page**
+
+-**Edit User Profile form**
+
+**Popup Setlist widget from clickable dates in tables**
+
+Absolute Url for individual song
 
 Try to make mobile compat
+
 
 Stats -
 -Fix shows meeting criteria so display everything that is in the get request url
@@ -53,4 +54,13 @@ Update: When deciding whether to use the URL path or the query parameters for pa
 use the URL path for uniquely identifying resources, e.g. /blog/post/15/ (not /blog/posts/?id=15)
 use query parameters for changing the way the resource is displayed, e.g. /blog/post/15/?show_comments=1 or /blog/posts/2008/?sort_by=date&direction=desc
 to make human friendly URLs, avoid using ID numbers and use e.g. dates, categories and/or slugs: /blog/post/2008/09/30/django-urls/
+
+
+
+
+
+
+
+
+
 
