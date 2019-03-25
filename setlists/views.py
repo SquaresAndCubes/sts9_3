@@ -118,10 +118,14 @@ def stats_view(request):
         shows.values('venue__state').annotate(count=Count('id')).values(
             'venue__state', 'count')
 
+    top_ten_songs = shows.values('showsong__song__name').annotate(count=Count('pk', distinct=True)).order_by('-count')[:10]
+
+
     context = {
 
         'get_request_stats': request.GET.items(),
         'shows': shows.order_by('-date'),
+        'top_ten_songs': top_ten_songs,
         'song_count': song_count,
         'originals_played_count': originals_played_count,
         'others_played_count': covers_played_count,
@@ -138,6 +142,9 @@ def stats_view(request):
 @login_required(login_url='social login')
 def my_stats(request):
     shows = UserProfile.objects.get(user=request.user).shows.all()
+
+    #users top ten songs
+    top_ten_songs = shows.values('showsong__song__name').annotate(count=Count('pk', distinct=True)).order_by('-count')[:10]
 
     # returns how many distinct songs were played within the queryset
     song_count = shows.aggregate(
@@ -188,6 +195,7 @@ def my_stats(request):
     context = {
 
         'shows': shows.order_by('-date'),
+        'top_ten_songs': top_ten_songs,
         'song_count': song_count,
         'originals_played_count': originals_played_count,
         'others_played_count': covers_played_count,
@@ -200,25 +208,7 @@ def my_stats(request):
 
     return render(request, 'stats/index.html', context)
 
-@login_required(login_url='social login')
-def my_stats_top_ten(request):
 
-    #gets all show objects for user
-    shows = UserProfile.objects.get(user=request.user).shows.all()
-
-    #returns top 10 play count for user
-    top_ten_songs = shows.values('showsong__song__name').annotate(count=Count('pk', distinct=True)).order_by('-count')[:10]
-    top_ten_venues = shows.values('venue__name').annotate(count=Count('pk', distinct=True)).order_by('-count')[:10]
-
-    #build out code to count song occurances
-    context = {
-
-        'top_ten_songs': top_ten_songs,
-        'top_ten_venues': top_ten_venues,
-        'stats_name': request.user.username + "'s Top Ten Lists"
-    }
-
-    return render(request, 'stats/user_top_ten.html', context)
 
 # display shows by year inheriting YearArchiveView
 class ShowsByYearView(YearArchiveView):
