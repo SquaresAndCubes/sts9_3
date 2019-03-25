@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}My Stats - Top Ten Lists{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="header">
+
+            <h1> {{ stats_name }} </h1>
+
+        </div>
+
+        <hr/>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Song</th>
+                <th>Play Count</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            {% for song in top_ten_songs %}
+                <tr>
+                    <td>{{ song.showsong__song__name }}</td>
+                    <td>{{ song.count }}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        <hr>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Venue</th>
+                <th>Attendance Count</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            {% for venue in top_ten_venues %}
+                <tr>
+                    <td>{{ venue.venue__name }}</td>
+                    <td>{{ venue.count }}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+{% endblock %}
+
