@@ -11,7 +11,7 @@
                 {
                     paging: false,
                     "info": false,
-                    "order": [ 5, 'desc']
+                    "order": [ 4, 'desc']
                 }
             );
         } );
@@ -41,7 +41,7 @@
                     <td>{{ venue.state }}</td>
                     <td>{{ venue.country }}</td>
                     <td>{{ venue.show_count }}</td>
-                    <td>{{ venue.show_count }}</td>
+                    <td>{{ venue.last_played|date:"Y.m.d" }}</td>
 
                 </tr>
             {% endfor %}

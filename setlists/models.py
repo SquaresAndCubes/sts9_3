@@ -20,7 +20,7 @@ class VenueLists(models.Manager):
 
     def all_venues_show_count(self):
 
-        return self.annotate(show_count=Count('show')).order_by('-show_count')
+        return self.annotate(show_count=Count('show'),last_played=Max('show__date')).order_by('-show_count')
 
 
 class Venue(models.Model):
