@@ -18,6 +18,7 @@
         <div class="header">
             <h2><a title="{{ show.date|date:"l" }}">{{ show.date|date:"Y.m.d" }}</a> :: {{ show.venue.name }}
                 :: {{ show.venue.city }}
+                {# condition for no state, frontend formatting #}
                 {% if show.venue.state == None %}
                     :: {{ show.venue.country }}</h2>
                 {% else %}

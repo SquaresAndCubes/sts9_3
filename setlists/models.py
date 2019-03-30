@@ -19,7 +19,7 @@ class Artist(models.Model):
 class VenueLists(models.Manager):
 
     def all_venues_show_count(self):
-
+        #returns all venue with show count annotated
         return self.annotate(show_count=Count('show'),last_played=Max('show__date')).order_by('-show_count')
 
 
