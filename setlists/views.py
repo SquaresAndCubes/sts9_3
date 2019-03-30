@@ -408,3 +408,16 @@ def song(request, song_id):
     }
 
     return render(request, 'songs/song.html', context)
+
+def venues(request):
+
+    #bring in all venues
+    venues = Venue.manager.all_venues_show_count()
+
+    context = {
+        'venues': venues,
+    }
+
+    return render(request, 'venues/index.html', context)
+
+

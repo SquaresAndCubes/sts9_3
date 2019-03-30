@@ -16,12 +16,23 @@ class Artist(models.Model):
         return '{}'.format(self.name)
 
 
+class VenueLists(models.Manager):
+
+    def all_venues_show_count(self):
+
+        return self.annotate(show_count=Count('show')).order_by('-show_count')
+
+
 class Venue(models.Model):
 
     name = models.CharField(max_length=64, null=True, blank=True)
     city = models.CharField(max_length=64, null=False)
     state = models.CharField(max_length=4, null=True, blank=True)
     country = models.CharField(max_length=4, null=False)
+
+    manager = VenueLists()
+
+    objects = models.Manager()
 
     def __str__(self):
         return '{} :: {}, {} :: {}'.format(self.name, self.city, self.state,
