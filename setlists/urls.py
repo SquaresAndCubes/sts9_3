@@ -25,5 +25,8 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     # view of users shows
     path('myshows/', views.my_shows, name='my shows'),
+    #all venues list
+    path('venues/', views.venues, name='venues'),
+
 
 ]
