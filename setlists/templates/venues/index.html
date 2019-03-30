@@ -38,7 +38,7 @@
                 <tr>
                     <td><a href="/venue/">{{ venue.name }}</a></td>
                     <td>{{ venue.city }}</td>
-                    <td>{{ venue.state }}</td>
+                    <td>{{ venue.state|default_if_none:'' }}</td>
                     <td>{{ venue.country }}</td>
                     <td>{{ venue.show_count }}</td>
                     <td>{{ venue.last_played|date:"Y.m.d" }}</td>
