@@ -36,7 +36,7 @@
             <tbody>
             {% for venue in venues %}
                 <tr>
-                    <td><a href="/venue/">{{ venue.name }}</a></td>
+                    <td><a href="/venue/{{ venue.id }}">{{ venue.name }}</a></td>
                     <td>{{ venue.city }}</td>
                     <td>{{ venue.state|default_if_none:'' }}</td>
                     <td>{{ venue.country }}</td>

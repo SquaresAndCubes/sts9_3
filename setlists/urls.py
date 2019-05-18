@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 
 
+
 urlpatterns = [
 
     # Home Landing Page
@@ -27,6 +28,11 @@ urlpatterns = [
     path('myshows/', views.my_shows, name='my shows'),
     #all venues list
     path('venues/', views.venues, name='venues'),
+    #single venue list
+    path('venue/<int:venue_id>', views.venue, name='venue'),
+
 
 
 ]
+
+

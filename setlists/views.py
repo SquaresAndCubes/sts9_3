@@ -420,4 +420,16 @@ def venues(request):
 
     return render(request, 'venues/index.html', context)
 
+def venue(request, venue_id):
+
+    shows, venue = Show.manager.venue_shows(venue_id)
+
+    context = {
+        'shows': shows,
+        'venue': venue,
+    }
+
+    return render(request, 'venues/venue.html', context)
+
+
 

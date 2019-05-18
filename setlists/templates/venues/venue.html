@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Shows @ {{ venue }}{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+
+        <div class="header">
+            <h2>{{ venue }} | {{ shows.count }}
+            </h2>
+        </div>
+
+        <hr>
+
+        {# build panel for each show #}
+        {% for show in shows %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {# heading for each show panel #}
+                    <b><a href="/setlist/{{ show.id }}" title="{{ show.date|date:"l" }}">
+                        {{ show.date|date:"Y.m.d"}} </a>
+                    </b>
+                </div>
+
+                {# generate song output for each panel #}
+                <div class="panel-body">
+
+                    {# imports show display template #}
+                    {% include 'sub/_show.html' %}
+
+                </div>
+                {# panel footer for notes #}
+                <div class="panel-footer" style="font-size:11.5px">
+
+
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
+

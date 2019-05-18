@@ -46,6 +46,10 @@ class Tour(models.Model):
 
 class ShowFilters(models.Manager):
 
+    def venue_shows(self, venue_id):
+
+        return self.filter(venue_id=venue_id), Venue.objects.get(id=venue_id)
+
     def by_year(self, year):
         # return only shows of the specified year
         return self.filter(date__year=year)
