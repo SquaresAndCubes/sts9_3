@@ -12,17 +12,27 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#module for detecting environment variables
+import environ
+
+#setup code for django-environ
+root = environ.Path(__file__) - 2
+env = environ.Env(DEBUG=(bool, False),) # set default values and casting
+environ.Env.read_env(str(root.path('.env'))) #reads environment varaibles from <SITE_ROOT>/.env
+print(root)
+
+
+SITE_ROOT = root()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '3ehjhf@s9@mtkp%1j_v$nz2t4e(ce_t%=f61oee35hw+8zik!d'
+SECRET_KEY = env('SECRET_KEY') # Raises ImproperlyConfigured exception if SECRET_KEY not in os.environ
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG') # False if not in os.environ
+
 
 ALLOWED_HOSTS = [
     'testserver',
@@ -61,7 +71,7 @@ ROOT_URLCONF = 'sts9_3.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [os.path.join(SITE_ROOT, 'templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -119,15 +129,9 @@ SOCIAL_AUTH_TWITTER_SECRET = 'J7Pa7VtdidZkckx5KuAt6yXqWFuEgSpZczgITsR7tCTIyqakZv
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'sts9_3',
-        'USER': 'admin',
-        'PASSWORD': 'sts9db',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
+    'default': env.db(), # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
