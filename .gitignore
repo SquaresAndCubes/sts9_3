@@ -1,2 +1,17 @@
 # Created by .ignore support plugin (hsz.mobi)
 /.env
+.idea/codeStyles/
+.idea/inspectionProfiles/
+.idea/libraries/
+.idea/misc.xml
+.idea/modules.xml
+.idea/sts9_3.iml
+.idea/vcs.xml
+.idea/workspace.xml
+__pycache__/
+app/
+setlists/__pycache__/
+setlists/migrations/__pycache__/
+setlists/static/social/
+setlists/templatetags/__pycache__/
+sts9_3/__pycache__/
