@@ -70,7 +70,7 @@ ROOT_URLCONF = 'sts9_3.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(SITE_ROOT, 'templates')]
+        'DIRS': [os.path.join(SITE_ROOT, 'setlists/templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
