@@ -6,22 +6,23 @@ from .base import *
 DEBUG = False
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'x^fq0^@&!@zw_nnwm4x32a)gbg@5y4bb$qw(7n0cnft%m(jr*y'
+SECRET_KEY = os.environ.get('ATSTS9_SECRET_KEY')
 
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
+    '.squaresandcubes.net'
 ]
 
 # google social auth keys
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '257995102785-enp3j1gbn1ot4qm1lma558iu5ced6i7r.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'z_Bx5lguAThJ7_RpGjHKHj1c'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 # facebook social auth keys
-SOCIAL_AUTH_FACEBOOK_KEY = '688722228179914'
-SOCIAL_AUTH_FACEBOOK_SECRET = 'd38ec5eda6b23ac4600ed891a1507c21'
-# twitter social auth keys
-SOCIAL_AUTH_TWITTER_KEY = '0GdFEsFWQtjPSzDUD3b6igb0j'
-SOCIAL_AUTH_TWITTER_SECRET = 'J7Pa7VtdidZkckx5KuAt6yXqWFuEgSpZczgITsR7tCTIyqakZv'
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('SOCIAL_AUTH_FACEBOOK_SECRET')
+#twitter social auth keys
+SOCIAL_AUTH_TWITTER_KEY = os.environ.get('SOCIAL_AUTH_TWITTER_KEY')
+SOCIAL_AUTH_TWITTER_SECRET = os.environ.get('SOCIAL_AUTH_TWITTER_SECRET')
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -31,7 +32,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'sts9_3',
         'USER': 'admin',
-        'PASSWORD': 'sts9db',
+        'PASSWORD': os.environ.get('ATSTS9_DB_PWD'),
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
