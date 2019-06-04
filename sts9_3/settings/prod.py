@@ -6,7 +6,7 @@ from .base import *
 DEBUG = False
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('ATSTS9_SECRET_KEY')
+SECRET_KEY = "x^fq0^@&!@zw_nnwm4x32a)gbg@5y4bb$qw(7n0cnft%m(jr*y"
 
 ALLOWED_HOSTS = [
     'localhost',
