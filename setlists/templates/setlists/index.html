@@ -38,11 +38,10 @@
                     {# heading for each show panel #}
                     <b><a href="/setlist/{{ show.id }}" title="{{ show.date|date:"l" }}">
                         {{ show.date|date:"Y.m.d"}} </a>
-                        :: {{ show.venue.name }} :: {{ show.venue.city }}
                         {% if show.venue.state == None %}
-                        :: {{ show.venue.country }}
+                        :: {{ show.venue.name }} :: {{ show.venue.city }} :: {{ show.venue.country }}
                         {% else %}
-                        , {{ show.venue.state }} :: {{ show.venue.country }}
+                        :: {{ show.venue.name }} :: {{ show.venue.city }}, {{ show.venue.state }} :: {{ show.venue.country }}
                         {% endif %}
                     </b>
                 </div>
