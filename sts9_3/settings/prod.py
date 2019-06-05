@@ -37,4 +37,4 @@ DATABASES = {
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = '/home/ubuntu/atsts9/sts9_3/static/'
