@@ -16,13 +16,12 @@
         <br>
         {# show title at top of page #}
         <div class="header">
-            <h2><a title="{{ show.date|date:"l" }}">{{ show.date|date:"Y.m.d" }}</a> :: {{ show.venue.name }}
-                :: {{ show.venue.city }}
+            <h2><a title="{{ show.date|date:"l" }}">{{ show.date|date:"Y.m.d" }}</a>
                 {# condition for no state, frontend formatting #}
                 {% if show.venue.state == None %}
-                    :: {{ show.venue.country }}</h2>
+                    :: {{ show.venue.name }} :: {{ show.venue.city }} :: {{ show.venue.country }}
                 {% else %}
-                    , {{ show.venue.state }} :: {{ show.venue.country }}
+                    :: {{ show.venue.name }} :: {{ show.venue.city }}, {{ show.venue.state }} :: {{ show.venue.country }}
                 {% endif %}
         </div>
         <hr/>
