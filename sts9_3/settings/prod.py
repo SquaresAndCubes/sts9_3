@@ -38,5 +38,3 @@ DATABASES = {
 STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
