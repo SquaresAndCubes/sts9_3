@@ -17,11 +17,11 @@ Most of the DATA is from Setlists.fm in which I exported all of the data to XML 
 The Stack:
 
 Linux(Ubuntu 18.04)  
-Gunicorn 19.9.0 (WSGI Server)
-Nginx 1.14.0 (HTTP Server)  
 PostgreSQL 10.8 (Relational DB)  
 Django 2.2.2 (Backend Framework in Python)   
 HTML/Bootstrap/CSS/JavaScript (Frontend)    
+Gunicorn 19.9.0 (WSGI Server)
+Nginx 1.14.0 (HTTP Server)  
 
 ***Main Functionality***  
 Strikethroughs are Completed
