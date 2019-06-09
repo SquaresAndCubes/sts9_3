@@ -5,7 +5,7 @@ from setlists.models import *
 # adds ordering to admin Show class
 class ShowAdmin(admin.ModelAdmin):
     ordering = ('-date',)
-
+    list_per_page = 2000
 
 # Register your models here.
 
