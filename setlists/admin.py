@@ -2,23 +2,19 @@ from django.contrib import admin
 from setlists.models import *
 
 
-# adds ordering to admin Show class
-class ShowAdmin(admin.ModelAdmin):
-    ordering = ('-date',)
-    list_per_page = 2000
-
-
 class ShowSongInline(admin.TabularInline):
 
     model = ShowSong
 
-
 class ShowAdmin(admin.ModelAdmin):
 
+    ordering = ('-date',)
+    list_per_page = 2000
+
+    #Adds model related inlines to admin interface
     inlines = [
         ShowSongInline,
     ]
-
 # Register your models here.
 
 
