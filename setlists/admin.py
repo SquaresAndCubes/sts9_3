@@ -7,6 +7,18 @@ class ShowAdmin(admin.ModelAdmin):
     ordering = ('-date',)
     list_per_page = 2000
 
+
+class ShowSongInline(admin.TabularInline):
+
+    model = ShowSong
+
+
+class ShowAdmin(admin.ModelAdmin):
+
+    inlines = [
+        ShowSongInline,
+    ]
+
 # Register your models here.
 
 
