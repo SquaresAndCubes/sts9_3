@@ -8,7 +8,15 @@
 
 
         <div class="header">
-            <h2>{{ venue }} | {{ shows.count }}
+            <h2>
+
+                {% if venue.state == None %}
+                    {{ venue.name }} :: {{ venue.city }} :: {{ venue.country }}
+                {% else %}
+                    {{ venue.name }} :: {{ venue.city }}, {{ venue.state }} :: {{ venue.country }}
+                {% endif %}
+
+                | {{ shows.count }}
             </h2>
         </div>
 
