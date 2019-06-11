@@ -425,7 +425,7 @@ def venue(request, venue_id):
     shows, venue = Show.manager.venue_shows(venue_id)
 
     context = {
-        'shows': shows,
+        'shows': shows.order_by('-date'),
         'venue': venue,
     }
 
