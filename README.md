@@ -2,7 +2,7 @@
 
 Hello,
 
-Welcome to the STS9 setlist/statistics web project. The purpose of this project is to build a central setlists database for the band Sound Tribe Sector 9. I have found there is not really a good comprehensive site. My goal is to archive as much data as possible and have many statistics available to users. Right now the database contains ~1350 shows.
+Welcome to the STS9 setlist/statistics web project. The purpose of this project is to build a central setlists database for the band Sound Tribe Sector 9. My goal is to archive as much data as possible and have many statistics available to users. Right now the database contains ~1480 shows.
 
 A litte background and information about the project.
 
