@@ -1,19 +1,18 @@
 Stars are to be completed before launch.
 
+**Fix Facebook Login**
+
 **Year Filter for MyShows list + Improve UI**
+
+**Make Pretty Single Show View**
 
 **Last played and First played show links for songs list**
 
 **Total ShowSongs, venues, cities played**
 
-**Top Ten lists**
-songs cities venues
-
 **slugfields**
 
-**Make Pretty Single Show View**
-
-**Home Page**
+**Improve Home Page**
 
 -**Edit User Profile form**
 
@@ -23,8 +22,6 @@ songs cities venues
 
 Absolute Url for individual song
 
-Try to make mobile compat
-
 
 Stats -
 -Fix shows meeting criteria so display everything that is in the get request url
@@ -33,26 +30,10 @@ Stats -
 -Song heat maps for position in show 1st set 2nd set, encore, etc, axed
 
 
-Show Editing (Using Admin Interface for Launch)
--Edit Shows
--Add Shows
-
-
 News Feed -
 -Model
 -View
 -Templates
-
-
-***Notes for how to structure URL Routing***
-
-https://stackoverflow.com/questions/150505/capturing-url-parameters-in-request-get
-
-Update: When deciding whether to use the URL path or the query parameters for passing information, the following may help:
-
-use the URL path for uniquely identifying resources, e.g. /blog/post/15/ (not /blog/posts/?id=15)
-use query parameters for changing the way the resource is displayed, e.g. /blog/post/15/?show_comments=1 or /blog/posts/2008/?sort_by=date&direction=desc
-to make human friendly URLs, avoid using ID numbers and use e.g. dates, categories and/or slugs: /blog/post/2008/09/30/django-urls/
 
 
 
