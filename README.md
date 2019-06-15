@@ -16,11 +16,11 @@ Most of the DATA is from Setlists.fm in which I exported all of the data to XML 
 
 The Stack:
 
-Ubuntu 18.04 LTS (Linux OS) 
-PostgreSQL 10.8 (Relational Database) 
-Django 2.2.2 (Backend Framework in Python) 
-Gunicorn 19.9.0 (Python WSGI Server) 
-NGINX 1.14.0 (HTTP Server) 
+Ubuntu 18.04 LTS (Linux OS)  
+PostgreSQL 10.8 (Relational Database)  
+Django 2.2.2 (Backend Framework in Python)  
+Gunicorn 19.9.0 (Python WSGI Server)  
+NGINX 1.14.0 (HTTP Server)  
 HTML/CSS/JavaScript/Bootstrap (Frontend Languages and Frameworks)
 
 ***Main Functionality***  
