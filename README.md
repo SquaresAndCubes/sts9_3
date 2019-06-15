@@ -40,8 +40,7 @@ User Data (This may be broken up)
 
 -~~Data Import~~  
 -~~Show to Show and Average Performance Gaps~~  
--Remaining Model Managers for Models not created yet  
--Base Templates (Still some work to be done but most of it is there)  
+-~~Base Templates~~
 -~~Setlist Index~~  
 -~~Single Show Display~~  
 -~~All Songs List~~  
