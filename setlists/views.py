@@ -279,7 +279,7 @@ def my_shows(request):
                                             instance=request.user.userprofile)
         if user_profile_form.is_valid():
             user_profile_form.save()
-            return redirect('home')
+            return redirect('my shows')
     else:
         user_profile_form = UserProfileForm(instance=request.user.userprofile)
 
