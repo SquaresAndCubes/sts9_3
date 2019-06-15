@@ -47,8 +47,8 @@ User Data (This may be broken up)
 -~~All Songs List~~  
 -~~Per Song Appearance List~~  
 -~~Performance Gaps~~  
--User Authentication (Table for saving users seen shows)  **Ability to save seens shows is present, still need to integrate with Stats View**  
--Social Auth (Google, Facebook, Twitter, etc.)  **Mostly Done**
+-~~User Show Tracking~~    
+-Social Auth (~~Google~~, Facebook, ~~Twitter~~)  **Mostly Done**
 
 
 ***Long Term Goals:***
