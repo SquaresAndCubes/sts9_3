@@ -141,8 +141,7 @@ class Show(models.Model):
     objects = models.Manager()
 
     def __str__(self):
-        return '{}.{}.{} :: {}'.format(self.date.year, self.date.month,
-                                       self.date.day, self.venue)
+        return '{} :: {}'.format(self.date.strftime("%Y.%m.%d"), self.venue)
 
 
 class Album(models.Model):
