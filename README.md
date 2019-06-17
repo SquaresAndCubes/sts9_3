@@ -47,7 +47,7 @@ User Data (This may be broken up)
 -~~Per Song Appearance List~~  
 -~~Performance Gaps~~  
 -~~User Show Tracking~~    
--Social Auth (~~Google~~, Facebook, ~~Twitter~~)  **Mostly Done**
+-~~Social Auth (Google,Facebook, Twitter)~~
 
 
 ***Long Term Goals:***
