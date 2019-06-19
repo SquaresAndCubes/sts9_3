@@ -17,6 +17,7 @@ Most of the DATA is from Setlists.fm in which I exported all of the data to XML 
 The Stack:
 
 Ubuntu 18.04 LTS (Linux OS)  
+Python 3.7.3  
 PostgreSQL 10.8 (Relational Database)  
 Django 2.2.2 (Backend Framework in Python)  
 Gunicorn 19.9.0 (Python WSGI Server)  
