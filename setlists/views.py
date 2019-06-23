@@ -6,6 +6,7 @@ from django.db.models import OuterRef, Exists
 from django.views.generic import YearArchiveView
 from django.db.models.functions import ExtractWeekDay, ExtractMonth, ExtractYear
 from django.utils.timezone import datetime
+from django.views.decorators.cache import cache_page
 
 
 def social_login_page(request):
@@ -26,7 +27,7 @@ def home(request):
 
     return render(request, 'home/index.html', context)
 
-
+@cache_page(60*15)
 def about(request):
     context = {
 
@@ -34,7 +35,7 @@ def about(request):
 
     return render(request, 'about/index.html', context)
 
-
+@cache_page(60*15)
 def stats_view(request):
     # set song var from URL
     song_name = request.GET.get('song')
@@ -257,6 +258,7 @@ class ShowsByYearView(YearArchiveView):
 
 
 # page for one show view
+@cache_page(60*15)
 def show(request, show_id):
 
     # get show by slug url
@@ -288,6 +290,7 @@ def my_shows(request):
 
 
 # view to list all songs and how many times played
+@cache_page(60*15)
 def songs(request):
     # gets an annotated set of song | playcount
     songs = Song.data.all_songs_play_count()
@@ -308,6 +311,7 @@ def songs(request):
 
 
 # lists all shows where a song was played
+@cache_page(60*15)
 def song(request, song_id):
     song_name, avg_gap, show_list = Show.manager.song_appearances(song_id)
 
@@ -409,6 +413,7 @@ def song(request, song_id):
 
     return render(request, 'songs/song.html', context)
 
+@cache_page(60*15)
 def venues(request):
 
     #bring in all venues
@@ -420,6 +425,7 @@ def venues(request):
 
     return render(request, 'venues/index.html', context)
 
+@cache_page(60*15)
 def venue(request, venue_id):
 
     shows, venue = Show.manager.venue_shows(venue_id)

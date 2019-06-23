@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from django.views.decorators.cache import cache_page
 
 
 
@@ -9,7 +10,7 @@ urlpatterns = [
     path('', views.home, name='home'),
 
     # Setlists landing page most recent year
-    path('setlists/', views.ShowsByYearView.as_view(), name='setlists landing'),
+    path('setlists/', cache_page(60*15)(views.ShowsByYearView.as_view()), name='setlists landing'),
     # setlists by year from URL
     path('setlists/<int:year>/', views.ShowsByYearView.as_view(),
          name='setlists by year'),
