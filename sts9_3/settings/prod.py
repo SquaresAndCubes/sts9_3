@@ -26,7 +26,8 @@ DATABASES = {
         'NAME': 'sts9_3',
         'USER': 'admin',
         'PASSWORD': os.environ.get('ATSTS9_DB_PWD'),
-        'HOST': '/var/run/postgresql/.s.PGSQL.5432',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
@@ -45,4 +46,23 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
         'LOCATION': 'unix:/var/run/memcached/memcached.sock',
     }
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/home/ubuntu/logs/sts9_3/debug.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
 }
