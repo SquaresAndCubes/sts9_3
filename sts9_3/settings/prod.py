@@ -26,8 +26,6 @@ DATABASES = {
         'NAME': 'sts9_3',
         'USER': 'admin',
         'PASSWORD': os.environ.get('ATSTS9_DB_PWD'),
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
     }
 }
 
