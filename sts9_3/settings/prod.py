@@ -11,7 +11,8 @@ SECRET_KEY = os.environ.get('ATSTS9_SECRET_KEY')
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    '.squaresandcubes.net',
+    'www.squaresandcubes.net',
+    'squaresandcubes.net',
     '3.14.29.91',
     '172.31.16.108'
 ]
