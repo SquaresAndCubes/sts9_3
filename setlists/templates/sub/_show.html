@@ -7,12 +7,12 @@
         <a href="/songs/{{ song.song.id }}" title="{{ song.song.name }}">
             {{ song.song.name }}</a>
         {% if song.notes and song.guest %}
-            <sup> {{ song.notes }} | </sup>
-            <sup> {{ song.guest }}</sup>
+            ({{ song.notes }} |
+            {{ song.guest }})
         {% elif song.notes %}
-            <sup> {{ song.notes }}</sup>
+            ({{ song.notes }})
         {% elif song.guest %}
-            <sup> {{ song.guest }}</sup>
+            ({{ song.guest }})
 
         {% endif %}
         {# gets rid of trailing character on last song #}
