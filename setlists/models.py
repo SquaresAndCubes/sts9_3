@@ -206,6 +206,8 @@ class ShowSong(models.Model):
     ENCORE = 'E1'
     ENCORE2 = 'E2'
     AXE = 'AX'
+    AXE1 = 'AX1'
+    AXE2 = 'AX2'
     PA = 'PA'
     WS1 = 'W1'
     WS2 = 'W2'
@@ -217,6 +219,8 @@ class ShowSong(models.Model):
         (ENCORE, 'Encore'),
         (ENCORE2, 'Encore 2'),
         (AXE, 'Axe The Cables'),
+        (AXE1, 'Axe The Cables 1'),
+        (AXE2, 'Axe The Cables 2'),
         (PA, 'PA Set'),
         (WS1, 'Wave Spell 1'),
         (WS2, 'Wave Spell 2')
