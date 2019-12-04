@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-certifi = "==2019.9.11"
+certifi = "==2019.11.28"
 chardet = "==3.0.4"
 defusedxml = "==0.6.0"
 django-debug-toolbar = "==2.1"
@@ -24,12 +24,12 @@ social-auth-app-django = "==3.1.0"
 social-auth-core = "==3.2.0"
 sqlparse = "==0.3.0"
 urllib3 = "==1.25.7"
-Django = "==2.2.7"
+Django = "==2.2.8"
 PyJWT = "==1.7.1"
 django-environ = "==0.4.5"
-gunicorn = "==20.0.0"
+gunicorn = "==20.0.4"
 python-memcached = "==1.59"
-setuptools = "==41.6.0"
+setuptools = "==42.0.2"
 
 [requires]
 python_version = "3.7"
