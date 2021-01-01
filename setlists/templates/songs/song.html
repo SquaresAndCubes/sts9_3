@@ -6,7 +6,7 @@
     {{ block.super }}
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-        google.charts.load('current', {'packages':['corechart']});
+        google.charts.load('current', {'packages':['corechart', 'geochart']});
         google.charts.setOnLoadCallback(drawYearHeatChart);
         google.charts.setOnLoadCallback(drawWeekdayHeatChart);
         google.charts.setOnLoadCallback(drawMonthHeatChart);
