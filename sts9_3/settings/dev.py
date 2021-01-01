@@ -24,6 +24,7 @@ DATABASES = {
         'NAME': 'sts9_3',
         'USER': 'admin',
         'PASSWORD': os.environ.get('ATSTS9_DB_PWD'),
+        'HOST': 'localhost',
     }
 }
 
